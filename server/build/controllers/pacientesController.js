@@ -27,7 +27,9 @@ class PacientesController {
             const { id } = req.params;
             const paciente = yield database_1.Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
             if (paciente.length > 0) {
-                return res.json(paciente[0]);
+                //return res.json(paciente);
+                if (Array.isArray(paciente[0]))
+                    return res.json(paciente[0][0]);
             }
             res.status(404).json({ text: 'El paciente no existe' });
         });

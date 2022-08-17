@@ -1,8 +1,7 @@
-import {Request, Response} from 'express';
-import { Mysql } from '../database'
+import { Request, Response } from "express";
+import { Mysql } from "../database";
 
-class PacientesController {
-
+class ProfesionalesController { 
     public async list(req: Request, res: Response): Promise<any> {
         try {
             const [pacientes] = await Mysql.execute('SELECT * FROM pacientes');
@@ -52,6 +51,7 @@ class PacientesController {
     }
 
 }
+
 // Instancio la clase y exporto el objeto
-const pacientesController = new PacientesController();
-export default pacientesController;
+const profesionalesController = new ProfesionalesController();
+export default profesionalesController;
