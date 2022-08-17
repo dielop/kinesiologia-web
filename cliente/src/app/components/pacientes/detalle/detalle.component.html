@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Ver Paciente</h2> 
+
+<div class="container" *ngIf="paciente">
+    <div class="card">    
+        <mat-card><b>ID:</b> {{paciente.id}} </mat-card>
+        <mat-card><b>DNI:</b> {{paciente.dni}} </mat-card>
+        <mat-card><b>Nombre:</b> {{paciente.nombre}} </mat-card>
+        <mat-card><b>Apellido:</b> {{paciente.apellido}} </mat-card>
+        <mat-card><b>Direccion:</b> {{paciente.direccion}} </mat-card>
+        <mat-card><b>Telefono:</b> {{paciente.telefono}} </mat-card>
+        <mat-card><b>Localidad:</b> {{paciente.localidad}} </mat-card>
+        <mat-card><b>Fecha de alta:</b> {{paciente.created_at}} </mat-card>
+            
+        <div class="botones">
+            <button mat-raised-button color="basic" (click)="volver()">Volver</button>
+        </div>
+    </div>
+</div>
