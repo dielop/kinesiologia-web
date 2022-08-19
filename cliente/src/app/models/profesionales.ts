@@ -1,4 +1,4 @@
-export interface Paciente { 
+export interface Profesional { 
       
     id?: number;
     dni: string;
@@ -7,6 +7,7 @@ export interface Paciente {
     localidad: string;
     direccion: string;
     telefono: string;
+    especialidad: string;
     created_at: Date;
     
 }

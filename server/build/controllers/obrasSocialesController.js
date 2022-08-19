@@ -10,39 +10,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("../database");
-class PacientesController {
+class obrasSocialesController {
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const [pacientes] = yield database_1.Mysql.execute('SELECT * FROM pacientes');
-                res.json(pacientes);
+                const [obrasocial] = yield database_1.Mysql.execute('SELECT * FROM obrasocial');
+                res.json(obrasocial);
             }
             catch (error) {
-                console.log("Error al listar pacientes: " + error);
+                console.log("Error al listar obras sociales: " + error);
             }
         });
     }
-    getOne(req, res) {
+    getOneObraSocial(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const paciente = yield database_1.Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
-            if (paciente.length > 0) {
-                console.log(JSON.stringify(paciente));
-                //return res.json(JSON.stringify(paciente));
-                if (Array.isArray(paciente[0]))
-                    return res.json(paciente[0][0]);
+            const obrasocial = yield database_1.Mysql.execute('SELECT * FROM obrasocial WHERE id = ?', [id]);
+            if (obrasocial.length > 0) {
+                if (Array.isArray(obrasocial[0]))
+                    return res.json(obrasocial[0][0]);
             }
-            res.status(404).json({ text: 'El paciente no existe' });
+            res.status(404).json({ text: 'La obra social no existe' });
         });
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield database_1.Mysql.query('INSERT INTO pacientes set ?', [req.body]);
-                res.json({ message: 'Paciente creado' });
+                yield database_1.Mysql.query('INSERT INTO obrasocial set ?', [req.body]);
+                res.json({ message: 'Obra social creada' });
             }
             catch (error) {
-                console.log("Error al crear paciente: " + error);
+                console.log("Error al crear obra social: " + error);
             }
         });
     }
@@ -50,11 +48,11 @@ class PacientesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('UPDATE pacientes set ? WHERE id = ?', [req.body, id]);
-                res.json({ mesage: 'El paciente ha sido actualizado' });
+                yield database_1.Mysql.query('UPDATE obrasocial set ? WHERE id = ?', [req.body, id]);
+                res.json({ mesage: 'Obra social actualizada' });
             }
             catch (error) {
-                console.log("Error al actualizar el paciente: " + error);
+                console.log("Error al actualizar obra social: " + error);
             }
         });
     }
@@ -62,15 +60,15 @@ class PacientesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('DELETE FROM pacientes WHERE id = ?', [id]);
-                res.json({ message: 'El paciente fue eliminado' });
+                yield database_1.Mysql.query('DELETE FROM obrasocial WHERE id = ?', [id]);
+                res.json({ message: 'Obra social eliminada' });
             }
             catch (error) {
-                console.log("Error al eliminar el paciente: " + error);
+                console.log("Error al eliminar obra social: " + error);
             }
         });
     }
 }
 // Instancio la clase y exporto el objeto
-const pacientesController = new PacientesController();
-exports.default = pacientesController;
+const obrasSociales = new obrasSocialesController();
+exports.default = obrasSociales;

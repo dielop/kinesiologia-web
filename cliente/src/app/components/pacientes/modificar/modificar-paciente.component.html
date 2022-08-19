@@ -1,5 +1,6 @@
 <div>
-    <h2 mat-dialog-title>Agregar Paciente</h2> 
+    <h2 mat-dialog-title>Editar Paciente</h2> 
+
     <div mat-dialog-content>
         <div  class="container">           
             <form novalidate #f="ngForm">
@@ -13,14 +14,14 @@
 
                 <div class= "form-group"> 
                     <mat-form-field appearance="outline">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput type="text" class="form-control" id="nombre" name="nombre"
-                    [(ngModel)]= "data.nombre" required>
+                        <mat-label>Nombre</mat-label>
+                        <input matInput type="text" class="form-control" id="nombre" name="nombre"
+                        [(ngModel)]= "data.nombre" required>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido</mat-label>
                         <input matInput type="text" class="form-control" id="apellido" name="apellido"
-                            [(ngModel)]= "data.apellido" required>
+                        [(ngModel)]= "data.apellido" required>
                     </mat-form-field>
                 </div>
 
@@ -44,9 +45,8 @@
                         [(ngModel)]= "data.telefono">
                     </mat-form-field>
                 </div>
-                
-            </form>  
-        </div>
+            </form> 
+        </div>  
     </div>
     <div mat-dialog-actions>
         <div class="botones">
@@ -54,4 +54,4 @@
             <button mat-raised-button color="basic" (click)="cancelar()">Cancelar</button>
         </div>
     </div>
-</div>
+</div> 

@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Paciente } from 'src/app/models/pacientes';
@@ -6,13 +5,13 @@ import { PacientesService } from '../../../services/pacientes.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-detalle',
-  templateUrl: './detalle.component.html',
-  styleUrls: ['./detalle.component.css']
+  selector: 'app-detalle-paciente',
+  templateUrl: './detalle-paciente.component.html',
+  styleUrls: ['./detalle-paciente.component.css']
 })
-export class DetalleComponent implements OnInit {
+export class DetallePacienteComponent implements OnInit {
 
-  paciente: any = null;
+  paciente: Paciente = null;
 
   constructor(private toast: ToastrService,
               private activatedRoute: ActivatedRoute,

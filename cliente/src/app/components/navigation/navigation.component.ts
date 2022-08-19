@@ -8,6 +8,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 })
 export class NavigationComponent implements OnInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -18,13 +19,15 @@ export class NavigationComponent implements OnInit {
            ];
   
   Pacientes = [ { name:"Listado Pacientes",
-                  url: "/listar" }
+                  url: "/listar-paciente" }
               ];
 
-  Profesionales = [ { name:"Listado Profesionales"}
+  Profesionales = [ { name:"Listado Profesionales",
+                      url: "/listar"}
                   ];
 
-  OS = [ { name:"Listado Obras Sociales"}
+  OS = [ { name:"Listado Obras Sociales",
+           url: "/listar-OS" }
        ];
 
 

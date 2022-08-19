@@ -6,15 +6,16 @@ import { MatTable, MatTableDataSource, _MatTableDataSource } from '@angular/mate
 import { Router } from '@angular/router';
 import { Paciente } from '../../../models/pacientes';
 import { PacientesService } from '../../../services/pacientes.service';
-import { CrearComponent } from '../crear/crear.component';
+import { CrearPacienteComponent } from '../crear/crear-paciente.component';
 import { ToastrService } from 'ngx-toastr';
+import { ModificarPacienteComponent } from '../modificar/modificar-paciente.component';
 
 @Component({
-  selector: 'app-listar',
-  templateUrl: './listar.component.html',
-  styleUrls: ['./listar.component.css']
+  selector: 'app-listar-paciente',
+  templateUrl: './listar-paciente.component.html',
+  styleUrls: ['./listar-paciente.component.css']
 })
-export class ListarComponent implements OnInit {
+export class ListarPacienteComponent implements OnInit {
   pacientes: any = [];
   displayedColumns = ['DNI', 'Nombre', 'Apellido','Telefono','Acciones'];
   dataSource = new MatTableDataSource<Paciente>(this.pacientes) 
@@ -84,8 +85,8 @@ export class ListarComponent implements OnInit {
 
   // Ventana modal para crear paciente
 
-  openDialog(){
-    let dialogRef = this.dialog.open(CrearComponent, {
+  openNuevoPaciente(){
+    let dialogRef = this.dialog.open(CrearPacienteComponent, {
       data: this.pacientes = {  id: 0,
                                 dni: '',
                                 nombre: '',
@@ -99,13 +100,12 @@ export class ListarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(pac => {
           if (pac != undefined)
-          this.onCreate(pac);
+          this.onCreatePaciente(pac);
     });
   }
 
   // Metodo que crea paciente luego de cerrar la ventana Modal y actualizo filas
-  onCreate(pac:Paciente): void {
-
+  onCreatePaciente(pac:Paciente): void {
   this.pacienteService.savePaciente(pac).subscribe(
     {
         next:data => {
@@ -123,4 +123,54 @@ export class ListarComponent implements OnInit {
     });
   }
 
+  modificarPaciente(id: number){
+    this.pacienteService.getPaciente(id).subscribe({
+      next: res => {
+          this.pacientes = res;
+          console.log(this.pacientes);
+          let dialogRef = this.dialog.open(ModificarPacienteComponent, { 
+            data: { 
+                    id: this.pacientes.id,
+                    dni: this.pacientes.dni,
+                    nombre:  this.pacientes.nombre,
+                    apellido: this.pacientes.apellido,
+                    localidad: this.pacientes.localidad,
+                    direccion: this.pacientes.direccion,
+                    telefono: this.pacientes.telefono
+                  }
+                  
+          })
+      
+          dialogRef.afterClosed().subscribe(pac => {
+                if (pac != undefined)
+                this.onUpdate(id, pac);
+          });
+      }, 
+      error: err => {
+      this.toast.error("No se pudo ver el paciente");
+      this.cargarPacientes();
+      }
+    })
+
+    
+  }
+
+  onUpdate(id : number, pac : Paciente){
+    //Elimino la fecha en que actualizo porque cuando actualizo no tiene que modificar la fecha
+    delete pac.created_at;
+    
+    this.pacienteService.updatePaciente(id, pac).subscribe(
+      {
+        next:data => {
+          this.toast.success("Paciente actualizado con exito")      
+          this.cargarPacientes();
+        },
+        error:err => {
+          this.toast.error("Error al editar el paciente")        
+          this.cargarPacientes();
+        }
+    });
+  }
+
 }
+

@@ -1,12 +1,15 @@
-<!-- Navegacion superior -->
-<mat-toolbar>
-  Gestion de Pacientes - Software
-</mat-toolbar>
+
   <!-- Navegacion izquierda responsiva -->
   <mat-sidenav-container>
     <mat-sidenav #sidenav class="sidenav content mat-elevation-z8" mode="side" opened="true">
-      <mat-nav-list>
-  
+
+      <div class="tituloMain">
+        <h1>Kinesiología</h1>       
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <mat-nav-list>  
         <!--Item y subItems de Turnos--> 
         
           <mat-list-item (click)="mostrarMenuTurnos = !mostrarMenuTurnos" class="item">
@@ -17,7 +20,6 @@
   
           <div class="submenuTurnos" [ngClass]="{'expandir' : mostrarMenuTurnos}" *ngIf = "siExpandir" >   
             <mat-list-item *ngFor = "let item of Turnos" class="subItem">
-              <!-- //<mat-icon class="circle">circle</mat-icon> -->
               <span>{{ item.name }}</span>
             </mat-list-item>
           </div>
@@ -33,7 +35,6 @@
   
           <div class="submenuPacientes" [ngClass]="{'expandir' : mostrarMenuPacientes}" *ngIf = "siExpandir" >   
             <mat-list-item *ngFor = "let item of Pacientes" class="subItem">
-              <!-- <mat-icon class="circle">circle</mat-icon> -->
               <span [routerLink]="item.url">{{ item.name }}</span>
             </mat-list-item>
           </div>
@@ -49,8 +50,7 @@
   
           <div class="submenuProfesionales" [ngClass]="{'expandir' : mostrarMenuProfesionales}" *ngIf = "siExpandir" >   
             <mat-list-item *ngFor = "let item of Profesionales" class="subItem">
-              <!-- <mat-icon class="circle">circle</mat-icon> -->
-              <span>{{ item.name }}</span>
+              <span [routerLink]="item.url">{{ item.name }}</span>
             </mat-list-item>
           </div>
         
@@ -65,8 +65,7 @@
   
           <div class="submenuOS" [ngClass]="{'expandir' : mostrarMenuOS}" *ngIf = "siExpandir" >   
             <mat-list-item *ngFor = "let item of OS" class="subItem">
-              <!-- <mat-icon class="circle">circle</mat-icon> -->
-              <span>{{ item.name }}</span>
+              <span [routerLink]="item.url">{{ item.name }}</span>
             </mat-list-item>
           </div>      
         

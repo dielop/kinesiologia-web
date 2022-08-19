@@ -4,49 +4,48 @@ import { Mysql } from "../database";
 class ProfesionalesController { 
     public async list(req: Request, res: Response): Promise<any> {
         try {
-            const [pacientes] = await Mysql.execute('SELECT * FROM pacientes');
-            res.json(pacientes);
+            const [profesionales] = await Mysql.execute('SELECT * FROM profesionales');
+            res.json(profesionales);
         }catch(error){
-            console.log("Error al listar pacientes: " + error);
+            console.log("Error al listar profesionales: " + error);
         }
     }
 
     public async getOne(req: Request, res: Response): Promise<any>{
         const { id } = req.params;
-        const paciente = await Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
-        if(paciente.length > 0){
-            //return res.json(paciente);
-            if(Array.isArray(paciente[0])) return res.json(paciente[0][0]);
+        const profesionales = await Mysql.execute('SELECT * FROM profesionales WHERE id = ?', [id]);
+        if(profesionales.length > 0){
+            if(Array.isArray(profesionales[0])) return res.json(profesionales[0][0]);
         }
-        res.status(404).json({text: 'El paciente no existe'});
+        res.status(404).json({text: 'El profesional no existe'});
     }
 
     public async create (req: Request, res: Response): Promise<void> {
         try{
-            await Mysql.query('INSERT INTO pacientes set ?', [req.body]);
-            res.json({message: 'Paciente creado'});
+            await Mysql.query('INSERT INTO profesionales set ?', [req.body]);
+            res.json({message: 'Profesional creado'});
         }catch(error){
-            console.log("Error al crear paciente: " + error);
+            console.log("Error al crear profesional: " + error);
         }
     }
 
     public async update (req: Request, res: Response) {
         try{
             const { id } = req.params;
-            await Mysql.query('UPDATE pacientes set ? WHERE id = ?', [req.body, id]);
-            res.json({mesage: 'El paciente ha sido actualizado' });
+            await Mysql.query('UPDATE profesionales set ? WHERE id = ?', [req.body, id]);
+            res.json({mesage: 'El profesional ha sido actualizado' });
         }catch(error){
-            console.log("Error al actualizar el paciente: " + error);
+            console.log("Error al actualizar el profesional: " + error);
         }
     }
 
     public async delete (req: Request, res: Response): Promise<void> {
         try{
             const { id } = req.params;
-            await Mysql.query('DELETE FROM pacientes WHERE id = ?', [id]);
-            res.json({message:'El paciente fue eliminado'});
+            await Mysql.query('DELETE FROM profesioanles WHERE id = ?', [id]);
+            res.json({message:'El profesional fue eliminado'});
         }catch(error){
-            console.log("Error al eliminar el paciente: " + error);
+            console.log("Error al eliminar el profesional: " + error);
         }
     }
 

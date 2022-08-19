@@ -7,9 +7,16 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { ListarComponent } from './components/pacientes/listar/listar.component';
-import { ModificarComponent } from './components/pacientes/modificar/modificar.component';
-import { CrearComponent } from './components/pacientes/crear/crear.component';
+import { ListarPacienteComponent } from './components/pacientes/listar/listar-paciente.component';
+import { ModificarPacienteComponent } from './components/pacientes/modificar/modificar-paciente.component';
+import { CrearPacienteComponent } from './components/pacientes/crear/crear-paciente.component';
+import { DetallePacienteComponent } from './components/pacientes/detalle/detalle-paciente.component';
+import { ListarOSComponent } from './components/obrasocial/listar/listar-OS.component';
+import { ModificarOSComponent } from './components/obrasocial/modificar/modificar-OS.component';
+import { NuevoOSComponent } from './components/obrasocial/nuevo/nuevo-OS.component';
+import { NuevoComponent } from './components/profesionales/nuevo/nuevo.component';
+import { ListarComponent } from './components/profesionales/listar/listar.component'
+import { ModificarComponent } from './components/profesionales/modificar/modificar.component';
 
 // Material angular 
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -27,17 +34,23 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { DetalleComponent } from './components/pacientes/detalle/detalle.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    ListarComponent,
+    ListarPacienteComponent,
+    ModificarPacienteComponent,
+    CrearPacienteComponent,
+    DetallePacienteComponent,
+    NuevoOSComponent,
+    ModificarOSComponent,
+    ListarOSComponent,
+    NuevoComponent,
     ModificarComponent,
-    CrearComponent,
-    DetalleComponent,
-    DetalleComponent
+    ListarComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +72,8 @@ import { DetalleComponent } from './components/pacientes/detalle/detalle.compone
     ReactiveFormsModule,
     MatDialogModule,
     MatCardModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    MatProgressSpinnerModule
   ],
   providers: [
     { 

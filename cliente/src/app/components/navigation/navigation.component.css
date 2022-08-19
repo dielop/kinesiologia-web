@@ -1,14 +1,14 @@
-/* Estilos de navegacion toolbar */
-mat-toolbar {
-    background: #002b5c;
-    color: white;
+h1{
+    margin-top: 10px;
+    color:black; 
+    text-align: center;
 }
 
 /* Estilos de navegacion side nav */
 .sidenav {
     width: 80%;
     border-right: none;
-    background: white;  
+    background: RGB(238,238,238);  
 }
 
 /* Contenido de los componentes*/
@@ -21,18 +21,18 @@ mat-toolbar {
 
 /* Contenido del sidenav */
 mat-sidenav-container {
-    height: calc(100vh - 65px);
+    height: 100vh;
 }
 
 /* Divisor */
 mat-divider {
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 2px;
+    margin-bottom: 2px;
     background-color: rgba(255, 255, 255, 0.5);
 }
 
 /* Iconos */
-mat-icon {
+mat-list-icon {
     size:0.1rem;
     margin-right:0.5rem;
 }
@@ -67,7 +67,7 @@ mat-icon {
 /* Comportamiento de items Turnos */
 .expansorTurnos {
     transition: 300ms ease-in-out;
-    transform: rotate(180deg);
+    transform: rotate(-90deg);
 }
 .expansorTurnos.rotated {
     transform: rotate(0deg);
@@ -78,7 +78,7 @@ mat-icon {
     transition: transform 300ms ease;
     transform: scaleY(0);
     transform-origin: top;
-    padding-left: 15px;
+    padding-left: 10px;
     font-size: 1rem;
     height: 0;
 }
@@ -91,7 +91,7 @@ mat-icon {
 /* Comportamiento de items pacientes */
 .expansorPacientes {
     transition: 300ms ease-in-out;
-    transform: rotate(180deg);
+    transform: rotate(-90deg);
 }
 .expansorPacientes.rotated {
     transform: rotate(0deg);
@@ -102,7 +102,7 @@ mat-icon {
     transition: transform 300ms ease;
     transform: scaleY(0);
     transform-origin: top;
-    padding-left: 15px;
+    padding-left: 10px;
     font-size: 1rem;
     height: 0;
   }
@@ -115,7 +115,7 @@ mat-icon {
 /* Comportamiento de items Profesionales */
 .expansorProfesionales {
     transition: 300ms ease-in-out;
-    transform: rotate(180deg);
+    transform: rotate(-90deg);
 }
 .expansorProfesionales.rotated {
     transform: rotate(0deg);
@@ -126,7 +126,7 @@ mat-icon {
     transition: transform 300ms ease;
     transform: scaleY(0);
     transform-origin: top;
-    padding-left: 15px;
+    padding-left: 10px;
     font-size: 1rem;
     height: 0;
   }
@@ -139,7 +139,7 @@ mat-icon {
 /* Comportamiento de items Obra Social */
 .expansorOS {
     transition: 300ms ease-in-out;
-    transform: rotate(180deg);
+    transform: rotate(-90deg);
 }
 .expansorOS.rotated {
     transform: rotate(0deg);
@@ -150,7 +150,7 @@ mat-icon {
     transition: transform 300ms ease;
     transform: scaleY(0);
     transform-origin: top;
-    padding-left: 15px;
+    padding-left: 10px;
     font-size: 1rem;
     height: 0;
   }

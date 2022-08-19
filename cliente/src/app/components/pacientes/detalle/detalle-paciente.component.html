@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>Ver Paciente</h2> 
 
-<div class="container" *ngIf="paciente">
+<div class="container" *ngIf="paciente; else cargandoTemplate">
     <div class="card">    
         <mat-card><b>ID:</b> {{paciente.id}} </mat-card>
         <mat-card><b>DNI:</b> {{paciente.dni}} </mat-card>
@@ -16,3 +16,7 @@
         </div>
     </div>
 </div>
+
+<ng-template #cargandoTemplate>
+    <mat-spinner></mat-spinner>
+</ng-template>

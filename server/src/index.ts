@@ -3,6 +3,8 @@ import morgan  from 'morgan';
 import cors  from 'cors';
 import indexRoutes  from './routes/indexRoutes';
 import pacientesRoutes  from './routes/pacientesRoutes';
+import obrasSocialesRoutes from './routes/obrasSocialesRoutes';
+import profesionalesRoutes from './routes/profesionalesRoutes';
 
 class Server {
 
@@ -24,7 +26,9 @@ class Server {
 
     routes(): void{
         this.app.use('/', indexRoutes);
-        this.app.use('/api/pacientes' ,pacientesRoutes);
+        this.app.use('/api/pacientes', pacientesRoutes);
+        this.app.use('/api/obrasocial', obrasSocialesRoutes);
+        this.app.use('/api/profesionales', profesionalesRoutes);
     }
 
     start(): void{
