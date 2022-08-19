@@ -37,24 +37,38 @@ class PacientesController {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield database_1.Mysql.query('INSERT INTO pacientes set ?', [req.body]);
-                res.json({ message: 'Paciente creado' });
+            console.log(req.body);
+            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM pacintes WHERE dni = ?', [req.body.dni]);
+            if (Array.isArray(existeDNI) && existeDNI.length == 0) {
+                try {
+                    yield database_1.Mysql.query('INSERT INTO pacientes set ?', [req.body]);
+                    res.json({ message: 'Paciente creado' });
+                }
+                catch (error) {
+                    console.log("Error al crear paciente: " + error);
+                }
             }
-            catch (error) {
-                console.log("Error al crear paciente: " + error);
+            else {
+                res.status(404).json({ text: 'Ya existe un paciente con el DNI ingresado' });
             }
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { id } = req.params;
-                yield database_1.Mysql.query('UPDATE pacientes set ? WHERE id = ?', [req.body, id]);
-                res.json({ mesage: 'El paciente ha sido actualizado' });
+            console.log(req.body);
+            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM pacintes WHERE dni = ?', [req.body.dni]);
+            if (Array.isArray(existeDNI) && existeDNI.length == 0) {
+                try {
+                    const { id } = req.params;
+                    yield database_1.Mysql.query('UPDATE pacientes set ? WHERE id = ?', [req.body, id]);
+                    res.json({ mesage: 'El paciente ha sido actualizado' });
+                }
+                catch (error) {
+                    console.log("Error al actualizar el paciente: " + error);
+                }
             }
-            catch (error) {
-                console.log("Error al actualizar el paciente: " + error);
+            else {
+                res.status(404).json({ text: 'Ya existe un paciente con el DNI ingresado' });
             }
         });
     }

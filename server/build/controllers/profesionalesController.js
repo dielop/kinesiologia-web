@@ -35,24 +35,38 @@ class ProfesionalesController {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield database_1.Mysql.query('INSERT INTO profesionales set ?', [req.body]);
-                res.json({ message: 'Profesional creado' });
+            console.log(req.body);
+            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
+            if (Array.isArray(existeDNI) && existeDNI.length == 0) {
+                try {
+                    yield database_1.Mysql.query('INSERT INTO profesionales set ?', [req.body]);
+                    res.json({ message: 'Profesional creado' });
+                }
+                catch (error) {
+                    console.log("Error al crear profesional: " + error);
+                }
             }
-            catch (error) {
-                console.log("Error al crear profesional: " + error);
+            else {
+                res.status(404).json({ text: 'El profesional no Ya existe un profesional con el DNI ingresado' });
             }
         });
     }
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { id } = req.params;
-                yield database_1.Mysql.query('UPDATE profesionales set ? WHERE id = ?', [req.body, id]);
-                res.json({ mesage: 'El profesional ha sido actualizado' });
+            console.log(req.body);
+            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
+            if (Array.isArray(existeDNI) && existeDNI.length == 0) {
+                try {
+                    const { id } = req.params;
+                    yield database_1.Mysql.query('UPDATE profesionales set ? WHERE id = ?', [req.body, id]);
+                    res.json({ mesage: 'El profesional ha sido actualizado' });
+                }
+                catch (error) {
+                    console.log("Error al actualizar el profesional: " + error);
+                }
             }
-            catch (error) {
-                console.log("Error al actualizar el profesional: " + error);
+            else {
+                res.status(404).json({ text: 'Ya existe un profesional con el DNI ingresado' });
             }
         });
     }

@@ -21,21 +21,33 @@ class ProfesionalesController {
     }
 
     public async create (req: Request, res: Response): Promise<void> {
-        try{
-            await Mysql.query('INSERT INTO profesionales set ?', [req.body]);
-            res.json({message: 'Profesional creado'});
-        }catch(error){
-            console.log("Error al crear profesional: " + error);
-        }
+        console.log(req.body);
+        const [existeDNI] = await Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
+        if ( Array.isArray(existeDNI) && existeDNI.length == 0 ) {
+                try{
+                    await Mysql.query('INSERT INTO profesionales set ?', [req.body]);
+                    res.json({message: 'Profesional creado'});
+                }catch(error){
+                    console.log("Error al crear profesional: " + error);
+                }
+            }else{
+            res.status(404).json({text: 'El profesional no Ya existe un profesional con el DNI ingresado'});
+        }  
     }
 
     public async update (req: Request, res: Response) {
-        try{
-            const { id } = req.params;
-            await Mysql.query('UPDATE profesionales set ? WHERE id = ?', [req.body, id]);
-            res.json({mesage: 'El profesional ha sido actualizado' });
-        }catch(error){
-            console.log("Error al actualizar el profesional: " + error);
+        console.log(req.body);
+        const [existeDNI] = await Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
+        if ( Array.isArray(existeDNI) && existeDNI.length == 0 ) {
+            try{
+                const { id } = req.params;
+                await Mysql.query('UPDATE profesionales set ? WHERE id = ?', [req.body, id]);
+                res.json({mesage: 'El profesional ha sido actualizado' });
+            }catch(error){
+                console.log("Error al actualizar el profesional: " + error);
+            }            
+        }else{
+            res.status(404).json({text: 'Ya existe un profesional con el DNI ingresado'});
         }
     }
 
