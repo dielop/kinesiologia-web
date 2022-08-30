@@ -9,6 +9,12 @@
                         <input matInput type="number" class="form-control" id="DNI" name="DNI"
                         [(ngModel)]= "data.dni" required>
                     </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Especialidad</mat-label>
+                        <input matInput type="text" class="form-control" id="especialidad" name="especialidad"
+                        [(ngModel)]= "data.especialidad">
+                    </mat-form-field>
+                    
                 </div>
 
                 <div class= "form-group"> 
@@ -44,13 +50,7 @@
                         [(ngModel)]= "data.telefono">
                     </mat-form-field>
                 </div>
-                <div class= "form-group">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Especialidad</mat-label>
-                        <input matInput type="number" class="form-control" id="Especialidad" name="Especialidad"
-                        [(ngModel)]= "data.especialidad">
-                    </mat-form-field>
-                </div>
+                
                 
             </form>  
         </div>

@@ -42,8 +42,12 @@ export class ListarPacienteComponent implements OnInit {
   }
   
   applyFilter(event: Event) {
-       const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+
+      if(this.dataSource.paginator){
+        this.dataSource.paginator.firstPage();
+      }
   }
 
   // Cargar pacientes desde bdd

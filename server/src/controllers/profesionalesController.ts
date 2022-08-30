@@ -42,7 +42,7 @@ class ProfesionalesController {
     public async delete (req: Request, res: Response): Promise<void> {
         try{
             const { id } = req.params;
-            await Mysql.query('DELETE FROM profesioanles WHERE id = ?', [id]);
+            await Mysql.query('DELETE FROM profesionales WHERE id = ?', [id]);
             res.json({message:'El profesional fue eliminado'});
         }catch(error){
             console.log("Error al eliminar el profesional: " + error);

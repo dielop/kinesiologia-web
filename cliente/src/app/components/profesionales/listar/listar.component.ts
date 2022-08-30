@@ -16,12 +16,12 @@ import { NuevoComponent } from '../nuevo/nuevo.component';
 })
 export class ListarComponent implements OnInit {
   profesional: any = [];
-  displayedColumns = ['DNI', 'Nombre', 'Apellido','Telefono','Acciones'];
+  displayedColumns = ['DNI', 'Nombre', 'Apellido','Telefono', 'Especialidad', 'Acciones'];
   dataSource = new MatTableDataSource<Profesional>(this.profesional) 
 
   @ViewChild(MatTable) tabla!: MatTable<Profesional>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   
   constructor( private profesionalesService: ProfesionalesService,
                public dialog:MatDialog,
@@ -32,20 +32,23 @@ export class ListarComponent implements OnInit {
   }
 
   // Paginacion de la tabla y filtrado
-
   ngAfterViewInit(){
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
   
   applyFilter(event: Event) {
-       const filterValue = (event.target as HTMLInputElement).value;
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
   }
 
-  // Cargar pacientes desde bdd
 
-  cargarProfesionales(): void {
+  // Cargar pacientes desde bdd
+ cargarProfesionales(): void {
      this.profesionalesService.getProfesionales().subscribe(
       {
         next:res => {
