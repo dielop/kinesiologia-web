@@ -74,7 +74,7 @@ class ProfesionalesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('DELETE FROM profesioanles WHERE id = ?', [id]);
+                yield database_1.Mysql.query('DELETE FROM profesionales WHERE id = ?', [id]);
                 res.json({ message: 'El profesional fue eliminado' });
             }
             catch (error) {

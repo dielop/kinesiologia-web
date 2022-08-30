@@ -9,7 +9,7 @@ import { Profesional } from 'src/app/models/profesionales';
 })
 export class NuevoComponent implements OnInit {
 
-  public insertar:Profesional; 
+  public insertar:any; 
 
   constructor(public dialogRef: MatDialogRef<NuevoComponent>,
               @ Inject(MAT_DIALOG_DATA) public data: Profesional) { }

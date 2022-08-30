@@ -8,8 +8,7 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar" #input>
   </mat-form-field>
 
-  
-    <table mat-table [dataSource]= "dataSource" matSort>
+    <table mat-table [dataSource]="dataSource" matSort>
   
       <!-- DNI Columna -->
       <ng-container matColumnDef="DNI" class = "columna">
@@ -35,9 +34,9 @@
         <td mat-cell *matCellDef= "let row"> {{row.telefono}} </td>
       </ng-container>
 
-      <!-- Especialidad Column -->
-      <ng-container matColumnDef="Telefono" class = "columna">
-        <th mat-header-cell *matHeaderCellDef > Especialidad </th>
+      <!-- Especialidad Columna -->
+      <ng-container matColumnDef="Especialidad" class = "columna">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Especialidad </th>
         <td mat-cell *matCellDef= "let row"> {{row.especialidad}} </td>
       </ng-container>
 
