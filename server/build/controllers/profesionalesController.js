@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("../database");
 class ProfesionalesController {
+    // Listado de profesionales ...
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -22,10 +23,13 @@ class ProfesionalesController {
             }
         });
     }
+    // Obtencion de un profesional
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            // Recupero los datos del profesional buscado ...
             const { id } = req.params;
             const profesionales = yield database_1.Mysql.execute('SELECT * FROM profesionales WHERE id = ?', [id]);
+            // Retornar si hay datos ...
             if (profesionales.length > 0) {
                 if (Array.isArray(profesionales[0]))
                     return res.json(profesionales[0][0]);
@@ -33,10 +37,12 @@ class ProfesionalesController {
             res.status(404).json({ text: 'El profesional no existe' });
         });
     }
+    // Insercion de profesionales ... 
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.body);
+            // Recupero DNI ... 
             const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
+            // Validaciones e inserciones ...
             if (Array.isArray(existeDNI) && existeDNI.length == 0) {
                 try {
                     yield database_1.Mysql.query('INSERT INTO profesionales set ?', [req.body]);
@@ -47,29 +53,31 @@ class ProfesionalesController {
                 }
             }
             else {
-                res.status(404).json({ text: 'El profesional no Ya existe un profesional con el DNI ingresado' });
-            }
-        });
-    }
-    update(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.body);
-            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
-            if (Array.isArray(existeDNI) && existeDNI.length == 0) {
-                try {
-                    const { id } = req.params;
-                    yield database_1.Mysql.query('UPDATE profesionales set ? WHERE id = ?', [req.body, id]);
-                    res.json({ mesage: 'El profesional ha sido actualizado' });
-                }
-                catch (error) {
-                    console.log("Error al actualizar el profesional: " + error);
-                }
-            }
-            else {
                 res.status(404).json({ text: 'Ya existe un profesional con el DNI ingresado' });
             }
         });
     }
+    // Modificacion de profesionales
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Recupero DNI ...
+            //const [existeDNI] = await Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
+            // Validaciones e inserciones ...
+            //if ( Array.isArray(existeDNI) && existeDNI.length == 0 ) {
+            try {
+                const { id } = req.params;
+                yield database_1.Mysql.query('UPDATE profesionales set ? WHERE id = ?', [req.body, id]);
+                res.json({ mesage: 'El profesional ha sido actualizado' });
+            }
+            catch (error) {
+                console.log("Error al actualizar el profesional: " + error);
+            }
+            //}else{
+            //    res.status(404).json({text: 'Ya existe un profesional con el DNI ingresado'});
+            //}
+        });
+    }
+    // Eliminar profesionales ...
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

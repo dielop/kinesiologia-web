@@ -1,13 +1,13 @@
 export interface Profesional { 
       
-    id?: number;
-    dni: string;
-    nombre: string;
-    apellido: string;
-    localidad: string;
-    direccion: string;
-    telefono: string;
-    especialidad: string;
+    id?: Number;
+    dni: String;
+    nombre: String;
+    apellido: String;
+    localidad: String;
+    direccion: String;
+    telefono: String;
+    especialidad: String;
     created_at: Date;
     
 }

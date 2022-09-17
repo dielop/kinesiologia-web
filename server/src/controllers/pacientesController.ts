@@ -3,6 +3,8 @@ import { Mysql } from '../database'
 
 class PacientesController {
 
+    // Listado de pacientes ...
+
     public async list(req: Request, res: Response): Promise<any> {
         try {
             const [pacientes] = await Mysql.execute('SELECT * FROM pacientes');
@@ -12,9 +14,16 @@ class PacientesController {
         }
     }
 
+    // Obtencion de un paciente ... 
+
     public async getOne(req: Request, res: Response): Promise<any>{
+
+        // Recupero los datos del paciente buscado ...
+
         const { id } = req.params;
         const paciente = await Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
+
+        // Retornar si hay datos ...
         if(paciente.length > 0){
             console.log(JSON.stringify(paciente))
             //return res.json(JSON.stringify(paciente));
@@ -23,9 +32,13 @@ class PacientesController {
         res.status(404).json({text: 'El paciente no existe'});
     }
 
+    // Insercion de pacientes ... 
+
     public async create (req: Request, res: Response): Promise<void> {
-        console.log(req.body);
-        const [existeDNI] = await Mysql.query('SELECT * FROM pacintes WHERE dni = ?', [req.body.dni]);
+        
+        // Validaciones e inserciones ...
+        const [existeDNI] = await Mysql.query('SELECT * FROM pacientes WHERE dni = ?', [req.body.dni]);
+
         if ( Array.isArray(existeDNI) && existeDNI.length == 0) { 
             try{
                 await Mysql.query('INSERT INTO pacientes set ?', [req.body]);
@@ -38,10 +51,17 @@ class PacientesController {
         }
     }
 
+    // Modificacion de pacientes ...
+
     public async update (req: Request, res: Response) {
-        console.log(req.body);
-        const [existeDNI] = await Mysql.query('SELECT * FROM pacintes WHERE dni = ?', [req.body.dni]);
-        if ( Array.isArray(existeDNI) && existeDNI.length == 0) {
+
+        // Validaciones e inserciones ...
+        //const { id } = req.params;
+        //const existeId = await Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
+        //const existeId = await Mysql.query('SELECT * FROM pacientes WHERE id = ?', [req.body.id]);
+        const [existeDNI] = await Mysql.query('SELECT * FROM pacientes WHERE dni = ?', [req.body.dni]);
+        
+        //if ( Array.isArray(existeDNI) && existeDNI.length == 0 ||  ) {
             try{
                 const { id } = req.params;
                 await Mysql.query('UPDATE pacientes set ? WHERE id = ?', [req.body, id]);
@@ -49,10 +69,12 @@ class PacientesController {
             }catch(error){
                 console.log("Error al actualizar el paciente: " + error);
             }
-        } else {
-            res.status(404).json({text: 'Ya existe un paciente con el DNI ingresado'});
-        }
+        //} else {
+           // res.status(404).json({text: 'Ya existe un paciente con el DNI ingresado'});
+        //}
     }
+
+    // Eliminar pacientes ...
 
     public async delete (req: Request, res: Response): Promise<void> {
         try{
@@ -65,6 +87,6 @@ class PacientesController {
     }
 
 }
-// Instancio la clase y exporto el objeto
+// Instancio la clase y exporto el objeto ...
 const pacientesController = new PacientesController();
 export default pacientesController;

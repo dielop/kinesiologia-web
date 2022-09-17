@@ -8,6 +8,7 @@ import { Profesional } from 'src/app/models/profesionales';
 import { ProfesionalesService } from 'src/app/services/profesionales/profesionales.service';
 import { ModificarComponent } from '../modificar/modificar.component';
 import { NuevoComponent } from '../nuevo/nuevo.component';
+import { EliminarComponent } from '../../dialogs/eliminar/eliminar.component'
 
 @Component({
   selector: 'app-listar',
@@ -65,22 +66,31 @@ export class ListarComponent implements OnInit {
   // Eliminar pacientes
 
   eliminarProfesional(id : string){
-    this.profesionalesService.getOneProfesionales(id).subscribe(
-      {
-        next:res => {
-         this.toast.success('Profesional eliminado con exito', 'OK',{
-          timeOut:3000
-         });
-         this.cargarProfesionales(); 
-        },
-        error:err => {
-        this.toast.error(err,"No se pudo eliminar el profesional",{
-          timeOut:3000
-        });
-        this.cargarProfesionales();      
-       }
-      }
-    );     
+
+    let dialogref = this.dialog.open(EliminarComponent, {
+                      width: '300px',                        
+                    }) 
+
+    dialogref.afterClosed().subscribe( eliminar => {  
+      if (eliminar != undefined) {
+        this.profesionalesService.deleteProfesionales(id).subscribe(
+          {
+            next:res => {
+            this.toast.success('Profesional eliminado con exito', 'OK',{
+              timeOut:3000
+            });
+            this.cargarProfesionales(); 
+            },
+            error:err => {
+            this.toast.error(err,"No se pudo eliminar el profesional",{
+              timeOut:3000
+            });
+            this.cargarProfesionales();      
+          }
+          }
+        );     
+        }
+    });
   }
 
   // Ventana modal para crear paciente
@@ -95,7 +105,7 @@ export class ListarComponent implements OnInit {
                                   direccion: '',
                                   telefono: '',
                                   especialidad: '',
-                                  created_at: new Date()
+                                  created_at: new Date().toISOString
                                 }
     })
 
@@ -138,7 +148,7 @@ export class ListarComponent implements OnInit {
                       localidad: this.profesional.localidad,
                       direccion: this.profesional.direccion,
                       telefono: this.profesional.telefono,
-                      especailidad: this.profesional.especialidad
+                      especialidad: this.profesional.especialidad
                     }
                     
           })

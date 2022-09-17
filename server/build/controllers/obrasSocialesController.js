@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("../database");
 class obrasSocialesController {
+    // Listado de obras sociales ...
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -22,10 +23,13 @@ class obrasSocialesController {
             }
         });
     }
+    // Obtencion de una obra social ...
     getOneObraSocial(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            // Recupero los datos la obra social buscada ...
             const { id } = req.params;
             const obrasocial = yield database_1.Mysql.execute('SELECT * FROM obrasocial WHERE id = ?', [id]);
+            // Retornar si hay datos ...
             if (obrasocial.length > 0) {
                 if (Array.isArray(obrasocial[0]))
                     return res.json(obrasocial[0][0]);
@@ -33,19 +37,32 @@ class obrasSocialesController {
             res.status(404).json({ text: 'La obra social no existe' });
         });
     }
+    // Insercion de obras sociales ...
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield database_1.Mysql.query('INSERT INTO obrasocial set ?', [req.body]);
-                res.json({ message: 'Obra social creada' });
+            // Recupero obra social si existe ...
+            const [existeOS] = yield database_1.Mysql.query('SELECT * FROM obrasocial WHERE nombre = ?', [req.body.nombre]);
+            // Validacion e insercion ...
+            if (Array.isArray(existeOS) && existeOS.length == 0) {
+                try {
+                    yield database_1.Mysql.query('INSERT INTO obrasocial set ?', [req.body]);
+                    res.json({ message: 'Obra social creada' });
+                }
+                catch (error) {
+                    console.log("Error al crear obra social: " + error);
+                }
             }
-            catch (error) {
-                console.log("Error al crear obra social: " + error);
+            else {
+                res.status(404).json({ text: 'Ya existe una obra social con el nombre ingresado' });
             }
         });
     }
+    // Modificacion de obras sociales ...
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            // Recupero obra social si existe ...
+            const [existeOS] = yield database_1.Mysql.query('SELECT * FROM obrasocial WHERE nombre = ?', [req.body.nombre]);
+            //if(Array.isArray(existeOS) && existeOS.length == 0 ){
             try {
                 const { id } = req.params;
                 yield database_1.Mysql.query('UPDATE obrasocial set ? WHERE id = ?', [req.body, id]);
@@ -54,8 +71,12 @@ class obrasSocialesController {
             catch (error) {
                 console.log("Error al actualizar obra social: " + error);
             }
+            // }else{
+            //    res.status(404).json({text: 'Ya existe una obra social con el nombre ingresado'});
+            //}
         });
     }
+    // Eliminar obras sociales ...
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

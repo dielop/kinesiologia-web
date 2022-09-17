@@ -9,6 +9,7 @@ import { PacientesService } from '../../../services/pacientes.service';
 import { CrearPacienteComponent } from '../crear/crear-paciente.component';
 import { ToastrService } from 'ngx-toastr';
 import { ModificarPacienteComponent } from '../modificar/modificar-paciente.component';
+import { EliminarComponent } from '../../dialogs/eliminar/eliminar.component'
 
 @Component({
   selector: 'app-listar-paciente',
@@ -69,22 +70,33 @@ export class ListarPacienteComponent implements OnInit {
   // Eliminar pacientes
 
   eliminarPaciente(id : string){
-    this.pacienteService.deletePaciente(id).subscribe(
-      {
-        next:res => {
-         this.toast.success('Paciente eliminado con exito', 'OK',{
-          timeOut:3000
-         });
-         this.cargarPacientes(); 
-        },
-        error:err => {
-        this.toast.error(err,"No se pudo eliminar el paciente",{
-          timeOut:3000
-        });
-        this.cargarPacientes();      
-       }
-      }
-    );     
+
+    let dialogref = this.dialog.open(EliminarComponent, {
+      width: '300px',                        
+    })
+
+    // Llamo al dialog, si elimino eliminar no es undefined ...
+    
+    dialogref.afterClosed().subscribe( eliminar => {  
+      if (eliminar != undefined) {
+        this.pacienteService.deletePaciente(id).subscribe(
+          {
+            next:res => {
+            this.toast.success('Paciente eliminado con exito', 'OK',{
+              timeOut:3000
+            });
+            this.cargarPacientes(); 
+            },
+            error:err => {
+            this.toast.error(err,"No se pudo eliminar el paciente",{
+              timeOut:3000
+            });
+            this.cargarPacientes();      
+          }
+          }
+        );
+      }     
+    });
   }
 
   // Ventana modal para crear paciente
@@ -98,8 +110,14 @@ export class ListarPacienteComponent implements OnInit {
                                 localidad: '',
                                 direccion: '',
                                 telefono: '',
-                                created_at: new Date()
-                                }
+                                observaciones: '',
+                                h_clinica: '',
+                                id_obrasocial: 0,
+                                nro_afiliado: '',
+                                id_profesionales: 0,
+                                created_at: new Date().toISOString
+                                },
+    width:'40%'
     })
 
     dialogRef.afterClosed().subscribe(pac => {
@@ -140,8 +158,14 @@ export class ListarPacienteComponent implements OnInit {
                     apellido: this.pacientes.apellido,
                     localidad: this.pacientes.localidad,
                     direccion: this.pacientes.direccion,
-                    telefono: this.pacientes.telefono
-                  }
+                    telefono: this.pacientes.telefono,
+                    observaciones: this.pacientes.observaciones,
+                    h_clinica: this.pacientes.h_clinica,
+                    id_obrasocial: this.pacientes.id_obrasocial,
+                    nro_afiliado: this.pacientes.nro_afiliado,
+                    id_profesionales: this.pacientes.id_profesionales,
+                  },
+            width:'40%'
                   
           })
       

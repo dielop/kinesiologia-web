@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import { Mysql } from "../database";
 
 class ProfesionalesController { 
+
+    // Listado de profesionales ...
+
     public async list(req: Request, res: Response): Promise<any> {
         try {
             const [profesionales] = await Mysql.execute('SELECT * FROM profesionales');
@@ -11,18 +14,31 @@ class ProfesionalesController {
         }
     }
 
+    // Obtencion de un profesional
+
     public async getOne(req: Request, res: Response): Promise<any>{
+
+        // Recupero los datos del profesional buscado ...
+
         const { id } = req.params;
         const profesionales = await Mysql.execute('SELECT * FROM profesionales WHERE id = ?', [id]);
+
+         // Retornar si hay datos ...
+
         if(profesionales.length > 0){
             if(Array.isArray(profesionales[0])) return res.json(profesionales[0][0]);
         }
         res.status(404).json({text: 'El profesional no existe'});
     }
 
+    // Insercion de profesionales ... 
+
     public async create (req: Request, res: Response): Promise<void> {
-        console.log(req.body);
+
+        // Recupero DNI ... 
         const [existeDNI] = await Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
+
+        // Validaciones e inserciones ...
         if ( Array.isArray(existeDNI) && existeDNI.length == 0 ) {
                 try{
                     await Mysql.query('INSERT INTO profesionales set ?', [req.body]);
@@ -31,14 +47,19 @@ class ProfesionalesController {
                     console.log("Error al crear profesional: " + error);
                 }
             }else{
-            res.status(404).json({text: 'El profesional no Ya existe un profesional con el DNI ingresado'});
+            res.status(404).json({text: 'Ya existe un profesional con el DNI ingresado'});
         }  
     }
 
+    // Modificacion de profesionales
+
     public async update (req: Request, res: Response) {
-        console.log(req.body);
-        const [existeDNI] = await Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
-        if ( Array.isArray(existeDNI) && existeDNI.length == 0 ) {
+
+        // Recupero DNI ...
+        //const [existeDNI] = await Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
+
+        // Validaciones e inserciones ...
+        //if ( Array.isArray(existeDNI) && existeDNI.length == 0 ) {
             try{
                 const { id } = req.params;
                 await Mysql.query('UPDATE profesionales set ? WHERE id = ?', [req.body, id]);
@@ -46,10 +67,12 @@ class ProfesionalesController {
             }catch(error){
                 console.log("Error al actualizar el profesional: " + error);
             }            
-        }else{
-            res.status(404).json({text: 'Ya existe un profesional con el DNI ingresado'});
-        }
+        //}else{
+        //    res.status(404).json({text: 'Ya existe un profesional con el DNI ingresado'});
+        //}
     }
+
+    // Eliminar profesionales ...
 
     public async delete (req: Request, res: Response): Promise<void> {
         try{

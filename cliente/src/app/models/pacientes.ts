@@ -1,12 +1,17 @@
 export interface Paciente { 
       
-    id?: number;
-    dni: string;
-    nombre: string;
-    apellido: string;
-    localidad: string;
-    direccion: string;
-    telefono: string;
+    id?: Number;
+    dni: String;
+    nombre: String;
+    apellido: String;
+    localidad: String;
+    direccion: String;
+    telefono: String;
+    observaciones: String;
+    h_clinica: String;
+    id_obrasocial: Number;
+    nro_afiliado: String;
+    id_profesionales: Number;
     created_at: Date;
     
 }

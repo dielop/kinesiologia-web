@@ -35,6 +35,8 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { EliminarComponent } from './components/dialogs/eliminar/eliminar.component'
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ListarOSComponent,
     NuevoComponent,
     ModificarComponent,
-    ListarComponent
+    ListarComponent,
+    EliminarComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +76,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule,
     MatCardModule,
     ToastrModule.forRoot(),
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   providers: [
     { 

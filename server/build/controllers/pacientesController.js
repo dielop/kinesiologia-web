@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("../database");
 class PacientesController {
+    // Listado de pacientes ...
     list(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -22,10 +23,13 @@ class PacientesController {
             }
         });
     }
+    // Obtencion de un paciente ... 
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            // Recupero los datos del paciente buscado ...
             const { id } = req.params;
             const paciente = yield database_1.Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
+            // Retornar si hay datos ...
             if (paciente.length > 0) {
                 console.log(JSON.stringify(paciente));
                 //return res.json(JSON.stringify(paciente));
@@ -35,10 +39,11 @@ class PacientesController {
             res.status(404).json({ text: 'El paciente no existe' });
         });
     }
+    // Insercion de pacientes ... 
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.body);
-            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM pacintes WHERE dni = ?', [req.body.dni]);
+            // Validaciones e inserciones ...
+            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM pacientes WHERE dni = ?', [req.body.dni]);
             if (Array.isArray(existeDNI) && existeDNI.length == 0) {
                 try {
                     yield database_1.Mysql.query('INSERT INTO pacientes set ?', [req.body]);
@@ -53,25 +58,29 @@ class PacientesController {
             }
         });
     }
+    // Modificacion de pacientes ...
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.body);
-            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM pacintes WHERE dni = ?', [req.body.dni]);
-            if (Array.isArray(existeDNI) && existeDNI.length == 0) {
-                try {
-                    const { id } = req.params;
-                    yield database_1.Mysql.query('UPDATE pacientes set ? WHERE id = ?', [req.body, id]);
-                    res.json({ mesage: 'El paciente ha sido actualizado' });
-                }
-                catch (error) {
-                    console.log("Error al actualizar el paciente: " + error);
-                }
+            // Validaciones e inserciones ...
+            //const { id } = req.params;
+            //const existeId = await Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
+            //const existeId = await Mysql.query('SELECT * FROM pacientes WHERE id = ?', [req.body.id]);
+            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM pacientes WHERE dni = ?', [req.body.dni]);
+            //if ( Array.isArray(existeDNI) && existeDNI.length == 0 ||  ) {
+            try {
+                const { id } = req.params;
+                yield database_1.Mysql.query('UPDATE pacientes set ? WHERE id = ?', [req.body, id]);
+                res.json({ mesage: 'El paciente ha sido actualizado' });
             }
-            else {
-                res.status(404).json({ text: 'Ya existe un paciente con el DNI ingresado' });
+            catch (error) {
+                console.log("Error al actualizar el paciente: " + error);
             }
+            //} else {
+            // res.status(404).json({text: 'Ya existe un paciente con el DNI ingresado'});
+            //}
         });
     }
+    // Eliminar pacientes ...
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -85,6 +94,6 @@ class PacientesController {
         });
     }
 }
-// Instancio la clase y exporto el objeto
+// Instancio la clase y exporto el objeto ...
 const pacientesController = new PacientesController();
 exports.default = pacientesController;

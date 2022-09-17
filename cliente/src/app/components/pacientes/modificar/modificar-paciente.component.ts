@@ -3,7 +3,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Paciente } from 'src/app/models/pacientes';
-import { PacientesService } from '../../../services/pacientes.service';
+import { ObrasocialService } from 'src/app/services/obra-social/obrasocial.service';
+import { ProfesionalesService } from 'src/app/services/profesionales/profesionales.service';
+
 
 @Component({
   selector: 'app-modificar-paciente',
@@ -12,14 +14,48 @@ import { PacientesService } from '../../../services/pacientes.service';
 })
 export class ModificarPacienteComponent implements OnInit {
 
-  paciente: Paciente = null;
+  public paciente: Paciente = null;
+  public obrasSociales: any = [];
+  public profesionales: any = [];
 
   constructor( public dialogRef: MatDialogRef<ModificarPacienteComponent>,
-              @ Inject(MAT_DIALOG_DATA) public data: Paciente ) { }
+              @ Inject(MAT_DIALOG_DATA) public data: Paciente,
+              private obraSocialService : ObrasocialService,
+              private profesionalesService : ProfesionalesService,
+              private toast: ToastrService ) { }
 
-  ngOnInit(): void {
+ngOnInit(): void {
+  this.cargarObrasSociales();
+  this.cargarProfesionales();
+}
 
-  }
+cargarObrasSociales(): void {
+  this.obraSocialService.getObraSocial().subscribe(
+    {
+      next:res => {
+        this.obrasSociales = res;
+      },
+      error:err => {
+        this.toast.error(err.error.message, 'Fail', {
+          timeOut:3000
+        });
+      }
+  });
+}
+
+cargarProfesionales(): void {
+  this.profesionalesService.getProfesionales().subscribe(
+    {
+      next:res => {
+        this.profesionales = res;
+      },
+      error:err => {
+        this.toast.error(err.error.message, 'Fail', {
+          timeOut:3000
+        });
+      }
+    });
+}
 
   cancelar(){
     this.dialogRef.close();

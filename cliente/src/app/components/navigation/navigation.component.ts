@@ -22,21 +22,17 @@ export class NavigationComponent implements OnInit {
                   url: "/listar-paciente" }
               ];
 
-  Profesionales = [ { name:"Listado Profesionales",
-                      url: "/listar"}
-                  ];
-
-  OS = [ { name:"Listado Obras Sociales",
-           url: "/listar-OS" }
-       ];
+  Configuraciones = [{ name:"Profesionales",
+                       url:"/listar"},
+                     { name:"Obras Sociales",
+                       url:"/listar-OS" }
+              ];
 
 
   title = 'gestion-pacientes';
   
-  siExpandir = true;
   mostrarMenuTurnos: boolean = false;
   mostrarMenuPacientes: boolean = false;
-  mostrarMenuProfesionales: boolean = false;
-  mostrarMenuOS: boolean = false;
+  mostrarMenuConfiguraciones: boolean = false;
 
 }

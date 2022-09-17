@@ -9,6 +9,11 @@
                         <input matInput type="number" class="form-control" id="DNI" name="DNI"
                         [(ngModel)]= "data.dni" required>
                     </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Telefono</mat-label>
+                        <input matInput type="number" class="form-control" id="telefono" name="telefono"
+                        [(ngModel)]= "data.telefono">
+                    </mat-form-field>
                 </div>
 
                 <div class= "form-group"> 
@@ -39,15 +44,49 @@
 
                 <div class= "form-group">
                     <mat-form-field appearance="outline">
-                        <mat-label>Telefono</mat-label>
-                        <input matInput type="number" class="form-control" id="telefono" name="telefono"
-                        [(ngModel)]= "data.telefono">
+                        <mat-label>Seleccionar O.Social</mat-label>
+                            <mat-select [(ngModel)] = "data.id_obrasocial" name="id_obrasocial">
+                                <mat-option *ngFor= "let obrasocial of obrasSociales" [value]= "obrasocial.id">
+                                    {{obrasocial.nombre}}
+                                </mat-option> 
+                            </mat-select>
+                    </mat-form-field>                    
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nº Afiliado</mat-label>
+                        <input matInput type="text" class="form-control" id="nro_afiliado" name="nro_afiliado"
+                        [(ngModel)]= "data.nro_afiliado">
+                    </mat-form-field>                           
+                </div>
+
+                <div class= "form-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Seleccionar Profesional</mat-label>
+                        <mat-select [(ngModel)] = "data.id_profesionales" name="id_profesionales">
+                            <mat-option *ngFor= "let profesional of profesionales" [value]= "profesional.id">
+                                {{profesional.nombre}}
+                            </mat-option>
+                        </mat-select>
+                </mat-form-field>
+                </div> 
+
+                <div class= "observaciones">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Observaciones</mat-label>
+                        <textarea matInput type="text" class="form-control" id="observaciones" name="observaciones"
+                        [(ngModel)]= "data.observaciones"></textarea>
                     </mat-form-field>
                 </div>
-                
+                <div class= "h_clinica">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Historia Clínica</mat-label>
+                        <textarea matInput type="text" class="form-control" id="h_clinica" name="h_clinica"
+                        [(ngModel)]= "data.h_clinica"></textarea>
+                    </mat-form-field>
+                </div>                   
             </form>  
         </div>
     </div>
+
     <div mat-dialog-actions>
         <div class="botones">
             <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial *ngIf="data; else cargandoTemplate">Guardar</button>

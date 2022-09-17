@@ -2,7 +2,7 @@ export default {
     database: {
         host:'localhost',
         user: 'root',
-        password:'',
+        password:'sl10672d',
         database:'kinesiologia_db',
     }
 }

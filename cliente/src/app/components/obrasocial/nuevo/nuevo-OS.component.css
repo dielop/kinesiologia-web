@@ -1,7 +1,9 @@
+
 h2 {
     margin-left:10px;
     margin-top:5px;
     color:#000000;
+    text-align: center;
 }
 .container {
     display:flex;
@@ -10,13 +12,5 @@ h2 {
     font-size: 12px;
 }
 mat-form-field {
-    margin:2px;
-}
-.botones {
-    display:flex;
-    justify-content: center;
-}
-
-button {
     margin:2px;
 }

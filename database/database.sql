@@ -10,6 +10,10 @@ CREATE TABLE pacientes(
     localidad  VARCHAR(255),
     direccion  VARCHAR(255),
     telefono  VARCHAR(255),
+    observaciones TEXT,
+    id_obrasocial INT(11),
+    nro_afiliado VARCHAR(50),
+    id_profesionales INT(11),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -32,6 +36,9 @@ DESCRIBE profesionales;
 CREATE TABLE obrasocial(
     id INT(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(50),
+    plan VARCHAR(50),
+    nro_afiliado VARCHAR(50),
+    observaciones TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

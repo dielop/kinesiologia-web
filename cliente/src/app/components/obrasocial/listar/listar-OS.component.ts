@@ -3,12 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ObraSocial } from 'src/app/models/obraSocial';
 import { ObrasocialService } from 'src/app/services/obra-social/obrasocial.service';
 import { ModificarOSComponent } from '../modificar/modificar-OS.component';
 import { NuevoOSComponent } from '../nuevo/nuevo-OS.component';
+import { EliminarComponent } from '../../dialogs/eliminar/eliminar.component'
 
 @Component({
   selector: 'app-listar-OS',
@@ -18,7 +18,7 @@ import { NuevoOSComponent } from '../nuevo/nuevo-OS.component';
 export class ListarOSComponent implements OnInit {
 
   obraSocial: any = [];
-  displayedColumns = ['Nombre', 'Acciones'];
+  displayedColumns: String[] = ['Nombre', 'Plan', 'Observaciones', 'Acciones'];
   dataSource = new MatTableDataSource<ObraSocial>(this.obraSocial) 
 
   @ViewChild(MatTable) tabla!: MatTable<ObraSocial>;
@@ -36,8 +36,8 @@ export class ListarOSComponent implements OnInit {
 // Paginacion de la tabla y filtrado
 
   ngAfterViewInit(){
-  this.dataSource.paginator = this.paginator;
-  this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
@@ -62,32 +62,44 @@ export class ListarOSComponent implements OnInit {
   }
             
 // Eliminar obra social
-            
-  eliminarObraSocial(id : number){
-    this.obraSocialService.deleteObraSocial(id).subscribe(
-      {
-        next:res => {
-          this.toast.success('Obra social eliminada con exito', 'OK',{
-          timeOut:3000
-          });
-          this.cargarObrasSociales(); 
-        },
-        error:err => {
-        this.toast.error(err,"No se pudo eliminar obra social",{
-          timeOut:3000
-        });
-        this.cargarObrasSociales();      
-        }
-      }
-    );     
-  }
+
+ eliminarObraSocial(id : string){
+
+  let dialogref = this.dialog.open(EliminarComponent, {
+                    width: '300px',                        
+                  }) 
+  
+  dialogref.afterClosed().subscribe( eliminar => {  
+    if (eliminar != undefined) {
+      this.obraSocialService.deleteObraSocial(id).subscribe(
+          {
+                next:res => {
+                  this.toast.success('Obra social eliminada con exito', 'OK',{
+                  timeOut:3000
+                  });
+                  this.cargarObrasSociales(); 
+                },
+                error:err => {
+                this.toast.error(err,"No se pudo eliminar obra social",{
+                  timeOut:3000
+                });
+                this.cargarObrasSociales();      
+                }
+              }
+            );
+         }
+      });   
+ }    
+
 
   openNuevaOS(){
     let dialogRef = this.dialog.open(NuevoOSComponent, {
       data: this.obraSocial = { id: 0,
                                 nombre: '',
-                                created_at: new Date()
-                                }
+                                plan: '',
+                                observaciones: '',
+                                created_at: new Date().toISOString
+                              }
     })
 
     dialogRef.afterClosed().subscribe(OS => {
@@ -124,6 +136,8 @@ export class ListarOSComponent implements OnInit {
             data: { 
                     id: this.obraSocial.id,
                     nombre:  this.obraSocial.nombre,
+                    plan: this.obraSocial.plan,
+                    observaciones: this.obraSocial.observaciones
                   }
                   
           })

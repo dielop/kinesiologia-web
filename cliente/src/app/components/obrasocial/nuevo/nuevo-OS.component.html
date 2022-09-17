@@ -11,6 +11,20 @@
                         [(ngModel)]= "data.nombre">
                     </mat-form-field>
                 </div>
+                <div class= "form-group"> 
+                    <mat-form-field appearance="outline">
+                        <mat-label>Plan</mat-label>
+                        <input matInput type="text" class="form-control" id="plan" name="plan"
+                        [(ngModel)]= "data.plan" required>
+                    </mat-form-field>
+                </div>
+                <div class= "form-group"> 
+                    <mat-form-field appearance="outline">
+                        <mat-label>Observaciones</mat-label>
+                        <input matInput type="text" class="form-control" id="observaciones" name="observaciones"
+                        [(ngModel)]= "data.observaciones" required>
+                    </mat-form-field>
+                </div>
 
             </form>  
         </div>
