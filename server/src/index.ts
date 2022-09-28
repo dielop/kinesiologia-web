@@ -5,6 +5,8 @@ import indexRoutes  from './routes/indexRoutes';
 import pacientesRoutes  from './routes/pacientesRoutes';
 import obrasSocialesRoutes from './routes/obrasSocialesRoutes';
 import profesionalesRoutes from './routes/profesionalesRoutes';
+import userRoutes from './routes/usersRoutes';
+import dotenv from 'dotenv';
 
 class Server {
 
@@ -22,6 +24,7 @@ class Server {
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}))
+        dotenv.config();
     }
 
     routes(): void{
@@ -29,6 +32,7 @@ class Server {
         this.app.use('/api/pacientes', pacientesRoutes);
         this.app.use('/api/obrasocial', obrasSocialesRoutes);
         this.app.use('/api/profesionales', profesionalesRoutes);
+        this.app.use('/api/users', userRoutes);
     }
 
     start(): void{

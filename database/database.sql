@@ -64,3 +64,13 @@ CREATE TABLE turnos {
 }
 
 DESCRIBE turnos;
+
+CREATE TABLE users(
+    id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(16) NOT NULL,
+    password VARCHAR(16) NOT NULL
+    roleid VARCHAR(20) NOT NULL, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+);
+
+DESCRIBE users;

@@ -10,6 +10,8 @@ const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const pacientesRoutes_1 = __importDefault(require("./routes/pacientesRoutes"));
 const obrasSocialesRoutes_1 = __importDefault(require("./routes/obrasSocialesRoutes"));
 const profesionalesRoutes_1 = __importDefault(require("./routes/profesionalesRoutes"));
+const usersRoutes_1 = __importDefault(require("./routes/usersRoutes"));
+const dotenv_1 = __importDefault(require("dotenv"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -22,12 +24,14 @@ class Server {
         this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
+        dotenv_1.default.config();
     }
     routes() {
         this.app.use('/', indexRoutes_1.default);
         this.app.use('/api/pacientes', pacientesRoutes_1.default);
         this.app.use('/api/obrasocial', obrasSocialesRoutes_1.default);
         this.app.use('/api/profesionales', profesionalesRoutes_1.default);
+        this.app.use('/api/users', usersRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

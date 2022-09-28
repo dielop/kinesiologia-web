@@ -5,4 +5,5 @@ export default {
         password:'sl10672d',
         database:'kinesiologia_db',
     }
+    
 }

@@ -1,0 +1,29 @@
+<div>
+    <mat-card>
+        <mat-card-title><mat-icon>account_circle</mat-icon></mat-card-title>
+        <mat-card-content>
+            <form>
+                <div class= "form-group">
+                <p>
+                    <mat-form-field appearance="fill">
+                        <input [(ngModel)]= "username" name="username" matInput  placeholder="Usuario" form-control="username">
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="fill">
+                    <input [(ngModel)]= "password" type="password" name="password" matInput placeholder="Contraseña" form-control="password">
+                    </mat-form-field>
+                </p>
+                </div>
+
+                <p *ngIf="problem == true" class="error">
+                    Usuario o contraseña incorrecta
+                </p>
+        
+                <div class="button">
+                    <button (click)="login()" mat-button>Ingresar</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

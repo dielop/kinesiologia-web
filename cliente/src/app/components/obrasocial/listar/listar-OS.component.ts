@@ -89,7 +89,7 @@ export class ListarOSComponent implements OnInit {
             );
          }
       });   
- }    
+  }    
 
 
   openNuevaOS(){

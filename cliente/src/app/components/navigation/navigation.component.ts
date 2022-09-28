@@ -19,14 +19,21 @@ export class NavigationComponent implements OnInit {
            ];
   
   Pacientes = [ { name:"Listado Pacientes",
-                  url: "/listar-paciente" }
+                  url: "/navigation/listar-paciente" }
               ];
 
   Configuraciones = [{ name:"Profesionales",
-                       url:"/listar"},
+                       url:"/navigation/listar"},
                      { name:"Obras Sociales",
-                       url:"/listar-OS" }
+                       url:"/navigation/listar-OS" },
+                     { name:"Usuarios",
+                       url:"/navigation/listar-users" },
+                     { name:"Roles de usuario",
+                       url:"/navigation" }
               ];
+  Login = [{ name:"Cerrar sesion",
+             url:"/login" }
+          ];
 
 
   title = 'gestion-pacientes';

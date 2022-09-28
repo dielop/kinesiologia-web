@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +17,9 @@ import { NuevoOSComponent } from './components/obrasocial/nuevo/nuevo-OS.compone
 import { NuevoComponent } from './components/profesionales/nuevo/nuevo.component';
 import { ListarComponent } from './components/profesionales/listar/listar.component'
 import { ModificarComponent } from './components/profesionales/modificar/modificar.component';
+import { LoginComponent } from './components/login/login/login.component';
+import { SignInComponent } from './components/login/sign-in/sign-in.component';
+import { ListarUsersComponent } from './components/login/listar/listar-users.component'; 
 
 // Material angular 
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -36,8 +39,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { EliminarComponent } from './components/dialogs/eliminar/eliminar.component'
+import { EliminarComponent } from './components/dialogs/eliminar/eliminar.component';
 
+
+// Providers
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { TokenInterceptionService } from './services/autenticacion/token-interception.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +60,10 @@ import { EliminarComponent } from './components/dialogs/eliminar/eliminar.compon
     NuevoComponent,
     ModificarComponent,
     ListarComponent,
-    EliminarComponent
+    EliminarComponent,
+    LoginComponent,
+    SignInComponent,
+    ListarUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +97,17 @@ import { EliminarComponent } from './components/dialogs/eliminar/eliminar.compon
     {
       provide: MAT_DIALOG_DATA,
       useValue: {}
+    },
+    //JWT
+    { 
+      provide: JWT_OPTIONS,
+      useValue: JWT_OPTIONS
+    },
+    JwtHelperService,
+    //Token interceptor
+    { provide: HTTP_INTERCEPTORS,
+      useClass:TokenInterceptionService,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

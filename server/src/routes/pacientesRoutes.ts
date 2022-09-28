@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import pacientesController from '../controllers/pacientesController';
+import validateToken from './validateToken';
 
 class PacientesRoutes {
 
