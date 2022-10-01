@@ -40,11 +40,13 @@ import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { EliminarComponent } from './components/dialogs/eliminar/eliminar.component';
-
+import { TurnosComponent } from './components/turnos/turnos.component';
 
 // Providers
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TokenInterceptionService } from './services/autenticacion/token-interception.service';
+import { RolesComponent } from './components/roles/roles.component';
+
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { TokenInterceptionService } from './services/autenticacion/token-interce
     EliminarComponent,
     LoginComponent,
     SignInComponent,
-    ListarUsersComponent
+    ListarUsersComponent,
+    TurnosComponent,
+    RolesComponent
   ],
   imports: [
     BrowserModule,
