@@ -21,7 +21,7 @@ class PacientesController {
         // Recupero los datos del paciente buscado ...
 
         const { id } = req.params;
-        const paciente = await Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
+        const paciente = await Mysql.execute('SELECT * FROM pacientes WHERE idPacientes = ?', [id]);
 
         // Retornar si hay datos ...
         if(paciente.length > 0){
@@ -37,7 +37,7 @@ class PacientesController {
     public async create (req: Request, res: Response): Promise<void> {
         
         // Validaciones e inserciones ...
-        const [existeDNI] = await Mysql.query('SELECT * FROM pacientes WHERE dni = ?', [req.body.dni]);
+        const [existeDNI] = await Mysql.query('SELECT * FROM pacientes WHERE dniPacientes = ?', [req.body.dniPacientes]);
 
         if ( Array.isArray(existeDNI) && existeDNI.length == 0) { 
             try{
@@ -59,13 +59,13 @@ class PacientesController {
         //const { id } = req.params;
         //const existeId = await Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
         //const existeId = await Mysql.query('SELECT * FROM pacientes WHERE id = ?', [req.body.id]);
-        const [existeDNI] = await Mysql.query('SELECT * FROM pacientes WHERE dni = ?', [req.body.dni]);
+        const [existeDNI] = await Mysql.query('SELECT * FROM pacientes WHERE dniPacientes = ?', [req.body.dniPacientes]);
         
         //if ( Array.isArray(existeDNI) && existeDNI.length == 0 ||  ) {
             try{
                 const { id } = req.params;
-                await Mysql.query('UPDATE pacientes set ? WHERE id = ?', [req.body, id]);
-                res.json({mesage: 'El paciente ha sido actualizado' });
+                await Mysql.query('UPDATE pacientes set ? WHERE idPacientes = ?', [req.body, id]);
+                res.json({message: 'El paciente ha sido actualizado' });
             }catch(error){
                 console.log("Error al actualizar el paciente: " + error);
             }
@@ -79,7 +79,7 @@ class PacientesController {
     public async delete (req: Request, res: Response): Promise<void> {
         try{
             const { id } = req.params;
-            await Mysql.query('DELETE FROM pacientes WHERE id = ?', [id]);
+            await Mysql.query('DELETE FROM pacientes WHERE idPacientes = ?', [id]);
             res.json({message:'El paciente fue eliminado'});
         }catch(error){
             console.log("Error al eliminar el paciente: " + error);

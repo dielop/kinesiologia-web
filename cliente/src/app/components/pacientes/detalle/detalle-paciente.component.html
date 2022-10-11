@@ -2,13 +2,13 @@
 
 <div class="container" *ngIf="paciente; else cargandoTemplate">
     <div class="card">    
-        <mat-card><b>ID:</b> {{paciente.id}} </mat-card>
-        <mat-card><b>DNI:</b> {{paciente.dni}} </mat-card>
-        <mat-card><b>Nombre:</b> {{paciente.nombre}} </mat-card>
-        <mat-card><b>Apellido:</b> {{paciente.apellido}} </mat-card>
-        <mat-card><b>Direccion:</b> {{paciente.direccion}} </mat-card>
-        <mat-card><b>Telefono:</b> {{paciente.telefono}} </mat-card>
-        <mat-card><b>Localidad:</b> {{paciente.localidad}} </mat-card>
+        <mat-card><b>ID:</b> {{paciente.idPacientes}} </mat-card>
+        <mat-card><b>DNI:</b> {{paciente.dniPacientes}} </mat-card>
+        <mat-card><b>Nombre:</b> {{paciente.nombrePacientes}} </mat-card>
+        <mat-card><b>Apellido:</b> {{paciente.apellidoPacientes}} </mat-card>
+        <mat-card><b>Direccion:</b> {{paciente.direccionPacientes}} </mat-card>
+        <mat-card><b>Telefono:</b> {{paciente.telefonoPacientes}} </mat-card>
+        <mat-card><b>Localidad:</b> {{paciente.idLocalidades}} </mat-card>
         <mat-card><b>Fecha de alta:</b> {{paciente.created_at}} </mat-card>
             
         <div class="botones">

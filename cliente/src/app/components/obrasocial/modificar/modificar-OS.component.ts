@@ -12,8 +12,8 @@ export class ModificarOSComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<ModificarOSComponent>,
               @ Inject(MAT_DIALOG_DATA) public data: ObraSocial ) { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
   cancelar(){
     this.dialogRef.close();

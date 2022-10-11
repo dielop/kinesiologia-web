@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       userCod: '',
       username: this.username,
       password: this.password,
-      roleId: '',
+      rolesCod: '',
       created_at: new Date()
     }
 

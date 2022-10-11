@@ -1,4 +1,5 @@
 export interface Roles {
-    id?: Number;
-    nombre: String;
+    idRoles?: Number;
+    rolesCod?: String;
+    nombreRoles: String;
 }

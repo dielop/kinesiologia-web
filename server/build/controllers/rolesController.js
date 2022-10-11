@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("../database");
-class rolesControllers {
+class RolesControllers {
     listRole(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -22,11 +22,26 @@ class rolesControllers {
             }
         });
     }
+    // Obtencion de un paciente ... 
+    getOneRol(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Recupero los datos del rol buscado ...
+            const { id } = req.params;
+            const rol = yield database_1.Mysql.execute('SELECT * FROM roles WHERE idRoles = ?', [id]);
+            // Retornar si hay datos ...
+            if (rol.length > 0) {
+                console.log(JSON.stringify(rol));
+                if (Array.isArray(rol[0]))
+                    return res.json(rol[0][0]);
+            }
+            res.status(404).json({ text: 'El rol no existe' });
+        });
+    }
     addRole(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // Insercion de rol ...
             try {
-                yield database_1.Mysql.query('INSERT INTO roles ? ', [req.body]);
+                yield database_1.Mysql.query('INSERT INTO roles set ? ', [req.body]);
                 res.json({ message: 'Nuevo rol creado' });
             }
             catch (error) {
@@ -36,13 +51,13 @@ class rolesControllers {
     }
     updateRole(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Recupero obra social si existe ...
-            const [existeRol] = yield database_1.Mysql.query('SELECT * FROM roles WHERE nombre = ?', [req.body.nombre]);
+            // Recupero rol si existe ...
+            const [existeRol] = yield database_1.Mysql.query('SELECT * FROM roles WHERE nombreRoles = ?', [req.body.nombreRoles]);
             //if(Array.isArray(existeOS) && existeOS.length == 0 ){
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('UPDATE roles set ? WHERE id = ?', [req.body, id]);
-                res.json({ mesage: 'Rol actualizado' });
+                yield database_1.Mysql.query('UPDATE roles set ? WHERE idRoles = ?', [req.body, id]);
+                res.json({ message: 'Rol actualizado' });
             }
             catch (error) {
                 console.log("Error al actualizar el rol: " + error);
@@ -53,7 +68,7 @@ class rolesControllers {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('DELETE FROM roles WHERE id = ?', [id]);
+                yield database_1.Mysql.query('DELETE FROM roles WHERE idRoles = ?', [id]);
                 res.json({ message: 'Rol eliminado' });
             }
             catch (error) {
@@ -63,5 +78,5 @@ class rolesControllers {
     }
 }
 // Instancio la clase y exporto el objeto
-const RolesControllers = new rolesControllers();
-exports.default = RolesControllers;
+const rolesControllers = new RolesControllers();
+exports.default = rolesControllers;

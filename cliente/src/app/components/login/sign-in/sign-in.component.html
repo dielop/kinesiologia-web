@@ -26,14 +26,16 @@
                         [(ngModel)]= "data.password" required>
                     </mat-form-field>
                 </div>
-                <div class= "form-group"> 
+                <div class= "form-group">
                     <mat-form-field appearance="outline">
-                        <mat-label>roleId</mat-label>
-                        <input matInput type="text" class="form-control" id="roleId" name="roleId"
-                        [(ngModel)]= "data.roleId" required>
+                        <mat-label>Seleccionar Rol</mat-label>
+                            <mat-select [(ngModel)] = "data.rolesCod" name="rolesCod">
+                                <mat-option *ngFor= "let rol of roles" [value]= "rol.rolesCod">
+                                    {{rol.nombreRoles}}
+                                </mat-option> 
+                            </mat-select>
                     </mat-form-field>
-                </div>
-
+                </div>             
             </form>  
         </div>
     </div>

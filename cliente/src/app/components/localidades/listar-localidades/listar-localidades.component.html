@@ -1,0 +1,40 @@
+<h2>Listado de Localidades</h2>
+
+<mat-form-field class="filtrar">
+  <mat-label><mat-icon>search</mat-icon> Buscar</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+</mat-form-field>
+
+<button mat-raised-button class="agregar" (click)="openNuevaLocalidad()"><mat-icon>add</mat-icon></button>
+
+<div> 
+  
+  <table mat-table [dataSource]= "dataSource" matSort>
+
+    <!-- Nombre Columna -->
+    <ng-container matColumnDef="Nombre" class = "columna">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+      <td mat-cell *matCellDef= "let row"> {{row.nombreLocalidades}} </td>
+    </ng-container>
+
+    <!-- Borrar/Editar Column -->
+    <ng-container matColumnDef="Acciones" class = "columna">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef= "let row"> 
+      <a><button mat-mini-fab (click)="modificarLocalidad(row.idLocalidades)"><mat-icon>edit</mat-icon></button></a>
+      <a><button mat-mini-fab (click)="eliminarLocalidad(row.idLocalidades)"><mat-icon>delete</mat-icon></button></a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef= "displayedColumns"></tr>
+    <tr mat-row *matRowDef= "let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No se cargo información</td>
+    </tr> 
+  </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> 
+</div>
+

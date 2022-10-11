@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -94,10 +94,10 @@ export class ListarOSComponent implements OnInit {
 
   openNuevaOS(){
     let dialogRef = this.dialog.open(NuevoOSComponent, {
-      data: this.obraSocial = { id: 0,
-                                nombre: '',
-                                plan: '',
-                                observaciones: '',
+      data: this.obraSocial = { idObraSocial: 0,
+                                nombreObraSocial: '',
+                                planObraSocial: '',
+                                obsObraSocial: '',
                                 created_at: new Date().toISOString
                               }
     })
@@ -134,17 +134,17 @@ export class ListarOSComponent implements OnInit {
           console.log(this.obraSocial);
           let dialogRef = this.dialog.open(ModificarOSComponent, { 
             data: { 
-                    id: this.obraSocial.id,
-                    nombre:  this.obraSocial.nombre,
-                    plan: this.obraSocial.plan,
-                    observaciones: this.obraSocial.observaciones
+                    idObraSocial: this.obraSocial.idObraSocial,
+                    nombreObraSocial:  this.obraSocial.nombreObraSocial,
+                    planObraSocial: this.obraSocial.planObraSocial,
+                    obsObraSocial: this.obraSocial.obsObraSocial
                   }
                   
           })
       
-          dialogRef.afterClosed().subscribe(pac => {
-                if (pac != undefined)
-                this.onUpdate(id, pac);
+          dialogRef.afterClosed().subscribe(OS => {
+                if (OS != undefined)
+                this.onUpdate(id, OS);
           });
       }, 
       error: err => {
@@ -156,11 +156,11 @@ export class ListarOSComponent implements OnInit {
     
   }
 
-  onUpdate(id : number, pac : ObraSocial){
+  onUpdate(id : number, OS : ObraSocial){
     //Elimino la fecha en que actualizo porque cuando actualizo no tiene que modificar la fecha
-    delete pac.created_at;
+    delete OS.created_at;
     
-    this.obraSocialService.updateObraSocial(id, pac).subscribe(
+    this.obraSocialService.updateObraSocial(id, OS).subscribe(
       {
         next:data => {
           this.toast.success("Obra social actualizada con exito")      

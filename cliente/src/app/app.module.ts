@@ -20,6 +20,14 @@ import { ModificarComponent } from './components/profesionales/modificar/modific
 import { LoginComponent } from './components/login/login/login.component';
 import { SignInComponent } from './components/login/sign-in/sign-in.component';
 import { ListarUsersComponent } from './components/login/listar/listar-users.component'; 
+import { EliminarComponent } from './components/dialogs/eliminar/eliminar.component';
+import { TurnosComponent } from './components/turnos/turnos.component';
+import { ListarLocalidadesComponent } from './components/localidades/listar-localidades/listar-localidades.component';
+import { ModificarLocalidadesComponent } from './components/localidades/modificar-localidades/modificar-localidades.component';
+import { CrearLocalidadesComponent } from './components/localidades/crear-localidades/crear-localidades.component';
+import { ListarRolesComponent } from './components/roles/listar-roles/listar-roles.component';
+import { NuevoRolComponent } from './components/roles/nuevo-rol/nuevo-rol.component';
+import { ModificarRolComponent } from './components/roles/modificar-rol/modificar-rol.component';
 
 // Material angular 
 import { MatToolbarModule } from '@angular/material/toolbar'
@@ -39,13 +47,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { EliminarComponent } from './components/dialogs/eliminar/eliminar.component';
-import { TurnosComponent } from './components/turnos/turnos.component';
+
 
 // Providers
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TokenInterceptionService } from './services/autenticacion/token-interception.service';
-import { RolesComponent } from './components/roles/roles.component';
+
 
 
 @NgModule({
@@ -67,7 +74,12 @@ import { RolesComponent } from './components/roles/roles.component';
     SignInComponent,
     ListarUsersComponent,
     TurnosComponent,
-    RolesComponent
+    ListarLocalidadesComponent,
+    ModificarLocalidadesComponent,
+    CrearLocalidadesComponent,
+    ListarRolesComponent,
+    NuevoRolComponent,
+    ModificarRolComponent
   ],
   imports: [
     BrowserModule,

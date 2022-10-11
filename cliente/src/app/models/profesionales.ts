@@ -1,13 +1,13 @@
 export interface Profesional { 
       
-    id?: Number;
-    dni: String;
-    nombre: String;
-    apellido: String;
-    localidad: String;
-    direccion: String;
-    telefono: String;
-    especialidad: String;
+    idProfesionales?: Number;
+    dniProfesionales: String;
+    nombreProfesionales: String;
+    apellidoProfesionales: String;
+    idLocalidades: Number;
+    direccionProfesionales: String;
+    telefonoProfesionales: String;
+    especProfesionales: String;
     created_at: Date;
     
 }

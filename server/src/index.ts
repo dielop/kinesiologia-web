@@ -7,6 +7,8 @@ import obrasSocialesRoutes from './routes/obrasSocialesRoutes';
 import profesionalesRoutes from './routes/profesionalesRoutes';
 import userRoutes from './routes/usersRoutes';
 import dotenv from 'dotenv';
+import localidadesRoutes from './routes/localidadesRoutes';
+import rolesRoutes from './routes/rolesRoutes';
 
 class Server {
 
@@ -33,6 +35,8 @@ class Server {
         this.app.use('/api/obrasocial', obrasSocialesRoutes);
         this.app.use('/api/profesionales', profesionalesRoutes);
         this.app.use('/api/users', userRoutes);
+        this.app.use('/api/localidades', localidadesRoutes);
+        this.app.use('/api/roles', rolesRoutes);
     }
 
     start(): void{

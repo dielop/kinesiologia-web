@@ -20,7 +20,7 @@ class obrasSocialesController {
 
         // Recupero los datos la obra social buscada ...
         const { id } = req.params;
-        const obrasocial = await Mysql.execute('SELECT * FROM obrasocial WHERE id = ?', [id]);
+        const obrasocial = await Mysql.execute('SELECT * FROM obrasocial WHERE idObraSocial = ?', [id]);
 
         // Retornar si hay datos ...
         if(obrasocial.length > 0){
@@ -33,7 +33,7 @@ class obrasSocialesController {
 
     public async create(req: Request, res: Response): Promise<void> {
         // Recupero obra social si existe ...
-        const [existeOS] = await Mysql.query('SELECT * FROM obrasocial WHERE nombre = ?', [req.body.nombre]);
+        const [existeOS] = await Mysql.query('SELECT * FROM obrasocial WHERE nombreObraSocial = ?', [req.body.nombreObraSocial]);
 
         // Validacion e insercion ...
         if (Array.isArray(existeOS) && existeOS.length == 0 ){
@@ -52,12 +52,12 @@ class obrasSocialesController {
 
     public async update (req: Request, res: Response) {
         // Recupero obra social si existe ...
-        const [existeOS] = await Mysql.query('SELECT * FROM obrasocial WHERE nombre = ?', [req.body.nombre]);
+        const [existeOS] = await Mysql.query('SELECT * FROM obrasocial WHERE nombreObraSocial = ?', [req.body.nombreObraSocial]);
         
         //if(Array.isArray(existeOS) && existeOS.length == 0 ){
             try{
                 const { id } = req.params;
-                await Mysql.query('UPDATE obrasocial set ? WHERE id = ?', [req.body, id]);
+                await Mysql.query('UPDATE obrasocial set ? WHERE idObraSocial = ?', [req.body, id]);
                 res.json({mesage: 'Obra social actualizada' });
             }catch(error){
                 console.log("Error al actualizar obra social: " + error);
@@ -72,7 +72,7 @@ class obrasSocialesController {
     public async delete (req: Request, res: Response): Promise<void> {
         try{
             const { id } = req.params;
-            await Mysql.query('DELETE FROM obrasocial WHERE id = ?', [id]);
+            await Mysql.query('DELETE FROM obrasocial WHERE idObraSocial = ?', [id]);
             res.json({message:'Obra social eliminada'});
         }catch(error){
             console.log("Error al eliminar obra social: " + error);

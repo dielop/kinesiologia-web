@@ -28,7 +28,7 @@ class ProfesionalesController {
         return __awaiter(this, void 0, void 0, function* () {
             // Recupero los datos del profesional buscado ...
             const { id } = req.params;
-            const profesionales = yield database_1.Mysql.execute('SELECT * FROM profesionales WHERE id = ?', [id]);
+            const profesionales = yield database_1.Mysql.execute('SELECT * FROM profesionales WHERE idProfesionales = ?', [id]);
             // Retornar si hay datos ...
             if (profesionales.length > 0) {
                 if (Array.isArray(profesionales[0]))
@@ -41,7 +41,7 @@ class ProfesionalesController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // Recupero DNI ... 
-            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
+            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM profesionales WHERE dniProfesionales = ?', [req.body.dniProfesionales]);
             // Validaciones e inserciones ...
             if (Array.isArray(existeDNI) && existeDNI.length == 0) {
                 try {
@@ -66,7 +66,7 @@ class ProfesionalesController {
             //if ( Array.isArray(existeDNI) && existeDNI.length == 0 ) {
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('UPDATE profesionales set ? WHERE id = ?', [req.body, id]);
+                yield database_1.Mysql.query('UPDATE profesionales set ? WHERE idProfesionales = ?', [req.body, id]);
                 res.json({ mesage: 'El profesional ha sido actualizado' });
             }
             catch (error) {
@@ -82,7 +82,7 @@ class ProfesionalesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('DELETE FROM profesionales WHERE id = ?', [id]);
+                yield database_1.Mysql.query('DELETE FROM profesionales WHERE idProfesionales = ?', [id]);
                 res.json({ message: 'El profesional fue eliminado' });
             }
             catch (error) {

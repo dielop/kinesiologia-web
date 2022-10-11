@@ -20,7 +20,7 @@ class turnosControllers {
 
         // Recupero los datos del turno buscado ...
         const { id } = req.params;
-        const turno = await Mysql.execute('SELECT * FROM turnos WHERE id = ?', [id]);
+        const turno = await Mysql.execute('SELECT * FROM turnos WHERE idTurnos = ?', [id]);
 
         // Retornar si hay datos ...
         if(turno.length > 0){
@@ -33,7 +33,7 @@ class turnosControllers {
 
     public async createTurn(req: Request, res: Response): Promise<void> {
         // Recupero obra social si existe ...
-        const [existeTurno] = await Mysql.query('SELECT * FROM turnos WHERE nombre = ?', [req.body.nombre]);
+        const [existeTurno] = await Mysql.query('SELECT * FROM turnos WHERE nombreTurnos = ?', [req.body.nombreTurnos]);
 
         // Validacion e insercion ...
         if (Array.isArray(existeTurno) && existeTurno.length == 0 ){
@@ -52,13 +52,13 @@ class turnosControllers {
 
     public async updateTurn (req: Request, res: Response) {
         // Recupero obra social si existe ...
-        const [existeOS] = await Mysql.query('SELECT * FROM turnos WHERE nombre = ?', [req.body.nombre]);
+        const [existeOS] = await Mysql.query('SELECT * FROM turnos WHERE nombreTurnos = ?', [req.body.nombreTurnos]);
         
         //if(Array.isArray(existeTurno) && existeTurno.length == 0 ){
             try{
                 const { id } = req.params;
-                await Mysql.query('UPDATE turnos set ? WHERE id = ?', [req.body, id]);
-                res.json({mesage: 'Turno actualizad' });
+                await Mysql.query('UPDATE turnos set ? WHERE idTurnos = ?', [req.body, id]);
+                res.json({mesage: 'Turno actualizado' });
             }catch(error){
                 console.log("Error al actualizar turno: " + error);
             }
@@ -72,7 +72,7 @@ class turnosControllers {
     public async deleteTurn (req: Request, res: Response): Promise<void> {
         try{
             const { id } = req.params;
-            await Mysql.query('DELETE FROM turnos WHERE id = ?', [id]);
+            await Mysql.query('DELETE FROM turnos WHERE idTurnos = ?', [id]);
             res.json({message:'Turno cancelado'});
         }catch(error){
             console.log("Error al cancelar turno: " + error);

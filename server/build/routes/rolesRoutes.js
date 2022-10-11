@@ -13,9 +13,10 @@ class RolesRoutes {
     config() {
         this.router.post('/', rolesController_1.default.addRole);
         this.router.get('/', rolesController_1.default.listRole);
+        this.router.get('/:id', rolesController_1.default.getOneRol);
         this.router.delete('/:id', rolesController_1.default.deleteRole);
         this.router.put('/:id', rolesController_1.default.updateRole);
     }
 }
 const rolesRoutes = new RolesRoutes();
-exports.default = RolesRoutes;
+exports.default = rolesRoutes.router;

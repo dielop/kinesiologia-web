@@ -30,9 +30,10 @@ button.agregar{
     font-size: 12px !important;
 }
 
+/*
 ::ng-deep .mat-focused .mat-form-field-label {
     display:none !important;
-}
+}*/
 
 /* Filtrado */
 

@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Paciente } from '../../../models/pacientes';
 import { ObrasocialService } from 'src/app/services/obra-social/obrasocial.service';
 import { ToastrService } from 'ngx-toastr';
-import { ProfesionalesService } from 'src/app/services/profesionales/profesionales.service';
+import { LocalidadesService } from 'src/app/services/localidades/localidades.service';
 
 @Component({
   selector: 'app-crear-paciente',
@@ -14,17 +14,17 @@ export class CrearPacienteComponent implements OnInit {
 
   public insertar:any; 
   public obrasSociales:any = [];
-  public profesionales:any = [];
+  public localidades:any = [];
   
   constructor(public dialogRef: MatDialogRef<CrearPacienteComponent>,
               @ Inject(MAT_DIALOG_DATA) public data: Paciente,
               private obraSocialService : ObrasocialService,
-              private profesionalesService : ProfesionalesService,
+              private localidadesService: LocalidadesService,
               private toast: ToastrService ) { }
 
   ngOnInit(): void {
     this.cargarObrasSociales();
-    this.cargarProfesionales();
+    this.cargarLocalidades();
   }
 
   cargarObrasSociales(): void {
@@ -41,18 +41,18 @@ export class CrearPacienteComponent implements OnInit {
     });
   }
 
-  cargarProfesionales(): void {
-    this.profesionalesService.getProfesionales().subscribe(
-     {
-       next:res => {
-         this.profesionales = res;
-       },
-       error:err => {
-         this.toast.error(err.error.message, 'Fail', {
-           timeOut:3000
-         });
-       }
-     });
+ cargarLocalidades(): void {
+  this.localidadesService.getLocalidades().subscribe(
+    {
+      next:res => {
+        this.localidades = res;
+      },
+      error: err => {
+        this.toast.error(err.error.message, 'Fail', {
+          timeOut:3000
+        });
+      }
+    });
  }
 
   cancelar(){

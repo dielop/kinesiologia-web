@@ -63,7 +63,7 @@ export class ListarUsersComponent implements OnInit {
                           userCod: '',
                           username: '',
                           password: '',
-                          roleId: '',
+                          rolesCod: '',
                           created_at: new Date().toISOString
                               }
     })

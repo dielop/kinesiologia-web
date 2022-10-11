@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource, _MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { Paciente } from '../../../models/pacientes';
 import { PacientesService } from '../../../services/pacientes.service';
 import { CrearPacienteComponent } from '../crear/crear-paciente.component';
@@ -27,9 +26,7 @@ export class ListarPacienteComponent implements OnInit {
   
   constructor( private pacienteService: PacientesService,
                public dialog:MatDialog,
-               private toast: ToastrService,
-               private router: Router,
-               private changeDetectorRefs: ChangeDetectorRef) { }
+               private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.cargarPacientes();
@@ -103,18 +100,17 @@ export class ListarPacienteComponent implements OnInit {
 
   openNuevoPaciente(){
     let dialogRef = this.dialog.open(CrearPacienteComponent, {
-      data: this.pacientes = {  id: 0,
-                                dni: '',
-                                nombre: '',
-                                apellido: '',
-                                localidad: '',
-                                direccion: '',
-                                telefono: '',
-                                observaciones: '',
-                                h_clinica: '',
-                                id_obrasocial: 0,
-                                nro_afiliado: '',
-                                id_profesionales: 0,
+      data: this.pacientes = {  idPacientes: 0,
+                                dniPacientes: '',
+                                nombrePacientes: '',
+                                apellidoPacientes: '',
+                                idLocalidades: 0,
+                                direccionPacientes: '',
+                                telefonoPacientes: '',
+                                obsPacientes: '',
+                                hisClinicaPacientes: '',
+                                idObraSocial: 0,
+                                nroAfiliadoPacientes: '',
                                 created_at: new Date().toISOString
                                 },
     width:'40%'
@@ -152,21 +148,19 @@ export class ListarPacienteComponent implements OnInit {
           console.log(this.pacientes);
           let dialogRef = this.dialog.open(ModificarPacienteComponent, { 
             data: { 
-                    id: this.pacientes.id,
-                    dni: this.pacientes.dni,
-                    nombre:  this.pacientes.nombre,
-                    apellido: this.pacientes.apellido,
-                    localidad: this.pacientes.localidad,
-                    direccion: this.pacientes.direccion,
-                    telefono: this.pacientes.telefono,
-                    observaciones: this.pacientes.observaciones,
-                    h_clinica: this.pacientes.h_clinica,
-                    id_obrasocial: this.pacientes.id_obrasocial,
-                    nro_afiliado: this.pacientes.nro_afiliado,
-                    id_profesionales: this.pacientes.id_profesionales,
+                    idPacientes: this.pacientes.idPacientes,
+                    dniPacientes: this.pacientes.dniPacientes,
+                    nombrePacientes:  this.pacientes.nombrePacientes,
+                    apellidoPacientes: this.pacientes.apellidoPacientes,
+                    idLocalidades: this.pacientes.idLocalidades,
+                    direccionPacientes: this.pacientes.direccionPacientes,
+                    telefonoPacientes: this.pacientes.telefonoPacientes,
+                    obsPacientes: this.pacientes.obsPacientes,
+                    hisClinicaPacientes: this.pacientes.hisClinicaPacientes,
+                    idObraSocial: this.pacientes.idObraSocial,
+                    nroAfiliadoPacientes: this.pacientes.nroAfiliadoPacientes
                   },
-            width:'40%'
-                  
+            width:'40%'    
           })
       
           dialogRef.afterClosed().subscribe(pac => {

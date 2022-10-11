@@ -21,7 +21,7 @@ class ProfesionalesController {
         // Recupero los datos del profesional buscado ...
 
         const { id } = req.params;
-        const profesionales = await Mysql.execute('SELECT * FROM profesionales WHERE id = ?', [id]);
+        const profesionales = await Mysql.execute('SELECT * FROM profesionales WHERE idProfesionales = ?', [id]);
 
          // Retornar si hay datos ...
 
@@ -36,7 +36,7 @@ class ProfesionalesController {
     public async create (req: Request, res: Response): Promise<void> {
 
         // Recupero DNI ... 
-        const [existeDNI] = await Mysql.query('SELECT * FROM profesionales WHERE dni = ?', [req.body.dni]);
+        const [existeDNI] = await Mysql.query('SELECT * FROM profesionales WHERE dniProfesionales = ?', [req.body.dniProfesionales]);
 
         // Validaciones e inserciones ...
         if ( Array.isArray(existeDNI) && existeDNI.length == 0 ) {
@@ -62,7 +62,7 @@ class ProfesionalesController {
         //if ( Array.isArray(existeDNI) && existeDNI.length == 0 ) {
             try{
                 const { id } = req.params;
-                await Mysql.query('UPDATE profesionales set ? WHERE id = ?', [req.body, id]);
+                await Mysql.query('UPDATE profesionales set ? WHERE idProfesionales = ?', [req.body, id]);
                 res.json({mesage: 'El profesional ha sido actualizado' });
             }catch(error){
                 console.log("Error al actualizar el profesional: " + error);
@@ -77,7 +77,7 @@ class ProfesionalesController {
     public async delete (req: Request, res: Response): Promise<void> {
         try{
             const { id } = req.params;
-            await Mysql.query('DELETE FROM profesionales WHERE id = ?', [id]);
+            await Mysql.query('DELETE FROM profesionales WHERE idProfesionales = ?', [id]);
             res.json({message:'El profesional fue eliminado'});
         }catch(error){
             console.log("Error al eliminar el profesional: " + error);

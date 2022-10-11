@@ -19,11 +19,11 @@ class UsersController{
 
     // Registro de usuarios
     public async addUser(req: Request, res: Response){
-        const { username, password, roleId } = req.body;
+        const { userCod, username, password, rolesCod } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10); // hasheo el password para encriptar
         
         try{
-            Mysql.query('INSERT INTO users set ?', { username: username, password: hashedPassword, roleId: roleId });
+            Mysql.query('INSERT INTO users set ?', { userCod:userCod, username: username, password: hashedPassword, rolesCod: rolesCod });
             res.json({
                 msg:'Usuario creado con exito',
             })
@@ -49,16 +49,15 @@ class UsersController{
             //Existe el usuario en la base de datos entonces lo tengo que parsear para recuperar valor
             const parser = JSON.parse(loginResult);
             const userPassword = parser[0].password;
+
             //Comparamos password
-            bcrypt.compare(password, userPassword).then((result)=>{              
+            bcrypt.compare(password, userPassword).then((result)=>{         
                 if(result){
                     //Login exitoso -> generamos el token
-                    console.log(username);
-                    const role = parser[0].roleId;
-                    console.log(role);
+                    const role = parser[0].rolesCod;
                     const token = jwt.sign({
                         username:username,
-                        roleId:role
+                        rolesCod:role
                     }, process.env.SECRET_KEY || '123456' )
 
                     res.json({

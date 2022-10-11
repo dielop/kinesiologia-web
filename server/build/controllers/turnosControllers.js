@@ -28,7 +28,7 @@ class turnosControllers {
         return __awaiter(this, void 0, void 0, function* () {
             // Recupero los datos del turno buscado ...
             const { id } = req.params;
-            const turno = yield database_1.Mysql.execute('SELECT * FROM turnos WHERE id = ?', [id]);
+            const turno = yield database_1.Mysql.execute('SELECT * FROM turnos WHERE idTurnos = ?', [id]);
             // Retornar si hay datos ...
             if (turno.length > 0) {
                 if (Array.isArray(turno[0]))
@@ -41,7 +41,7 @@ class turnosControllers {
     createTurn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // Recupero obra social si existe ...
-            const [existeTurno] = yield database_1.Mysql.query('SELECT * FROM turnos WHERE nombre = ?', [req.body.nombre]);
+            const [existeTurno] = yield database_1.Mysql.query('SELECT * FROM turnos WHERE nombreTurnos = ?', [req.body.nombreTurnos]);
             // Validacion e insercion ...
             if (Array.isArray(existeTurno) && existeTurno.length == 0) {
                 try {
@@ -61,12 +61,12 @@ class turnosControllers {
     updateTurn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // Recupero obra social si existe ...
-            const [existeOS] = yield database_1.Mysql.query('SELECT * FROM turnos WHERE nombre = ?', [req.body.nombre]);
+            const [existeOS] = yield database_1.Mysql.query('SELECT * FROM turnos WHERE nombreTurnos = ?', [req.body.nombreTurnos]);
             //if(Array.isArray(existeTurno) && existeTurno.length == 0 ){
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('UPDATE turnos set ? WHERE id = ?', [req.body, id]);
-                res.json({ mesage: 'Turno actualizad' });
+                yield database_1.Mysql.query('UPDATE turnos set ? WHERE idTurnos = ?', [req.body, id]);
+                res.json({ mesage: 'Turno actualizado' });
             }
             catch (error) {
                 console.log("Error al actualizar turno: " + error);
@@ -81,7 +81,7 @@ class turnosControllers {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('DELETE FROM turnos WHERE id = ?', [id]);
+                yield database_1.Mysql.query('DELETE FROM turnos WHERE idTurnos = ?', [id]);
                 res.json({ message: 'Turno cancelado' });
             }
             catch (error) {

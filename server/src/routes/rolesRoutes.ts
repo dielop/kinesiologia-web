@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import RolesControllers from '../controllers/rolesController';
+import rolesControllers from '../controllers/rolesController';
 
 class RolesRoutes {
 
@@ -10,13 +10,14 @@ class RolesRoutes {
     }
     
     config(): void {
-        this.router.post('/', RolesControllers.addRole);
-        this.router.get('/', RolesControllers.listRole);
-        this.router.delete('/:id', RolesControllers.deleteRole);
-        this.router.put('/:id', RolesControllers.updateRole);
+        this.router.post('/', rolesControllers.addRole);
+        this.router.get('/', rolesControllers.listRole);
+        this.router.get('/:id', rolesControllers.getOneRol);
+        this.router.delete('/:id', rolesControllers.deleteRole);
+        this.router.put('/:id', rolesControllers.updateRole);
     }
     
 }
 
 const rolesRoutes = new RolesRoutes();
-export default RolesRoutes;
+export default rolesRoutes.router;

@@ -14,19 +14,19 @@
     <!-- Nombre Columna -->
     <ng-container matColumnDef="Nombre" class = "columna">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-      <td mat-cell *matCellDef= "let row"> {{row.nombre}} </td>
+      <td mat-cell *matCellDef= "let row"> {{row.nombreObraSocial}} </td>
     </ng-container>
 
      <!-- Plan Columna -->
      <ng-container matColumnDef="Plan" class = "columna">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Plan </th>
-      <td mat-cell *matCellDef= "let row"> {{row.plan}} </td>
+      <td mat-cell *matCellDef= "let row"> {{row.planObraSocial}} </td>
     </ng-container>
 
     <!-- Observaciones Columna -->
     <ng-container matColumnDef="Observaciones" class = "columna">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Observaciones </th>
-      <td mat-cell *matCellDef= "let row"> {{row.observaciones}} </td>
+      <td mat-cell *matCellDef= "let row"> {{row.obsObraSocial}} </td>
     </ng-container>
 
 
@@ -34,8 +34,8 @@
     <ng-container matColumnDef="Acciones" class = "columna">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef= "let row"> 
-      <a><button mat-mini-fab (click)="modificarObraSocial(row.id)"><mat-icon>edit</mat-icon></button></a>
-      <a><button mat-mini-fab (click)="eliminarObraSocial(row.id)"><mat-icon>delete</mat-icon></button></a>
+      <a><button mat-mini-fab (click)="modificarObraSocial(row.idObraSocial)"><mat-icon>edit</mat-icon></button></a>
+      <a><button mat-mini-fab (click)="eliminarObraSocial(row.idObraSocial)"><mat-icon>delete</mat-icon></button></a>
       </td>
     </ng-container>
 

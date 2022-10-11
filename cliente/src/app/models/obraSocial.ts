@@ -1,9 +1,9 @@
 export interface ObraSocial { 
     
-    id?: Number;
-    nombre: String;
-    plan: String;
-    observaciones: String;
+    idObraSocial?: Number;
+    nombreObraSocial: String;
+    planObraSocial: String;
+    obsObraSocial: String;
     created_at: Date;
     
 }

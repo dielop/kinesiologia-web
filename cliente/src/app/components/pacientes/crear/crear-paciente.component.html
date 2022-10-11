@@ -6,81 +6,74 @@
                 <div class= "form-group">                                
                     <mat-form-field appearance="outline">
                         <mat-label>DNI</mat-label>
-                        <input matInput type="number" class="form-control" id="DNI" name="DNI"
-                        [(ngModel)]= "data.dni" required>
+                        <input matInput type="number" class="form-control" id="dniPacientes" name="dniPacientes"
+                        [(ngModel)]= "data.dniPacientes" required>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Telefono</mat-label>
-                        <input matInput type="number" class="form-control" id="telefono" name="telefono"
-                        [(ngModel)]= "data.telefono">
+                        <input matInput type="number" class="form-control" id="telefonoPacientes" name="telefonoPacientes"
+                        [(ngModel)]= "data.telefonoPacientes">
                     </mat-form-field>
                 </div>
 
                 <div class= "form-group"> 
                     <mat-form-field appearance="outline">
                     <mat-label>Nombre</mat-label>
-                    <input matInput type="text" class="form-control" id="nombre" name="nombre"
-                    [(ngModel)]= "data.nombre" required>
+                    <input matInput type="text" class="form-control" id="nombrePacientes" name="nombrePacientes"
+                    [(ngModel)]= "data.nombrePacientes" required>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido</mat-label>
-                        <input matInput type="text" class="form-control" id="apellido" name="apellido"
-                            [(ngModel)]= "data.apellido" required>
+                        <input matInput type="text" class="form-control" id="apellidoPacientes" name="apellidoPacientes"
+                            [(ngModel)]= "data.apellidoPacientes" required>
                     </mat-form-field>
                 </div>
 
-                <div class= "form-group">          
+                <div class= "form-group">
                     <mat-form-field appearance="outline">
-                        <mat-label>Localidad</mat-label>
-                        <input matInput type="text" class="form-control" id="localidad" name="localidad"
-                        [(ngModel)]= "data.localidad">
+                        <mat-label>Seleccionar Localidad</mat-label>
+                            <mat-select [(ngModel)] = "data.idLocalidades" name="idLocalidades">
+                                <mat-option *ngFor= "let localidades of localidades" [value]= "localidades.idLocalidades">
+                                    {{localidades.nombreLocalidades}}
+                                </mat-option> 
+                            </mat-select>
                     </mat-form-field>
+
                     <mat-form-field appearance="outline">
                         <mat-label>Direccion</mat-label>
-                        <input matInput type="text" class="form-control" id="direccion" name="direccion"
-                        [(ngModel)]= "data.direccion">
+                        <input matInput type="text" class="form-control" id="direccionPacientes" name="direccionPacientes"
+                        [(ngModel)]= "data.direccionPacientes">
                     </mat-form-field>
                 </div>
 
                 <div class= "form-group">
                     <mat-form-field appearance="outline">
                         <mat-label>Seleccionar O.Social</mat-label>
-                            <mat-select [(ngModel)] = "data.id_obrasocial" name="id_obrasocial">
-                                <mat-option *ngFor= "let obrasocial of obrasSociales" [value]= "obrasocial.id">
-                                    {{obrasocial.nombre}}
+                            <mat-select [(ngModel)] = "data.idObraSocial" name="idObraSocial">
+                                <mat-option *ngFor= "let obrasocial of obrasSociales" [value]= "obrasocial.idObraSocial">
+                                    {{obrasocial.nombreObraSocial}}
                                 </mat-option> 
                             </mat-select>
                     </mat-form-field>                    
                     <mat-form-field appearance="outline">
                         <mat-label>Nº Afiliado</mat-label>
-                        <input matInput type="text" class="form-control" id="nro_afiliado" name="nro_afiliado"
-                        [(ngModel)]= "data.nro_afiliado">
+                        <input matInput type="text" class="form-control" id="nroAfiliadoPacientes" name="nroAfiliadoPacientes"
+                        [(ngModel)]= "data.nroAfiliadoPacientes">
                     </mat-form-field>                           
                 </div>
-
-                <div class= "form-group">
-                <mat-form-field appearance="outline">
-                    <mat-label>Seleccionar Profesional</mat-label>
-                        <mat-select [(ngModel)] = "data.id_profesionales" name="id_profesionales">
-                            <mat-option *ngFor= "let profesional of profesionales" [value]= "profesional.id">
-                                {{profesional.nombre}}
-                            </mat-option>
-                        </mat-select>
-                </mat-form-field>
-                </div> 
 
                 <div class= "observaciones">
                     <mat-form-field appearance="outline">
                         <mat-label>Observaciones</mat-label>
-                        <textarea matInput type="text" class="form-control" id="observaciones" name="observaciones"
-                        [(ngModel)]= "data.observaciones"></textarea>
+                        <textarea matInput type="text" class="form-control" id="obsPacientes" name="obsPacientes"
+                        [(ngModel)]= "data.obsPacientes"></textarea>
                     </mat-form-field>
                 </div>
                 <div class= "h_clinica">
                     <mat-form-field appearance="outline">
                         <mat-label>Historia Clínica</mat-label>
-                        <textarea matInput type="text" class="form-control" id="h_clinica" name="h_clinica"
-                        [(ngModel)]= "data.h_clinica"></textarea>
+                        <textarea matInput type="text" class="form-control" id="hisClinicaPacientes" name="hisClinicaPacientes"
+                        [(ngModel)]= "data.hisClinicaPacientes"></textarea>
                     </mat-form-field>
                 </div>                   
             </form>  

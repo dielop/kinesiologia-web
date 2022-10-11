@@ -97,14 +97,14 @@ export class ListarComponent implements OnInit {
 
   openNuevoProfesional(){
     let dialogRef = this.dialog.open(NuevoComponent, {
-      data: this.profesional = {  id: 0,
-                                  dni: '',
-                                  nombre: '',
-                                  apellido: '',
-                                  localidad: '',
-                                  direccion: '',
-                                  telefono: '',
-                                  especialidad: '',
+      data: this.profesional = {  idProfesionales: 0,
+                                  dniProfesionales: '',
+                                  nombreProfesionales: '',
+                                  apellidoProfesionales: '',
+                                  idLocalidades: 0,
+                                  direccionProfesionales: '',
+                                  telefonoProfesionales: '',
+                                  especProfesionales: '',
                                   created_at: new Date().toISOString
                                 }
     })
@@ -141,14 +141,14 @@ export class ListarComponent implements OnInit {
             console.log(this.profesional);
             let dialogRef = this.dialog.open(ModificarComponent, { 
               data: { 
-                      id: this.profesional.id,
-                      dni: this.profesional.dni,
-                      nombre:  this.profesional.nombre,
-                      apellido: this.profesional.apellido,
-                      localidad: this.profesional.localidad,
-                      direccion: this.profesional.direccion,
-                      telefono: this.profesional.telefono,
-                      especialidad: this.profesional.especialidad
+                      idProfesionales: this.profesional.idProfesionales,
+                      dniProfesionales: this.profesional.dniProfesionales,
+                      nombreProfesionales:  this.profesional.nombreProfesionales,
+                      apellidoProfesionales: this.profesional.apellidoProfesionales,
+                      idLocalidades: this.profesional.idLocalidades,
+                      direccionProfesionales: this.profesional.direccionProfesionales,
+                      telefonoProfesionales: this.profesional.telefonoProfesionales,
+                      especProfesionales: this.profesional.especProfesionales
                     }
                     
           })

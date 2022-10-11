@@ -28,7 +28,7 @@ class obrasSocialesController {
         return __awaiter(this, void 0, void 0, function* () {
             // Recupero los datos la obra social buscada ...
             const { id } = req.params;
-            const obrasocial = yield database_1.Mysql.execute('SELECT * FROM obrasocial WHERE id = ?', [id]);
+            const obrasocial = yield database_1.Mysql.execute('SELECT * FROM obrasocial WHERE idObraSocial = ?', [id]);
             // Retornar si hay datos ...
             if (obrasocial.length > 0) {
                 if (Array.isArray(obrasocial[0]))
@@ -41,7 +41,7 @@ class obrasSocialesController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // Recupero obra social si existe ...
-            const [existeOS] = yield database_1.Mysql.query('SELECT * FROM obrasocial WHERE nombre = ?', [req.body.nombre]);
+            const [existeOS] = yield database_1.Mysql.query('SELECT * FROM obrasocial WHERE nombreObraSocial = ?', [req.body.nombreObraSocial]);
             // Validacion e insercion ...
             if (Array.isArray(existeOS) && existeOS.length == 0) {
                 try {
@@ -61,11 +61,11 @@ class obrasSocialesController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // Recupero obra social si existe ...
-            const [existeOS] = yield database_1.Mysql.query('SELECT * FROM obrasocial WHERE nombre = ?', [req.body.nombre]);
+            const [existeOS] = yield database_1.Mysql.query('SELECT * FROM obrasocial WHERE nombreObraSocial = ?', [req.body.nombreObraSocial]);
             //if(Array.isArray(existeOS) && existeOS.length == 0 ){
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('UPDATE obrasocial set ? WHERE id = ?', [req.body, id]);
+                yield database_1.Mysql.query('UPDATE obrasocial set ? WHERE idObraSocial = ?', [req.body, id]);
                 res.json({ mesage: 'Obra social actualizada' });
             }
             catch (error) {
@@ -81,7 +81,7 @@ class obrasSocialesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('DELETE FROM obrasocial WHERE id = ?', [id]);
+                yield database_1.Mysql.query('DELETE FROM obrasocial WHERE idObraSocial = ?', [id]);
                 res.json({ message: 'Obra social eliminada' });
             }
             catch (error) {

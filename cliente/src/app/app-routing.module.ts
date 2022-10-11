@@ -18,6 +18,12 @@ import { RoleGuard } from './guards/role.guard';
 import { SignInComponent } from './components/login/sign-in/sign-in.component';
 import { ListarUsersComponent } from './components/login/listar/listar-users.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { ListarLocalidadesComponent } from './components/localidades/listar-localidades/listar-localidades.component';
+import { ModificarLocalidadesComponent } from './components/localidades/modificar-localidades/modificar-localidades.component';
+import { CrearLocalidadesComponent } from './components/localidades/crear-localidades/crear-localidades.component';
+import { ListarRolesComponent } from './components/roles/listar-roles/listar-roles.component';
+import { ModificarRolComponent } from './components/roles/modificar-rol/modificar-rol.component';
+import { NuevoRolComponent } from './components/roles/nuevo-rol/nuevo-rol.component';
 
 const routes: Routes = [
   
@@ -29,18 +35,26 @@ const routes: Routes = [
               {path: 'crear-paciente', component: CrearPacienteComponent, canActivate: [AuthGuard]},
               {path: 'modificar-paciente/:id', component: ModificarPacienteComponent, canActivate: [AuthGuard]},
               {path: 'detalle-paciente/:id', component: DetallePacienteComponent, canActivate: [AuthGuard]},
-              {path: 'listar-OS', component: ListarOSComponent, canActivate: [RoleGuard], data: { expectedRole : 'administrador' } },
+              {path: 'listar-OS', component: ListarOSComponent, canActivate: [AuthGuard]},
               {path: 'crear-OS', component: NuevoOSComponent, canActivate: [AuthGuard]},
               {path: 'modificar-OS/:id', component: ModificarOSComponent, canActivate: [AuthGuard]},
               {path: 'listar', component: ListarComponent, canActivate: [AuthGuard]},
               {path: 'crear', component: NuevoComponent, canActivate: [AuthGuard]},
               {path: 'modificar/:id', component: ModificarComponent, canActivate: [AuthGuard]},
-              {path: 'sign-in', component:SignInComponent, canActivate: [AuthGuard]},
-              {path: 'listar-users', component:ListarUsersComponent, canActivate: [AuthGuard]},
+              {path: 'sign-in', component:SignInComponent, canActivate: [AuthGuard] },
+              {path: 'listar-users', component:ListarUsersComponent, canActivate: [AuthGuard] },
+              {path: 'listar-localidades', component:ListarLocalidadesComponent, canActivate: [AuthGuard]},
+              {path: 'crear-localidades', component:CrearLocalidadesComponent, canActivate: [AuthGuard]},
+              {path: 'modificar-localidades', component:ModificarLocalidadesComponent, canActivate: [AuthGuard]},
+              {path: 'listar-roles', component:ListarRolesComponent, canActivate: [AuthGuard, RoleGuard], data:{expectedRole: '1'} },
+              {path: 'modificar-rol', component:ModificarRolComponent, canActivate: [AuthGuard, RoleGuard], data:{expectedRole: '1'} },
+              {path: 'nuevo-rol', component:NuevoRolComponent, canActivate: [AuthGuard, RoleGuard], data:{expectedRole: '1'} },
               {path: '**', redirectTo: '', pathMatch: 'full'},
               ],
   }
 ];
+
+// data: { expectedRole : 'administrador' }
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -29,10 +29,10 @@ button.agregar{
     margin-left: 10px;
     font-size: 12px !important;
 }
-
+/*
 ::ng-deep .mat-focused .mat-form-field-label {
     display:none !important;
-}
+}*/
 
 /* Filtrado */
 

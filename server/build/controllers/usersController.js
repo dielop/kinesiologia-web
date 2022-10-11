@@ -32,10 +32,10 @@ class UsersController {
     // Registro de usuarios
     addUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { username, password, roleId } = req.body;
+            const { userCod, username, password, rolesCod } = req.body;
             const hashedPassword = yield bcrypt_1.default.hash(password, 10); // hasheo el password para encriptar
             try {
-                database_1.Mysql.query('INSERT INTO users set ?', { username: username, password: hashedPassword, roleId: roleId });
+                database_1.Mysql.query('INSERT INTO users set ?', { userCod: userCod, username: username, password: hashedPassword, rolesCod: rolesCod });
                 res.json({
                     msg: 'Usuario creado con exito',
                 });
@@ -66,12 +66,10 @@ class UsersController {
                 bcrypt_1.default.compare(password, userPassword).then((result) => {
                     if (result) {
                         //Login exitoso -> generamos el token
-                        console.log(username);
-                        const role = parser[0].roleId;
-                        console.log(role);
+                        const role = parser[0].rolesCod;
                         const token = jsonwebtoken_1.default.sign({
                             username: username,
-                            roleId: role
+                            rolesCod: role
                         }, process.env.SECRET_KEY || '123456');
                         res.json({
                             token

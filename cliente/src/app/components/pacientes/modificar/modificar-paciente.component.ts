@@ -1,10 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Paciente } from 'src/app/models/pacientes';
 import { ObrasocialService } from 'src/app/services/obra-social/obrasocial.service';
-import { ProfesionalesService } from 'src/app/services/profesionales/profesionales.service';
+import { LocalidadesService } from 'src/app/services/localidades/localidades.service';
 
 
 @Component({
@@ -16,17 +15,17 @@ export class ModificarPacienteComponent implements OnInit {
 
   public paciente: Paciente = null;
   public obrasSociales: any = [];
-  public profesionales: any = [];
+  public localidades: any = [];
 
   constructor( public dialogRef: MatDialogRef<ModificarPacienteComponent>,
               @ Inject(MAT_DIALOG_DATA) public data: Paciente,
               private obraSocialService : ObrasocialService,
-              private profesionalesService : ProfesionalesService,
+              private localidadesService : LocalidadesService,
               private toast: ToastrService ) { }
 
 ngOnInit(): void {
   this.cargarObrasSociales();
-  this.cargarProfesionales();
+  this.cargarLocalidades();
 }
 
 cargarObrasSociales(): void {
@@ -43,11 +42,11 @@ cargarObrasSociales(): void {
   });
 }
 
-cargarProfesionales(): void {
-  this.profesionalesService.getProfesionales().subscribe(
+cargarLocalidades(): void {
+  this.localidadesService.getLocalidades().subscribe(
     {
       next:res => {
-        this.profesionales = res;
+        this.localidades = res;
       },
       error:err => {
         this.toast.error(err.error.message, 'Fail', {

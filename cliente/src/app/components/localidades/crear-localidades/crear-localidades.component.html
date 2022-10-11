@@ -1,0 +1,26 @@
+<div>
+    <h2 mat-dialog-title>Alta de Localidad</h2> 
+    <div mat-dialog-content>
+        <div  class="container">           
+            <form novalidate #f="ngForm">
+
+                <div class= "form-group"> 
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput type="text" class="form-control" id="nombreLocalidades" name="nombreLocalidades"
+                        [(ngModel)]= "data.nombreLocalidades">
+                    </mat-form-field>
+                </div>
+            </form>  
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <div class="botones">
+            <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial *ngIf="data; else cargandoTemplate">Guardar</button>
+            <button mat-raised-button color="basic" (click)="cancelar()">Cancelar</button>
+        </div>
+    </div>
+    <ng-template #cargandoTemplate>
+        <mat-spinner></mat-spinner>
+    </ng-template>
+</div>

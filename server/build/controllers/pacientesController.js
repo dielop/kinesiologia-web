@@ -28,7 +28,7 @@ class PacientesController {
         return __awaiter(this, void 0, void 0, function* () {
             // Recupero los datos del paciente buscado ...
             const { id } = req.params;
-            const paciente = yield database_1.Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
+            const paciente = yield database_1.Mysql.execute('SELECT * FROM pacientes WHERE idPacientes = ?', [id]);
             // Retornar si hay datos ...
             if (paciente.length > 0) {
                 console.log(JSON.stringify(paciente));
@@ -43,7 +43,7 @@ class PacientesController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // Validaciones e inserciones ...
-            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM pacientes WHERE dni = ?', [req.body.dni]);
+            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM pacientes WHERE dniPacientes = ?', [req.body.dniPacientes]);
             if (Array.isArray(existeDNI) && existeDNI.length == 0) {
                 try {
                     yield database_1.Mysql.query('INSERT INTO pacientes set ?', [req.body]);
@@ -65,12 +65,12 @@ class PacientesController {
             //const { id } = req.params;
             //const existeId = await Mysql.execute('SELECT * FROM pacientes WHERE id = ?', [id]);
             //const existeId = await Mysql.query('SELECT * FROM pacientes WHERE id = ?', [req.body.id]);
-            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM pacientes WHERE dni = ?', [req.body.dni]);
+            const [existeDNI] = yield database_1.Mysql.query('SELECT * FROM pacientes WHERE dniPacientes = ?', [req.body.dniPacientes]);
             //if ( Array.isArray(existeDNI) && existeDNI.length == 0 ||  ) {
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('UPDATE pacientes set ? WHERE id = ?', [req.body, id]);
-                res.json({ mesage: 'El paciente ha sido actualizado' });
+                yield database_1.Mysql.query('UPDATE pacientes set ? WHERE idPacientes = ?', [req.body, id]);
+                res.json({ message: 'El paciente ha sido actualizado' });
             }
             catch (error) {
                 console.log("Error al actualizar el paciente: " + error);
@@ -85,7 +85,7 @@ class PacientesController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { id } = req.params;
-                yield database_1.Mysql.query('DELETE FROM pacientes WHERE id = ?', [id]);
+                yield database_1.Mysql.query('DELETE FROM pacientes WHERE idPacientes = ?', [id]);
                 res.json({ message: 'El paciente fue eliminado' });
             }
             catch (error) {

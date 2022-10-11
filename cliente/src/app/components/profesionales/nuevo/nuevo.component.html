@@ -6,47 +6,50 @@
                 <div class= "form-group">                                
                     <mat-form-field appearance="outline">
                         <mat-label>DNI</mat-label>
-                        <input matInput type="number" class="form-control" id="DNI" name="DNI"
-                        [(ngModel)]= "data.dni" required>
+                        <input matInput type="number" class="form-control" id="dniProfesionales" name="dniProfesionales"
+                        [(ngModel)]= "data.dniProfesionales" required>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Especialidad</mat-label>
-                        <input matInput type="text" class="form-control" id="especialidad" name="especialidad"
-                        [(ngModel)]= "data.especialidad">
+                        <input matInput type="text" class="form-control" id="especProfesionales" name="especProfesionales"
+                        [(ngModel)]= "data.especProfesionales">
                     </mat-form-field>
                 </div>
 
                 <div class= "form-group"> 
                     <mat-form-field appearance="outline">
                         <mat-label>Nombre</mat-label>
-                        <input matInput type="text" class="form-control" id="nombre" name="nombre"
-                        [(ngModel)]= "data.nombre" required>
+                        <input matInput type="text" class="form-control" id="nombreProfesionales" name="nombreProfesionales"
+                        [(ngModel)]= "data.nombreProfesionales" required>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Apellido</mat-label>
-                        <input matInput type="text" class="form-control" id="apellido" name="apellido"
-                        [(ngModel)]= "data.apellido" required>
+                        <input matInput type="text" class="form-control" id="apellidoProfesionales" name="apellidoProfesionales"
+                        [(ngModel)]= "data.apellidoProfesionales" required>
                     </mat-form-field>
                 </div>
 
                 <div class= "form-group">          
                     <mat-form-field appearance="outline">
-                        <mat-label>Localidad</mat-label>
-                        <input matInput type="text" class="form-control" id="localidad" name="localidad"
-                        [(ngModel)]= "data.localidad">
+                        <mat-label>Seleccionar Localidad</mat-label>
+                            <mat-select [(ngModel)] = "data.idLocalidades" name="idLocalidades">
+                                <mat-option *ngFor= "let localidades of localidades" [value]= "localidades.idLocalidades">
+                                    {{localidades.nombreLocalidades}}
+                                </mat-option> 
+                            </mat-select>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Direccion</mat-label>
-                        <input matInput type="text" class="form-control" id="direccion" name="direccion"
-                        [(ngModel)]= "data.direccion">
+                        <input matInput type="text" class="form-control" id="direccionProfesionales" name="direccionProfesionales"
+                        [(ngModel)]= "data.direccionProfesionales">
                     </mat-form-field>
                 </div>
 
                 <div class= "form-group">
                     <mat-form-field appearance="outline">
                         <mat-label>Telefono</mat-label>
-                        <input matInput type="number" class="form-control" id="telefono" name="telefono"
-                        [(ngModel)]= "data.telefono">
+                        <input matInput type="number" class="form-control" id="telefonoProfesionales" name="telefonoProfesionales"
+                        [(ngModel)]= "data.telefonoProfesionales">
                     </mat-form-field>
                 </div>
                 
