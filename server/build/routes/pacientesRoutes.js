@@ -12,7 +12,7 @@ class PacientesRoutes {
     }
     config() {
         this.router.get('/', pacientesController_1.default.list);
-        this.router.get('/:id', pacientesController_1.default.getOne);
+        this.router.get('/:dni', pacientesController_1.default.getOne);
         this.router.post('/', pacientesController_1.default.create);
         this.router.delete('/:id', pacientesController_1.default.delete);
         this.router.put('/:id', pacientesController_1.default.update);

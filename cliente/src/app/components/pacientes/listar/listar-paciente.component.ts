@@ -141,8 +141,8 @@ export class ListarPacienteComponent implements OnInit {
     });
   }
 
-  modificarPaciente(id: number){
-    this.pacienteService.getPaciente(id).subscribe({
+  modificarPaciente(dni: number){
+    this.pacienteService.getPaciente(dni).subscribe({
       next: res => {
           this.pacientes = res;
           console.log(this.pacientes);
@@ -165,7 +165,7 @@ export class ListarPacienteComponent implements OnInit {
       
           dialogRef.afterClosed().subscribe(pac => {
                 if (pac != undefined)
-                this.onUpdate(id, pac);
+                this.onUpdate(dni, pac);
           });
       }, 
       error: err => {

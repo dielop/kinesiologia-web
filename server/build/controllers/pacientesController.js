@@ -27,8 +27,8 @@ class PacientesController {
     getOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             // Recupero los datos del paciente buscado ...
-            const { id } = req.params;
-            const paciente = yield database_1.Mysql.execute('SELECT * FROM pacientes WHERE idPacientes = ?', [id]);
+            const { dni } = req.params;
+            const paciente = yield database_1.Mysql.execute('SELECT * FROM pacientes WHERE dniPacientes = ?', [dni]);
             // Retornar si hay datos ...
             if (paciente.length > 0) {
                 console.log(JSON.stringify(paciente));

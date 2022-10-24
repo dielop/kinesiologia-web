@@ -20,7 +20,7 @@
   
           <div class="submenuTurnos" [ngClass]="{'expandir' : mostrarMenuTurnos}" >   
             <mat-list-item *ngFor = "let item of Turnos" class="nav">
-             <span>{{ item.name }}</span>
+             <span [routerLink]="item.url">{{ item.name }}</span>
             </mat-list-item>
           </div>
   

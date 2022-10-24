@@ -21,7 +21,6 @@ import { LoginComponent } from './components/login/login/login.component';
 import { SignInComponent } from './components/login/sign-in/sign-in.component';
 import { ListarUsersComponent } from './components/login/listar/listar-users.component'; 
 import { EliminarComponent } from './components/dialogs/eliminar/eliminar.component';
-import { TurnosComponent } from './components/turnos/turnos.component';
 import { ListarLocalidadesComponent } from './components/localidades/listar-localidades/listar-localidades.component';
 import { ModificarLocalidadesComponent } from './components/localidades/modificar-localidades/modificar-localidades.component';
 import { CrearLocalidadesComponent } from './components/localidades/crear-localidades/crear-localidades.component';
@@ -47,11 +46,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 // Providers
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TokenInterceptionService } from './services/autenticacion/token-interception.service';
+import { NuevoTurnoComponent } from './components/turnos/nuevo-turno/nuevo-turno.component';
+import { CancelarTurnoComponent } from './components/turnos/cancelar-turno/cancelar-turno.component';
+import { ModificarTurnoComponent } from './components/turnos/modificar-turno/modificar-turno.component';
+import { ListarTurnosComponent } from './components/turnos/listar-turnos/listar-turnos.component';
 
 
 
@@ -73,13 +77,16 @@ import { TokenInterceptionService } from './services/autenticacion/token-interce
     LoginComponent,
     SignInComponent,
     ListarUsersComponent,
-    TurnosComponent,
     ListarLocalidadesComponent,
     ModificarLocalidadesComponent,
     CrearLocalidadesComponent,
     ListarRolesComponent,
     NuevoRolComponent,
-    ModificarRolComponent
+    ModificarRolComponent,
+    NuevoTurnoComponent,
+    CancelarTurnoComponent,
+    ModificarTurnoComponent,
+    ListarTurnosComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +110,8 @@ import { TokenInterceptionService } from './services/autenticacion/token-interce
     MatCardModule,
     ToastrModule.forRoot(),
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
   ],
   providers: [
     { 

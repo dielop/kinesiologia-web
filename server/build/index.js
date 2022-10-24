@@ -14,6 +14,7 @@ const usersRoutes_1 = __importDefault(require("./routes/usersRoutes"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const localidadesRoutes_1 = __importDefault(require("./routes/localidadesRoutes"));
 const rolesRoutes_1 = __importDefault(require("./routes/rolesRoutes"));
+const turnosRoutes_1 = __importDefault(require("./routes/turnosRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -36,6 +37,7 @@ class Server {
         this.app.use('/api/users', usersRoutes_1.default);
         this.app.use('/api/localidades', localidadesRoutes_1.default);
         this.app.use('/api/roles', rolesRoutes_1.default);
+        this.app.use('/api/turnos', turnosRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {

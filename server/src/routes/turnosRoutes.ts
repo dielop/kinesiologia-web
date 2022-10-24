@@ -20,4 +20,4 @@ class TurnosRoutes {
 }
 
 const turnosRoutes = new TurnosRoutes();
-export default turnosRoutes;
+export default turnosRoutes.router;

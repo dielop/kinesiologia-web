@@ -20,8 +20,8 @@ class PacientesController {
 
         // Recupero los datos del paciente buscado ...
 
-        const { id } = req.params;
-        const paciente = await Mysql.execute('SELECT * FROM pacientes WHERE idPacientes = ?', [id]);
+        const { dni } = req.params;
+        const paciente = await Mysql.execute('SELECT * FROM pacientes WHERE dniPacientes = ?', [dni]);
 
         // Retornar si hay datos ...
         if(paciente.length > 0){

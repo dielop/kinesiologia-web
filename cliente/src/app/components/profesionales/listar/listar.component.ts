@@ -48,8 +48,8 @@ export class ListarComponent implements OnInit {
   }
 
 
-  // Cargar pacientes desde bdd
- cargarProfesionales(): void {
+  // Cargar profesionales desde bdd
+  cargarProfesionales(): void {
      this.profesionalesService.getProfesionales().subscribe(
       {
         next:res => {
@@ -63,7 +63,7 @@ export class ListarComponent implements OnInit {
       });
   }
 
-  // Eliminar pacientes
+  // Eliminar profesional
 
   eliminarProfesional(id : string){
 

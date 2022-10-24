@@ -24,6 +24,7 @@ import { CrearLocalidadesComponent } from './components/localidades/crear-locali
 import { ListarRolesComponent } from './components/roles/listar-roles/listar-roles.component';
 import { ModificarRolComponent } from './components/roles/modificar-rol/modificar-rol.component';
 import { NuevoRolComponent } from './components/roles/nuevo-rol/nuevo-rol.component';
+import { ListarTurnosComponent } from './components/turnos/listar-turnos/listar-turnos.component';
 
 const routes: Routes = [
   
@@ -46,6 +47,7 @@ const routes: Routes = [
               {path: 'listar-localidades', component:ListarLocalidadesComponent, canActivate: [AuthGuard]},
               {path: 'crear-localidades', component:CrearLocalidadesComponent, canActivate: [AuthGuard]},
               {path: 'modificar-localidades', component:ModificarLocalidadesComponent, canActivate: [AuthGuard]},
+              {path: 'listar-turnos', component:ListarTurnosComponent, canActivate: [AuthGuard]},
               {path: 'listar-roles', component:ListarRolesComponent, canActivate: [AuthGuard, RoleGuard], data:{expectedRole: '1'} },
               {path: 'modificar-rol', component:ModificarRolComponent, canActivate: [AuthGuard, RoleGuard], data:{expectedRole: '1'} },
               {path: 'nuevo-rol', component:NuevoRolComponent, canActivate: [AuthGuard, RoleGuard], data:{expectedRole: '1'} },

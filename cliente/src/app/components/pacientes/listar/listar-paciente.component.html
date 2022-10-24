@@ -39,7 +39,7 @@
       <ng-container matColumnDef="Acciones" class = "columna">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef= "let row"> 
-        <a><button mat-mini-fab (click)="modificarPaciente(row.idPacientes)"><mat-icon>edit</mat-icon></button></a>
+        <a><button mat-mini-fab (click)="modificarPaciente(row.dniPacientes)"><mat-icon>edit</mat-icon></button></a>
         <a><button mat-mini-fab (click)="eliminarPaciente(row.idPacientes)"><mat-icon>delete</mat-icon></button></a>
         </td>
       </ng-container>

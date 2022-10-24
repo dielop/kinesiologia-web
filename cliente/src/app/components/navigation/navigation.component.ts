@@ -21,7 +21,8 @@ export class NavigationComponent implements OnInit {
   }
 
   // Inicializo items de navbar
-  Turnos = [ { name:"Turnos Reservados"}
+  Turnos = [ { name:"Turnos Reservados",
+               url: "/navigation/listar-turnos" }
            ];
   
   Pacientes = [ { name:"Listado Pacientes",
