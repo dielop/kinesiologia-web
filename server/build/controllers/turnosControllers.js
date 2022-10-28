@@ -23,6 +23,33 @@ class turnosControllers {
             }
         });
     }
+    // Listado de turnos reservados con datos para tabla ... 
+    listTurnosReserved(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { dateSelected } = req.params;
+            try {
+                const [turnReserved] = yield database_1.Mysql.execute(`select  turnos.Hora, 
+                                                                turnos.FechaTurno,
+                                                                pacientes.nombrePacientes,
+                                                                pacientes.apellidoPacientes,
+                                                                profesionales.nombreProfesionales,
+                                                                profesionales.apellidoProfesionales,
+                                                                ( select obraSocial.nombreObraSocial
+                                                                  from pacientes join obrasocial on
+                                                                                 ( pacientes.idObraSocial = obrasocial.idObraSocial )
+                                                                  where pacientes.idPacientes = turnos.idPacientes ) as nombre_obrasocial
+                                                        from turnos join pacientes on
+                                                                          (turnos.idPacientes = pacientes.idPacientes)
+                                                                     join profesionales on
+                                                                          (turnos.idProfesionales = profesionales.idProfesionales)
+                                                        where turnos.FechaTurno like ?`, [dateSelected]);
+                res.json(turnReserved);
+            }
+            catch (error) {
+                console.log("Error al listar los turnos: " + error);
+            }
+        });
+    }
     // Obtencion de un turno ...
     getOneTurn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -7,6 +7,7 @@ import { Profesional } from 'src/app/models/profesionales';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Paciente } from 'src/app/models/pacientes';
 import { PacientesService } from 'src/app/services/pacientes.service'
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-listar-turnos',
@@ -14,24 +15,24 @@ import { PacientesService } from 'src/app/services/pacientes.service'
   styleUrls: ['./listar-turnos.component.css']
 })
 export class ListarTurnosComponent implements OnInit {
-  turnos: any = [];
-  profesionales:any;
-  pacientes:any;
-  //selected = '';
-  //date = new Date().toISOString();
-  displayedColumns: string[] = ['Hora', 'Paciente', 'O. Social', 'Observaciones', 'Acciones'];
-  dataSource: any;
-  data2:Paciente;
+  turnos: turnos[] = [];
+  profesionales:Profesional[] = [];
+  pacientes:Paciente[] = [];
+  selected: Date | null;
+  displayedColumns: string[] = ['Hora', 'Paciente', 'Profesionales', 'O.Social'];
+  dataSource = new MatTableDataSource<turnos>(this.turnos) 
+  datosPacientes:any;
   
 
   constructor(private profesionalesService: ProfesionalesService,
               private turnosService: TurnosService,
               private pacientesService: PacientesService,
               private toast: ToastrService,
-              @ Inject(MAT_DIALOG_DATA) public data: turnos) { }
+              @ Inject(MAT_DIALOG_DATA) public data: Profesional) { }
 
   ngOnInit(): void {
     this.cargarProfesionales();
+    this.cargarTurnos(this.selected);
   }
 
   // Carga profesionales ...
@@ -50,8 +51,12 @@ export class ListarTurnosComponent implements OnInit {
   }
 
   // Carga los turnos reservados ...
-  cargarTurnos(): void {
-    this.turnosService.getTurnos().subscribe(
+  cargarTurnos(selected:Date): void {
+    console.log(selected);
+    //this.fechaFormateada = selected?.toDateString();
+    //console.log(this.fechaFormateada);
+
+    this.turnosService.getTurnosReserved(selected).subscribe(
     {
       next:res => {
         this.dataSource.data = res;
@@ -64,11 +69,13 @@ export class ListarTurnosComponent implements OnInit {
     });
   }
 
+  // Busco pacientes ... TODAVIA NO SE SI APLICA ACA
   buscarPaciente(dni:string|number):any {
     this.pacientesService.getPaciente(dni).subscribe(
       {
         next:res=> {
-          this.data2 = res;
+          this.datosPacientes = res;
+          //document.getElementById("nombrePaciente").value = this.datosPacientes.nombrePacientes
         },
         error:err => {
           this.toast.error(err.error.message, 'Fail',{
@@ -76,6 +83,7 @@ export class ListarTurnosComponent implements OnInit {
           });
         }
       });
+      console.log(this.datosPacientes);
   }
 
 /*

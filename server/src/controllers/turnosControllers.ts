@@ -14,6 +14,32 @@ class turnosControllers {
         }
     }
 
+    // Listado de turnos reservados con datos para tabla ... 
+    public async listTurnosReserved(req: Request, res: Response): Promise<any>{
+        const { dateSelected } = req.params;
+        try {
+            const [turnReserved] = await Mysql.execute(`select  turnos.Hora, 
+                                                                turnos.FechaTurno,
+                                                                pacientes.nombrePacientes,
+                                                                pacientes.apellidoPacientes,
+                                                                profesionales.nombreProfesionales,
+                                                                profesionales.apellidoProfesionales,
+                                                                ( select obraSocial.nombreObraSocial
+                                                                  from pacientes join obrasocial on
+                                                                                 ( pacientes.idObraSocial = obrasocial.idObraSocial )
+                                                                  where pacientes.idPacientes = turnos.idPacientes ) as nombre_obrasocial
+                                                        from turnos join pacientes on
+                                                                          (turnos.idPacientes = pacientes.idPacientes)
+                                                                     join profesionales on
+                                                                          (turnos.idProfesionales = profesionales.idProfesionales)
+                                                        where turnos.FechaTurno like ?`, [dateSelected]
+                                                        );
+            res.json(turnReserved)
+        }catch(error){
+            console.log("Error al listar los turnos: " + error);
+        }
+    }
+
     // Obtencion de un turno ...
 
     public async getOneTurn(req: Request, res: Response): Promise<any>{
@@ -78,7 +104,6 @@ class turnosControllers {
             console.log("Error al cancelar turno: " + error);
         }
     }
-
 }
 
 const TurnosControllers = new turnosControllers();

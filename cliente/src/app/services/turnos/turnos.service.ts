@@ -13,7 +13,7 @@ export class TurnosService {
   constructor(private http:HttpClient ) { }
 
   public getTurnos(): Observable<turnos[]> {
-    return this.http.get<turnos[]>(this.API_URI + 'obrasocial');
+    return this.http.get<turnos[]>(this.API_URI + 'turnos');
   }
 
   public getOneTurno(id: string|number): Observable<turnos>{
@@ -30,5 +30,13 @@ export class TurnosService {
 
   public updateTurnos(id: string|number , turnos_: turnos) : Observable<any>{
     return this.http.put<any>(this.API_URI + `obrasocial/${id}`, turnos_);
+  }
+
+  public getTurnosNuevo(dni: string | number): Observable<any>{
+    return this.http.get<any>(this.API_URI + `turnos/${dni}`);
+  }
+
+  public getTurnosReserved(selected:Date): Observable<turnos[]>{
+    return this.http.get<turnos[]>(this.API_URI + `turnos/turnosReservados/${selected}`);
   }
 }

@@ -12,6 +12,7 @@ class TurnosRoutes {
     }
     config() {
         this.router.get('/', turnosControllers_1.default.listTurns);
+        this.router.get('/turnosReservados/:dateSelected', turnosControllers_1.default.listTurnosReserved);
         this.router.get('/:id', turnosControllers_1.default.getOneTurn);
         this.router.post('/', turnosControllers_1.default.createTurn);
         this.router.delete('/:id', turnosControllers_1.default.deleteTurn);

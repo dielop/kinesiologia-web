@@ -8,5 +8,4 @@ export interface turnos {
     fechaTurno: String;
     hora: String;
     obsTurno: String;
-
 }
