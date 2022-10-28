@@ -4,73 +4,56 @@ USE kinesiologia_db;
 
 CREATE TABLE pacientes(
     id INT(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    dni VARCHAR(255),
-    nombre VARCHAR(255),
-    apellido  VARCHAR(255),
-    localidad  VARCHAR(255),
-    direccion  VARCHAR(255),
-    telefono  VARCHAR(255),
-    observaciones TEXT,
-    id_obrasocial INT(11),
-    nro_afiliado VARCHAR(50),
-    id_profesionales INT(11),
+    dniPacientes VARCHAR(50),
+    nombrePacientes VARCHAR(50),
+    apellidoPacientes  VARCHAR(50),
+    idLocalidades INT(11),
+    direccionPacientes VARCHAR(50),
+    telefonoPacientes  VARCHAR(50),
+    obsPacientes TEXT,
+    hisClinicaPacientes VARCHAR(50),
+    idObraSocial INT(11),
+    NroAfiliadoPacientes VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-DESCRIBE pacientes;
 
 CREATE TABLE profesionales(
-    id INT(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    dni VARCHAR(50),
-    nombre VARCHAR(50),
-    apellido  VARCHAR(50),
-    localidad  VARCHAR(50),
-    direccion  VARCHAR(50),
-    telefono  VARCHAR(50),
-    especialidad VARCHAR(255),
+    idProfesionales INT(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    dniProfesionales VARCHAR(50),
+    nombreProfesionales VARCHAR(50),
+    apellidoProfesionales  VARCHAR(50),
+    idLocalidad  VARCHAR(50),
+    direccionProfesionales  VARCHAR(50),
+    telefonoProfesionales  VARCHAR(50),
+    especProfesionales VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-DESCRIBE profesionales;
 
 CREATE TABLE obrasocial(
-    id INT(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50),
-    plan VARCHAR(50),
-    nro_afiliado VARCHAR(50),
-    observaciones TEXT,
+    idObraSocial INT(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nombreObraSocial VARCHAR(50),
+    planObraSocial VARCHAR(50),
+    obsObraSocial TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-DESCRIBE obrasocial;
 
-CREATE TABLE reservaTurnos(
-    id INT(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_pacientes INT(11),
-    id_profesinales INT(11),
-    id_obrasocial INT(11),
-    id_turnos INT(11)
+CREATE TABLE turnos(
+    idTurnos INT(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idPacientes INT(11),
+    idProfesionales INT(11),
+    idUsers INT(11),
+    FechaTurno date,
+    Hora time,
+    ObsTurno TEXT
 );
-
-DESCRIBE reservaTurnos;
-
-CREATE TABLE turnos {
-    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    fecha VARCHAR(50),
-    hora VARCHAR(50)
-    consultorio VARCHAR(50),
-    observacion TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-}
-
-DESCRIBE turnos;
 
 CREATE TABLE users(
-    id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(16) NOT NULL,
-    password VARCHAR(16) NOT NULL
-    roleid VARCHAR(20) NOT NULL, 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    idUsers INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    userCod VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(60) NOT NULL,
+    rolesCod VARCHAR(50) NOT NULL, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-DESCRIBE users;

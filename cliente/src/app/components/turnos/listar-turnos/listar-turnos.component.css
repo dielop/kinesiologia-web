@@ -1,4 +1,62 @@
+/* Titulo */
+
+h2{
+    margin-top: 2%;
+    margin-left: 10px;
+    color:black;
+}
+
+/* Grid de esqueleto */
 .grid{
     display:grid;
-    grid-template-rows: 30vh 70vh;
+    grid-template-columns: 0.5fr 2fr;
+    grid-template-areas: "columna1 columna2";  
+}
+
+.columna1 {
+    grid-area: columna1;
+}
+
+.columna2 {
+    grid-area: columna2;
+}
+
+/* boton de busqueda puede pasar a nuevo turno */
+
+.buscar {
+    border:none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: white;
+    color: gray;
+    line-height: 40px;
+    float:right;
+    box-shadow: none;   
+}
+
+/* Calendario */
+
+.inline-calendar-card {
+    width: 300px;
+    padding: 8px;
+}
+
+/* Tabla de turnos reservados */
+
+.demo-table {
+    width: 100%;
+    border-radius: 10px;
+}
+  
+.mat-column-Hora {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+.mat-column-Paciente {
+  padding-left: 16px;
+}
+.mat-column-O.Social {
+  width: 32px;
 }
