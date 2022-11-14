@@ -14,9 +14,11 @@ class turnosControllers {
         }
     }
 
-    // Listado de turnos reservados con datos para tabla ... 
+    // Listado de turnos reservados con datos para tabla ...
+     
     public async listTurnosReserved(req: Request, res: Response): Promise<any>{
-        const { dateSelected } = req.params;
+        const id = req.params.id;
+        const selected = req.params.selected;
         try {
             const [turnReserved] = await Mysql.execute(`select  turnos.Hora, 
                                                                 turnos.FechaTurno,
@@ -32,9 +34,79 @@ class turnosControllers {
                                                                           (turnos.idPacientes = pacientes.idPacientes)
                                                                      join profesionales on
                                                                           (turnos.idProfesionales = profesionales.idProfesionales)
-                                                        where turnos.FechaTurno like ?`, [dateSelected]
+                                                        where turnos.FechaTurno like ? AND
+                                                              turnos.idProfesionales = ?`, [selected, id]
                                                         );
             res.json(turnReserved)
+        }catch(error){
+            console.log("Error al listar los turnos: " + error);
+        }
+    }
+
+    // Obtener turnos libres ...
+
+    public async getTurnFreeProfesionales(req: Request, res: Response): Promise<any> {
+        const  id = req.params.id;
+        const selected = req.params.selected;
+
+        const horario:String [] = [ '07:45:00', '08:30:00', '09:15:00',
+                                '10:00:00', '10:45:00', '11:30:00',
+                                '12:15:00','13:00:00','15:00:00',
+                                '15:45:00','16:30:00', "17:15:00",
+                                '18:00:00','18:45:00','19:30:00'];
+
+        try {
+            const [turnReserved] = await Mysql.execute(`select  turnos.Hora
+                                                        from turnos join pacientes on
+                                                                          (turnos.idPacientes = pacientes.idPacientes)
+                                                                    join profesionales on
+                                                                          (turnos.idProfesionales = profesionales.idProfesionales)
+                                                        where turnos.FechaTurno like ? AND
+                                                              turnos.idProfesionales = ?`, [selected, id]
+                                                        );
+
+            // Recupero los valores reservados en json
+            const hora = JSON.stringify(turnReserved);     
+            const parser = JSON.parse(hora);
+            
+            // Recupero el indice del horario encontrado y lo borro del array
+            for(let i = 0; i<parser.length; i++){
+                const index = horario.indexOf(parser[i].Hora);
+                 if(index!=null){
+                     horario.splice(index, 1);
+                 }
+            }
+            
+            // Retorno el valor de horario restante
+            res.json(horario);
+        
+        }catch(error){
+            console.log("Error al listar los horarios libres: " + error);
+        }
+    }
+
+    // Listado de turnos por kinesiologos ...
+    public async listTurnosReservedKinesiologo(req: Request, res: Response): Promise<any>{
+        const selected = req.params.selected;
+        try {
+            const [turnReservedKinesiologo] = await Mysql.execute(`select  turnos.Hora, 
+                                                                turnos.FechaTurno,
+                                                                pacientes.nombrePacientes,
+                                                                pacientes.apellidoPacientes,
+                                                                profesionales.nombreProfesionales,
+                                                                profesionales.apellidoProfesionales,
+                                                                ( select obraSocial.nombreObraSocial
+                                                                  from pacientes join obrasocial on
+                                                                                 ( pacientes.idObraSocial = obrasocial.idObraSocial )
+                                                                  where pacientes.idPacientes = turnos.idPacientes ) as nombre_obrasocial
+                                                        from turnos join pacientes on
+                                                                          (turnos.idPacientes = pacientes.idPacientes)
+                                                                     join profesionales on
+                                                                          (turnos.idProfesionales = profesionales.idProfesionales)
+                                                        where turnos.FechaTurno like ? AND
+                                                              profesionales.especProfesionales like 'Kinesiologo'`, [selected]
+                                                        );
+            res.json(turnReservedKinesiologo)
         }catch(error){
             console.log("Error al listar los turnos: " + error);
         }
@@ -58,20 +130,12 @@ class turnosControllers {
     // Creacion de nuevo turno ...
 
     public async createTurn(req: Request, res: Response): Promise<void> {
-        // Recupero obra social si existe ...
-        const [existeTurno] = await Mysql.query('SELECT * FROM turnos WHERE nombreTurnos = ?', [req.body.nombreTurnos]);
-
-        // Validacion e insercion ...
-        if (Array.isArray(existeTurno) && existeTurno.length == 0 ){
             try{
                 await Mysql.query('INSERT INTO turnos set ?', [req.body]);
                 res.json({message: 'Turno nuevo asignado'});
             }catch(error){
                 console.log("Error al asignar turno: " + error);
             }
-        }else{
-            res.status(404).json({text: 'Ya existe un turno con el horario ingresado'});
-        }
     }
 
     // Modificacion de turnos ...
@@ -104,6 +168,7 @@ class turnosControllers {
             console.log("Error al cancelar turno: " + error);
         }
     }
+    
 }
 
 const TurnosControllers = new turnosControllers();

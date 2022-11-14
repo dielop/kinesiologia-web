@@ -53,15 +53,6 @@ mat-paginator{
   width: 32px;
 }
 
-button.agregar{
-    border:none;
-    background: white;
-    color: rgb(86, 161, 242);
-    line-height: 40px;
-    box-shadow: none;
-    float:right;
-}
-
 mat-form-field{
     width: 100%;
     padding: 0;

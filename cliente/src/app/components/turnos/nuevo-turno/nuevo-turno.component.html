@@ -1,39 +1,119 @@
-<p>nuevo-turno works!</p>
-<!-- Divisor de busqueda de paciente con listado -->
-    <!-- <div class="columna2">
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>DNI</mat-label>
-        <input matInput #identificador>
-      </mat-form-field> -->
-      <!-- Boton de busqueda de pacientes -->
-      <!-- <a><button mat-mini-fab class="buscar" (click)="buscarPaciente(identificador.value)"><mat-icon>search</mat-icon></button></a>  -->
-    
-
-    <!-- Formulario de datos de paciente buscado -->
-    <!-- 
-      <form *ngIf="datosPacientes != null">      
-        <table class="example-full-width" cellspacing="0"><tr>
-          <td><mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Nombre</mat-label>
-            <input matInput disabled value="{{this.datosPacientes.nombrePacientes}}">
-          </mat-form-field></td>
-          <td><mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Apellido</mat-label>
-            <input matInput disabled value="{{this.datosPacientes.apellidoPacientes}}">
-          </mat-form-field></td>
-        </tr>
+<header>
+  <h2 mat-dialog-title>Nuevo turno</h2>
+</header>
+ 
+<main> 
+  <mat-card class="card">
+  
       
-        
-        <td><mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Obra Social</mat-label>
-          <input matInput disabled value="{{this.datosPacientes.nombreObraSocial}}">
-        </mat-form-field>
-        </td>
-        <td>
+  <!-- Divisor de busqueda de paciente con listado -->
+    <div class="columna1">
+      <form>
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Plan O.Social</mat-label>
-          <input matInput disabled value="this.datosPacientes.obsObraSocial">
-        </mat-form-field></td>
-      </table>
+          <mat-label>DNI</mat-label>
+          <input matInput #identificador>
+        </mat-form-field>
+         <!-- Boton de busqueda de pacientes -->
+         <a><button mat-flat-button class="buscar" (click)="buscarPaciente(identificador.value)"><mat-icon>search</mat-icon></button></a>
+        </form>
+        <form *ngIf="datosPacientes != null">      
+          <table class="example-full-width" cellspacing="0"><tr>
+                <td><mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput disabled value="{{this.datosPacientes.nombrePacientes}}">
+                </mat-form-field></td>
+                <td><mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Apellido</mat-label>
+                  <input matInput disabled value="{{this.datosPacientes.apellidoPacientes}}">
+                </mat-form-field></td>
+                <td>
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput disabled value="{{this.datosPacientes.telefonoPacientes}}">
+                  </mat-form-field>
+                </td>
+              </tr>
+              <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Obra Social</mat-label>
+                  <input matInput disabled value="{{this.datosObraSocial.nombreObraSocial}}">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Plan Obra Social</mat-label>
+                  <input matInput disabled value="{{this.datosObraSocial.planObraSocial}}">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Nº Afiliado</mat-label>
+                  <input matInput disabled value="{{this.datosPacientes.nroAfiliadoPacientes}}">
+                </mat-form-field>
+              </td>
+          </table>
+        </form>
+        <form class="formObservaciones" *ngIf="datosPacientes != null">
+          <mat-form-field class="formObservaciones" appearance="fill">
+          <mat-label>Observaciones</mat-label>
+          <textarea matInput disabled value="{{this.datosPacientes.obsPacientes}}"></textarea>
+          </mat-form-field>
+        </form>
+    </div>
+      
+      <div class="columna2">
+        <form>
+        <!-- Selector de profesionales -->
+        <mat-form-field appearance="outline" *ngIf="datosPacientes != null">
+          <mat-label>Seleccionar profesional</mat-label>
+            <mat-select [(ngModel)]= "prof.idProfesionales" name="idProfesionales">
+                <mat-option *ngFor= "let profesional of profesionales" [value]= "profesional.idProfesionales">
+                    {{profesional.nombreProfesionales}} {{profesional.apellidoProfesionales}}
+                </mat-option> 
+              </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" *ngIf="datosPacientes != null">
+          <mat-label>Seleccionar fecha</mat-label>
+          <input matInput [matDatepicker]="picker" (dateInput)="inputEvent($event)" (dateChange)="changeEvent($event)">
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker [startAt]="data.fechaTurno"></mat-datepicker>
+        </mat-form-field>
+        <!-- Boton de busqueda de pacientes -->
+        <a><button mat-flat-button class="buscar" (click)="cargarTurnosLibres()" *ngIf="datosPacientes != null"><mat-icon>search</mat-icon></button></a>
       </form>
-    </div> -->
+        
+          <div mat-dialog-actions>
+                <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial *ngIf="data; else cargandoTemplate">Guardar</button>
+                <button mat-raised-button color="basic" (click)="cancelar()">Cancelar</button>
+          </div>
+      </div>
+    <ng-template #cargandoTemplate>
+      <mat-spinner></mat-spinner>
+    </ng-template>  
+  </mat-card>
+</main>
+
+
+
+
+<!-- Formulario de datos de paciente buscado -->
+        
+          
+          <!-- Selector de fecha -->
+          <!-- <form novalidate #f="ngForm" *ngIf="datosPacientes != null">
+            
+          </form> -->
+          <!-- <mat-form-field appearance="outline" *ngIf = "horariosLibres != null">
+            <mat-label>Seleccionar turno</mat-label>
+              <mat-select [(ngModel)]= "data.hora" name="hora">
+                  <mat-option *ngFor= "let horario of horariosLibres" [value]= "horario">
+                      {{horario}}
+                  </mat-option> 
+                </mat-select>
+          </mat-form-field> -->
+          <!-- <p>
+            <mat-button-toggle-group name="horario"  aria-label="Font Style">
+              <mat-button-toggle *ngFor= "let horario of horariosLibres" value="horario">{{horario}}</mat-button-toggle>
+            </mat-button-toggle-group>
+          </p> -->

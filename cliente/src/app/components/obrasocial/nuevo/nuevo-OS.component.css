@@ -14,3 +14,12 @@ h2 {
 mat-form-field {
     margin:2px;
 }
+
+textarea.mat-input-element{
+    height: 150px;
+}
+
+.observaciones {
+    display:flex;
+    flex-direction: column;
+}

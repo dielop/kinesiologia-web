@@ -1,70 +1,60 @@
 <header>
-  <h2 mat-dialog-title>Lista de turnos reservados</h2>
+  <h2 mat-dialog-title>Lista de turnos reservados </h2>
 </header>
 <main>
   <section class="grid">
-
     <div class="columna1">
-      <mat-card class="inline-calendar-card">
-        <mat-calendar [(selected)]="selected"></mat-calendar>
-      </mat-card>
-      <p>Selected date: {{selected}}</p>
-
-        <form novalidate #f="ngForm">
-            <mat-form-field appearance="outline">
-              <mat-label>Seleccionar un profesional</mat-label>
-                <mat-select [(ngModel)]= "data.idProfesionales" name="idProfesionales">
-                    <mat-option *ngFor= "let profesional of profesionales" [value]= "profesional.nombreProfesionales">
-                        {{profesional.nombreProfesionales}} {{profesional.apellidoProfesionales}}
-                    </mat-option> 
-                  </mat-select>
-            </mat-form-field>
-        </form>
-      
+      <!-- Selector de profesionales -->
+      <form novalidate #f="ngForm">
+          <mat-form-field appearance="outline">
+            <mat-label>Seleccionar profesional</mat-label>
+              <mat-select [(ngModel)]= "prof.idProfesionales" name="idProfesionales">
+                  <mat-option *ngFor= "let profesional of profesionales" [value]= "profesional.idProfesionales">
+                      {{profesional.nombreProfesionales}} {{profesional.apellidoProfesionales}}
+                  </mat-option> 
+                </mat-select>
+          </mat-form-field>
+      </form>
+      <!-- Selector de fecha -->
+      <mat-form-field appearance="outline" >
+        <mat-label>Seleccionar fecha</mat-label>
+        <input matInput [matDatepicker]="picker" (dateInput)="inputEvent($event)" (dateChange)="changeEvent($event)">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+      </mat-form-field>
     </div>
     
-      
     <div class="columna2">
-     <!--  <mat-form-field appearance="fill">
-        <mat-label>Fecha seleccionada</mat-label>
-        <input matInput [matDatepicker]="picker3" [value]="date.valueOf">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-        <mat-datepicker #picker3></mat-datepicker>
-      </mat-form-field> -->
-
-    <!-- [(value)]="selected" -->
-
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-      <!-- Hora -->
-      <ng-container matColumnDef="Hora">
-        <th mat-header-cell *matHeaderCellDef> Hora </th>
-        <td mat-cell *matCellDef="let element"> {{element.Hora}} </td>
-      </ng-container>
-    
-      <!-- Nombre paciente -->
-      <ng-container matColumnDef="Paciente">
-        <th mat-header-cell *matHeaderCellDef> Paciente </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombrePacientes}} {{element.apellidoPacientes}}</td>
-      </ng-container>
-    
-      <!-- Obra social -->
-      <ng-container matColumnDef="Profesionales">
-        <th mat-header-cell *matHeaderCellDef> Profesionales </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombreProfesionales}} {{element.apellidoProfesionales}} </td>
-      </ng-container>
-    
-      <!-- Observaciones -->
-      <ng-container matColumnDef="O.Social">
-        <th mat-header-cell *matHeaderCellDef> O. Social </th>
-        <td mat-cell *matCellDef="let element"> {{element.nombre_obrasocial}} </td>
-      </ng-container>
-    
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>  
+      <table mat-table [dataSource]="dataSource" matSort class="tabla">
+        <!-- Hora -->
+        <ng-container matColumnDef="Hora">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora </th>
+          <td mat-cell *matCellDef="let element"> {{element.Hora}} </td>
+        </ng-container>
       
+        <!-- Nombre paciente -->
+        <ng-container matColumnDef="Paciente">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Paciente </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombrePacientes}} {{element.apellidoPacientes}}</td>
+        </ng-container>
+      
+        <!-- Obra social -->
+        <ng-container matColumnDef="Profesionales">
+          <th mat-header-cell *matHeaderCellDef> Profesionales </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombreProfesionales}} {{element.apellidoProfesionales}} </td>
+        </ng-container>
+      
+        <!-- Observaciones -->
+        <ng-container matColumnDef="O.Social">
+          <th mat-header-cell *matHeaderCellDef> O. Social </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre_obrasocial}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table> 
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> 
     </div>
-  </section>   
-  
+  </section>
 </main>

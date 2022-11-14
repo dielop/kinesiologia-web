@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -48,6 +48,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 // Providers
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
@@ -56,7 +58,10 @@ import { NuevoTurnoComponent } from './components/turnos/nuevo-turno/nuevo-turno
 import { CancelarTurnoComponent } from './components/turnos/cancelar-turno/cancelar-turno.component';
 import { ModificarTurnoComponent } from './components/turnos/modificar-turno/modificar-turno.component';
 import { ListarTurnosComponent } from './components/turnos/listar-turnos/listar-turnos.component';
-
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
+import { ListarTurnosKinesiologosComponent } from './components/turnos/listar-turnos-kinesiologos/listar-turnos-kinesiologos.component';
+registerLocaleData(localeEsAr, 'es-Ar');
 
 
 @NgModule({
@@ -86,7 +91,8 @@ import { ListarTurnosComponent } from './components/turnos/listar-turnos/listar-
     NuevoTurnoComponent,
     CancelarTurnoComponent,
     ModificarTurnoComponent,
-    ListarTurnosComponent
+    ListarTurnosComponent,
+    ListarTurnosKinesiologosComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +118,9 @@ import { ListarTurnosComponent } from './components/turnos/listar-turnos/listar-
     MatProgressSpinnerModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTabsModule,
+    MatButtonToggleModule
   ],
   providers: [
     { 
@@ -133,7 +141,8 @@ import { ListarTurnosComponent } from './components/turnos/listar-turnos/listar-
     { provide: HTTP_INTERCEPTORS,
       useClass:TokenInterceptionService,
       multi: true
-    }
+    },
+    { provide: LOCALE_ID, useValue: 'es-Ar' }
   ],
   bootstrap: [AppComponent]
 })

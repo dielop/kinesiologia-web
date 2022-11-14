@@ -99,7 +99,8 @@ export class ListarOSComponent implements OnInit {
                                 planObraSocial: '',
                                 obsObraSocial: '',
                                 created_at: new Date().toISOString
-                              }
+                              },
+      width:'40%'
     })
 
     dialogRef.afterClosed().subscribe(OS => {

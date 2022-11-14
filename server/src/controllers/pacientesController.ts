@@ -25,11 +25,16 @@ class PacientesController {
 
         // Retornar si hay datos ...
         if(paciente.length > 0){
-            console.log(JSON.stringify(paciente))
-            //return res.json(JSON.stringify(paciente));
-            if(Array.isArray(paciente[0])) return res.json(paciente[0][0]);
-        }
-        res.status(404).json({text: 'El paciente no existe'});
+            try{
+                console.log(JSON.stringify(paciente))
+                //return res.json(JSON.stringify(paciente));
+                if(Array.isArray(paciente[0])) return res.json(paciente[0][0]);
+            }catch(error){
+                res.status(404).send({text: 'El paciente no existe'});
+             }
+        }else{
+            res.status(404).send({text: 'El paciente no existe'});
+         }
     }
 
     // Insercion de pacientes ... 

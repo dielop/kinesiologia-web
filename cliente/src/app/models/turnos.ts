@@ -5,7 +5,7 @@ export interface turnos {
     idPacientes: Number;
     idProfesionales: Number;
     idUsers: Number;
-    fechaTurno: String;
+    fechaTurno: Date;
     hora: String;
     obsTurno: String;
 }

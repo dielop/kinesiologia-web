@@ -36,7 +36,15 @@ export class TurnosService {
     return this.http.get<any>(this.API_URI + `turnos/${dni}`);
   }
 
-  public getTurnosReserved(selected:Date): Observable<turnos[]>{
-    return this.http.get<turnos[]>(this.API_URI + `turnos/turnosReservados/${selected}`);
+  public getTurnosLibres(selected: String, id: String | Number): Observable<any>{
+    return this.http.get<any>(this.API_URI + `turnos/turnosLibres/${selected}/${id}`);
+  }
+
+  public getTurnosReservadosKinesiologos(selected: string): Observable<any>{
+    return this.http.get<any>(this.API_URI + `turnos/turnosKinesiologos/${selected}`);
+  }
+
+  public getTurnosReservadosProfesionales(selected: string, id: string | Number): Observable<any>{
+    return this.http.get<any>(this.API_URI + `turnos/turnosReservados/${selected}/${id}`);
   }
 }

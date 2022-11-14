@@ -1,0 +1,49 @@
+header{
+    margin-left:10px;
+    margin-top:5%;
+    color:black;
+}
+
+.card{
+    display:flex;
+    height: 75vh;
+}
+
+.buscar{
+    border:none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: grey;
+    color: rgb(86, 161, 242);
+    line-height: 40px;
+    box-shadow: none;
+    margin-left: 5px;
+}
+
+mat-button-toggle-group {
+    margin-left: 12px;
+    flex-direction: column;
+    column-count: 3;
+    display:inline-flex
+}
+
+.acciones{
+    bottom:0;
+    position:relative;
+    float:right;
+    width: 100%;    
+    margin-bottom: 20px; 
+}
+
+.formObservaciones {
+    width: 100%;
+}
+
+textarea.mat-input-element{
+    height: 120px;
+    width: 100%;
+}
+
+button{
+    margin:5px;
+}

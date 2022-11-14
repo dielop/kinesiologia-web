@@ -21,8 +21,12 @@ export class NavigationComponent implements OnInit {
   }
 
   // Inicializo items de navbar
-  Turnos = [ { name:"Turnos Reservados",
-               url: "/navigation/listar-turnos" }
+  Turnos = [  { name:"Nuevo Turno",
+                url: "/navigation/nuevo-turno" },
+              { name:"Turnos Reservados Kinesiologos",
+                url: "/navigation/listar-turnos-kinesiologos" },
+              { name:"Turnos Reservados Profesionales",
+                url: "/navigation/listar-turnos" }
            ];
   
   Pacientes = [ { name:"Listado Pacientes",
@@ -49,24 +53,24 @@ export class NavigationComponent implements OnInit {
 
     if (tokenInfo.rolesCod == '1'){
       this.Configuraciones = [{ name:"Profesionales",
-                        url:"/navigation/listar"},
-                      { name:"Obras Sociales",
-                        url:"/navigation/listar-OS" },
-                      { name:"Usuarios",
-                        url:"/navigation/listar-users" },
-                      { name:"Roles de usuario",
-                        url:"/navigation/listar-roles" },
-                      { name:"Localidades",
-                        url:"/navigation/listar-localidades" }
-                    ];
+                                url:"/navigation/listar"},
+                              { name:"Obras Sociales",
+                                url:"/navigation/listar-OS" },
+                              { name:"Usuarios",
+                                url:"/navigation/listar-users" },
+                              { name:"Roles de usuario",
+                                url:"/navigation/listar-roles" },
+                              { name:"Localidades",
+                                url:"/navigation/listar-localidades" }
+                            ];
     }else{
     this.Configuraciones = [{ name:"Profesionales",
-                        url:"/navigation/listar"},
-                      { name:"Obras Sociales",
-                        url:"/navigation/listar-OS" },
-                      { name:"Localidades",
-                        url:"/navigation/listar-localidades" }
-                    ];
+                              url:"/navigation/listar"},
+                            { name:"Obras Sociales",
+                              url:"/navigation/listar-OS" },
+                            { name:"Localidades",
+                              url:"/navigation/listar-localidades" }
+                          ];
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,14 +15,15 @@ import { EliminarComponent } from '../../dialogs/eliminar/eliminar.component'
   templateUrl: './listar-paciente.component.html',
   styleUrls: ['./listar-paciente.component.css']
 })
+
 export class ListarPacienteComponent implements OnInit {
   pacientes: any = [];
   displayedColumns = ['DNI', 'Nombre', 'Apellido','Telefono','Acciones'];
   dataSource = new MatTableDataSource<Paciente>(this.pacientes) 
 
-  @ViewChild(MatTable) tabla!: MatTable<Paciente>;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatTable) tabla: MatTable<Paciente>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   
   constructor( private pacienteService: PacientesService,
                public dialog:MatDialog,
@@ -69,7 +70,7 @@ export class ListarPacienteComponent implements OnInit {
   eliminarPaciente(id : string){
 
     let dialogref = this.dialog.open(EliminarComponent, {
-      width: '300px',                        
+      width: '300px'                       
     })
 
     // Llamo al dialog, si elimino eliminar no es undefined ...

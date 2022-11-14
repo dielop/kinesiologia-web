@@ -5,5 +5,4 @@ export interface ObraSocial {
     planObraSocial: String;
     obsObraSocial: String;
     created_at: Date;
-    
 }

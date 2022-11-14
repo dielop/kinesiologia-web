@@ -11,8 +11,17 @@ h2 {
     font-size: 12px;
 }
 
-mat-form-field {
+.mat-dialog-content{
+    overflow-y:auto;
+    height: 65vh;
+}
+
+.mat-form-field {
     margin:2px;
+}
+
+textarea.mat-input-element{
+    height: 120px;
 }
 
 .observaciones {

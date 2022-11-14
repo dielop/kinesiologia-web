@@ -1,6 +1,8 @@
 /* Agregar estilos y maquetado global */
 
 html, body { height: 100%;
-       background-color: rgb(86, 161, 242); }
+             background-color: rgb(86, 161, 242);
+             overflow-y: hidden;
+           }
 body { margin: 0;
        font-family: 'Poppins';}
