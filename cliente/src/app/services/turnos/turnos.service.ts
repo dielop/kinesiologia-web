@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { turnos } from 'src/app/models/turnos';
+import { Turnos } from 'src/app/models/turnos';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +12,15 @@ export class TurnosService {
 
   constructor(private http:HttpClient ) { }
 
-  public getTurnos(): Observable<turnos[]> {
-    return this.http.get<turnos[]>(this.API_URI + 'turnos');
+  public getTurnos(): Observable<Turnos[]> {
+    return this.http.get<Turnos[]>(this.API_URI + 'turnos');
   }
 
-  public getOneTurno(id: string|number): Observable<turnos>{
-    return this.http.get<turnos>(this.API_URI + `turnos/${id}`);
+  public getOneTurno(id: string|number): Observable<Turnos>{
+    return this.http.get<Turnos>(this.API_URI + `turnos/${id}`);
   }
 
-  public saveTurnos(turnos_: turnos): Observable<any>{
+  public saveTurnos(turnos_: Turnos): Observable<any>{
     return this.http.post<any>(this.API_URI + 'turnos', turnos_);
   }
 
@@ -28,7 +28,7 @@ export class TurnosService {
     return this.http.delete<void>(this.API_URI + `turnos/${id}`);
   }
 
-  public updateTurnos(id: string|number , turnos_: turnos) : Observable<any>{
+  public updateTurnos(id: string|number , turnos_: Turnos) : Observable<any>{
     return this.http.put<any>(this.API_URI + `obrasocial/${id}`, turnos_);
   }
 

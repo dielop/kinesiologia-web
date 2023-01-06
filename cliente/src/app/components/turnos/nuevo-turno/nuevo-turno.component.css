@@ -9,6 +9,14 @@ header{
     height: 75vh;
 }
 
+.contenido{
+    display:flex;
+}
+
+.campoInput {
+    margin: 5px;
+}
+
 .buscar{
     border:none;
     margin-top: 10px;
@@ -27,21 +35,29 @@ mat-button-toggle-group {
     display:inline-flex
 }
 
-.acciones{
-    bottom:0;
-    position:relative;
-    float:right;
-    width: 100%;    
-    margin-bottom: 20px; 
-}
-
 .formObservaciones {
     width: 100%;
+}
+
+.formColumna2{
+    display:flex;
+    align-content: center;
 }
 
 textarea.mat-input-element{
     height: 120px;
     width: 100%;
+}
+
+.filtrado {
+    display:flex;
+    align-content: center;
+}
+
+.botones {
+    bottom:0;
+    position:absolute;
+    margin: 10px;
 }
 
 button{

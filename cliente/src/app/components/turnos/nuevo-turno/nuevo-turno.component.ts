@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ObraSocial } from 'src/app/models/obraSocial';
 import { Profesional } from 'src/app/models/profesionales';
-import { turnos } from 'src/app/models/turnos';
+import { Turnos } from 'src/app/models/turnos';
 import { ObrasocialService } from 'src/app/services/obra-social/obrasocial.service';
 import { PacientesService } from 'src/app/services/pacientes.service';
 import { ProfesionalesService } from 'src/app/services/profesionales/profesionales.service';
@@ -24,13 +25,14 @@ export class NuevoTurnoComponent implements OnInit {
   horariosLibres: [];
   datosObraSocial: ObraSocial;
 
-  constructor(@ Inject(MAT_DIALOG_DATA) public data: turnos,
+  constructor(private route: Router,
               private toast: ToastrService,
               private turnosService: TurnosService,
               private pacienteService: PacientesService,
               private profesionalesService: ProfesionalesService,
               private obraSocialService: ObrasocialService,
-              @ Inject(MAT_DIALOG_DATA) public prof: Profesional) { }
+              @ Inject(MAT_DIALOG_DATA) public prof: Profesional,
+              @ Inject(MAT_DIALOG_DATA) public data: Turnos) { }
 
   ngOnInit(): void {
     this.cargarProfesionales();
@@ -112,45 +114,37 @@ export class NuevoTurnoComponent implements OnInit {
       });
   }
 
-  cancelar(){
+  guardarTurno(paciente: any, profesional:any, hora:any):any {
+    //const fechaTmp = Date.parse(this.fechaFinal);
+    //const fecha = new Date(fechaTmp);
+
+    const turno:Turnos = {  idPacientes: paciente,
+                            idProfesionales: profesional,
+                            idUsers: 1,
+                            fechaTurno: this.fechaFinal,
+                            hora: hora,
+                            obsTurno: null
+                          }
     
-  }
-}
-
-/* nuevoTurno(){
-  let dialogRef = this.dialog.open(NuevoTurnoComponent, {
-    data: this.turnos = { idTurnos: 0,
-                          idPacientes: 0,
-                          idProfesionales: 0,
-                          idUsers: 0,
-                          fechaTurno: '',
-                          hora: '',
-                          obsTurno: '',
-                        },
-  width:'40%'
-  })
-
-  dialogRef.afterClosed().subscribe(tur => {
-        if (tur != undefined)
-        console.log(tur);
-        this.onCreateTurno(tur);
-  });
-}
-
-// Metodo que crea paciente luego de cerrar la ventana Modal y actualizo filas
-onCreateTurno(tur:turnos): void {
-this.turnosService.saveTurnos(tur).subscribe(
-  {
+    this.turnosService.saveTurnos(turno).subscribe({
       next:data => {
-        this.toast.success('Paciente creado con exito', 'OK',{
-          timeOut:3000
-         });
+        this.toast.success('Turno creado con exito, espere un momento.', 'OK',{
+          timeOut:3000,
+        });
+        setTimeout(() => location.reload(),  3000);
+        //this.route.navigate(['/navigation/nuevo-turno']);
       },
       error:err => {
-        this.toast.error(err,"No se pudo crear el paciente",{
+        this.toast.error(err,"No se pudo dar de alta el turno. Vuelva a intentar",{
           timeOut:3000
-        });        
+        });
+        setTimeout(() => location.reload(),  3000);  
       }
-  });
-} */
+    })
+  }
+
+  cancelar(){
+    location.reload();
+  }
+}
 

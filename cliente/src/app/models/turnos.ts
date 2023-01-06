@@ -1,11 +1,11 @@
 import { Time } from "@angular/common";
 
-export interface turnos {
+export interface Turnos {
     idTurnos?: Number;
     idPacientes: Number;
     idProfesionales: Number;
     idUsers: Number;
-    fechaTurno: Date;
+    fechaTurno: String;
     hora: String;
     obsTurno: String;
 }

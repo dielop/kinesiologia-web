@@ -1,52 +1,54 @@
 <header>
-  <h2 mat-dialog-title>Nuevo turno</h2>
+  <h2 mat-title>Nuevo turno</h2>
 </header>
  
 <main> 
   <mat-card class="card">
-  
-      
+  <div class="contenido">
   <!-- Divisor de busqueda de paciente con listado -->
     <div class="columna1">
       <form>
+        <div class="filtrado">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>DNI</mat-label>
           <input matInput #identificador>
         </mat-form-field>
          <!-- Boton de busqueda de pacientes -->
          <a><button mat-flat-button class="buscar" (click)="buscarPaciente(identificador.value)"><mat-icon>search</mat-icon></button></a>
-        </form>
+        </div>
+      </form>
+
         <form *ngIf="datosPacientes != null">      
-          <table class="example-full-width" cellspacing="0"><tr>
-                <td><mat-form-field class="example-full-width" appearance="fill">
+          <table class="campoInput" cellspacing="0"><tr>
+                <td><mat-form-field class="campoInput" appearance="fill">
                   <mat-label>Nombre</mat-label>
                   <input matInput disabled value="{{this.datosPacientes.nombrePacientes}}">
                 </mat-form-field></td>
-                <td><mat-form-field class="example-full-width" appearance="fill">
+                <td><mat-form-field class="campoInput" appearance="fill">
                   <mat-label>Apellido</mat-label>
                   <input matInput disabled value="{{this.datosPacientes.apellidoPacientes}}">
                 </mat-form-field></td>
                 <td>
-                  <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-form-field class="campoInput" appearance="fill">
                     <mat-label>Telefono</mat-label>
                     <input matInput disabled value="{{this.datosPacientes.telefonoPacientes}}">
                   </mat-form-field>
                 </td>
               </tr>
               <td>
-                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-form-field class="campoInput" appearance="fill">
                   <mat-label>Obra Social</mat-label>
                   <input matInput disabled value="{{this.datosObraSocial.nombreObraSocial}}">
                 </mat-form-field>
               </td>
               <td>
-                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-form-field class="campoInput" appearance="fill">
                   <mat-label>Plan Obra Social</mat-label>
                   <input matInput disabled value="{{this.datosObraSocial.planObraSocial}}">
                 </mat-form-field>
               </td>
               <td>
-                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-form-field class="campoInput" appearance="fill">
                   <mat-label>Nº Afiliado</mat-label>
                   <input matInput disabled value="{{this.datosPacientes.nroAfiliadoPacientes}}">
                 </mat-form-field>
@@ -63,34 +65,49 @@
       
       <div class="columna2">
         <form>
-        <!-- Selector de profesionales -->
-        <mat-form-field appearance="outline" *ngIf="datosPacientes != null">
-          <mat-label>Seleccionar profesional</mat-label>
-            <mat-select [(ngModel)]= "prof.idProfesionales" name="idProfesionales">
-                <mat-option *ngFor= "let profesional of profesionales" [value]= "profesional.idProfesionales">
-                    {{profesional.nombreProfesionales}} {{profesional.apellidoProfesionales}}
-                </mat-option> 
-              </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline" *ngIf="datosPacientes != null">
-          <mat-label>Seleccionar fecha</mat-label>
-          <input matInput [matDatepicker]="picker" (dateInput)="inputEvent($event)" (dateChange)="changeEvent($event)">
-          <mat-hint>DD/MM/YYYY</mat-hint>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker [startAt]="data.fechaTurno"></mat-datepicker>
-        </mat-form-field>
-        <!-- Boton de busqueda de pacientes -->
-        <a><button mat-flat-button class="buscar" (click)="cargarTurnosLibres()" *ngIf="datosPacientes != null"><mat-icon>search</mat-icon></button></a>
-      </form>
-        
-          <div mat-dialog-actions>
-                <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial *ngIf="data; else cargandoTemplate">Guardar</button>
-                <button mat-raised-button color="basic" (click)="cancelar()">Cancelar</button>
+          <div class="filtrado">
+          <!-- Selector de profesionales -->
+          <mat-form-field class="campoInput" appearance="outline" *ngIf="datosPacientes != null">
+            <mat-label>Seleccionar profesional</mat-label>
+              <mat-select [(ngModel)]= "prof.idProfesionales" name="idProfesionales">
+                  <mat-option *ngFor= "let profesional of profesionales" [value]= "profesional.idProfesionales">
+                      {{profesional.nombreProfesionales}} {{profesional.apellidoProfesionales}}
+                  </mat-option> 
+                </mat-select>
+          </mat-form-field>
+          <mat-form-field class="campoInput" appearance="outline" *ngIf="datosPacientes != null">
+            <mat-label>Seleccionar fecha</mat-label>
+            <input matInput [matDatepicker]="picker" (dateInput)="inputEvent($event)" (dateChange)="changeEvent($event)">
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker [startAt]="data.fechaTurno"></mat-datepicker>
+          </mat-form-field>
+          <!-- Boton de busqueda de pacientes -->
+          <a><button mat-flat-button class="buscar" (click)="cargarTurnosLibres()" *ngIf="datosPacientes != null"><mat-icon>search</mat-icon></button></a>
+
+          <mat-form-field appearance="outline" *ngIf = "horariosLibres != null">
+            <mat-label>Seleccionar turno</mat-label>
+              <mat-select [(ngModel)]= "data.hora" name="hora">
+                  <mat-option *ngFor= "let horario of horariosLibres" [value]= "horario">
+                      {{horario}}
+                  </mat-option> 
+                </mat-select>
+          </mat-form-field>
           </div>
+        </form>
       </div>
-    <ng-template #cargandoTemplate>
-      <mat-spinner></mat-spinner>
-    </ng-template>  
+
+      <div class="botones" >
+        <button mat-raised-button color="primary" cdkFocusInitial (click)="guardarTurno(this.datosPacientes.idPacientes,
+                                                                                        prof.idProfesionales,
+                                                                                        data.hora)" *ngIf="data; else cargandoTemplate">Guardar</button>
+        <button mat-raised-button color="basic" (click)="cancelar()">Cancelar</button>
+      </div>
+      
+      <ng-template #cargandoTemplate>
+        <mat-spinner></mat-spinner>
+      </ng-template>  
+  </div>
   </mat-card>
 </main>
 

@@ -3,7 +3,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Profesional } from 'src/app/models/profesionales';
-import { turnos } from 'src/app/models/turnos';
+import { Turnos } from 'src/app/models/turnos';
 import { ProfesionalesService } from 'src/app/services/profesionales/profesionales.service';
 import { TurnosService } from 'src/app/services/turnos/turnos.service';
 import { MatPaginator } from '@angular/material/paginator';
@@ -19,7 +19,7 @@ export class ListarTurnosKinesiologosComponent implements OnInit {
   profesionales:any = [];
   pacientes:any= [];
   displayedColumns: string[] = ['Hora', 'Paciente', 'Profesionales', 'O.Social'];
-  dataSource = new MatTableDataSource<turnos>(this.turnos);
+  dataSource = new MatTableDataSource<Turnos>(this.turnos);
   picker:Date;
   startDate = new Date();
   auxiliar: String|Number;

@@ -16,9 +16,7 @@ export class AppComponent {
 
   public cargarApp(): void {
     if(this.authService.isAuth()){
-      console.log(this.cargarRuta)
       this.cargarRuta = true;
-      console.log(this.cargarRuta)
     }
   }
 }
