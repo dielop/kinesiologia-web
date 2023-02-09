@@ -3,7 +3,7 @@
 </header>
  
 <main> 
-  <mat-card class="card">
+  <mat-card class="card" [style.justify-content]="datosPacientes!=null ? 'center' : 'none'">
   <div class="contenido">
   <!-- Divisor de busqueda de paciente con listado -->
     <div class="columna1">
@@ -83,24 +83,33 @@
             <mat-datepicker #picker [startAt]="data.fechaTurno"></mat-datepicker>
           </mat-form-field>
           <!-- Boton de busqueda de pacientes -->
-          <a><button mat-flat-button class="buscar" (click)="cargarTurnosLibres()" *ngIf="datosPacientes != null"><mat-icon>search</mat-icon></button></a>
-
-          <mat-form-field appearance="outline" *ngIf = "horariosLibres != null">
-            <mat-label>Seleccionar turno</mat-label>
-              <mat-select [(ngModel)]= "data.hora" name="hora">
-                  <mat-option *ngFor= "let horario of horariosLibres" [value]= "horario">
-                      {{horario}}
-                  </mat-option> 
-                </mat-select>
-          </mat-form-field>
-          </div>
+          <a><button mat-flat-button class="buscarColumnaDos" (click)="cargarTurnosLibres()" *ngIf="datosPacientes != null"><mat-icon>search</mat-icon></button></a>
+        </div>
         </form>
+        
+          <form class="turn-obs">
+            <mat-form-field appearance="outline" *ngIf = "horariosLibres != null" class="horarioTurno">
+              <mat-label>Seleccionar turno</mat-label>
+                <mat-select [(ngModel)]= "data.hora" name="hora">
+                    <mat-option *ngFor= "let horario of horariosLibres" [value]= "horario">
+                        {{horario}}
+                    </mat-option> 
+                  </mat-select>
+            </mat-form-field>
+            
+            <mat-form-field class="formObservacionesTurnos" appearance="fill" *ngIf = "horariosLibres != null">
+              <mat-label>Observacion de Turno</mat-label>
+              <textarea matInput type="text" id="obsTurno" name="obsTurno" [(ngModel)]="data.obsTurno"></textarea>
+            </mat-form-field>
+          </form>
+        
       </div>
 
       <div class="botones" >
         <button mat-raised-button color="primary" cdkFocusInitial (click)="guardarTurno(this.datosPacientes.idPacientes,
                                                                                         prof.idProfesionales,
-                                                                                        data.hora)" *ngIf="data; else cargandoTemplate">Guardar</button>
+                                                                                        data.hora,
+                                                                                        data.obsTurno)" *ngIf="data; else cargandoTemplate">Guardar</button>
         <button mat-raised-button color="basic" (click)="cancelar()">Cancelar</button>
       </div>
       
@@ -111,26 +120,4 @@
   </mat-card>
 </main>
 
-
-
-
-<!-- Formulario de datos de paciente buscado -->
         
-          
-          <!-- Selector de fecha -->
-          <!-- <form novalidate #f="ngForm" *ngIf="datosPacientes != null">
-            
-          </form> -->
-          <!-- <mat-form-field appearance="outline" *ngIf = "horariosLibres != null">
-            <mat-label>Seleccionar turno</mat-label>
-              <mat-select [(ngModel)]= "data.hora" name="hora">
-                  <mat-option *ngFor= "let horario of horariosLibres" [value]= "horario">
-                      {{horario}}
-                  </mat-option> 
-                </mat-select>
-          </mat-form-field> -->
-          <!-- <p>
-            <mat-button-toggle-group name="horario"  aria-label="Font Style">
-              <mat-button-toggle *ngFor= "let horario of horariosLibres" value="horario">{{horario}}</mat-button-toggle>
-            </mat-button-toggle-group>
-          </p> -->

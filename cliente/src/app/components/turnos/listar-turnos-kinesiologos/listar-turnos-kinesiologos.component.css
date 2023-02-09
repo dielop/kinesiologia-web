@@ -1,5 +1,4 @@
 /* Titulo */
-
 h2{
     margin-top: 2%;
     margin-left: 10px;
@@ -9,8 +8,8 @@ h2{
 /* Grid de esqueleto */
 .grid{
     display:grid;
-    grid-template-columns: 0.5fr 2fr;
-    grid-template-areas: "columna1 columna2";  
+    grid-template-areas: "columna1 columna1"
+                         "columna2 columna2"  
 }
 
 .columna1 {
@@ -29,15 +28,12 @@ h2{
 }
 
 /* Tabla de turnos reservados */
-
 .tabla {
     width: 100%;
-    margin-left:8px;
 }
 
 mat-paginator{
     width: 100%;
-    margin-left:8px;
 }
   
 .mat-column-Hora {
@@ -54,10 +50,20 @@ mat-paginator{
 }
 
 mat-form-field{
-    width: 100%;
+    width: 300px;
     padding: 0;
 }
 
 ::ng-deep .mat-datepicker{
     width: 10px !important;
+}
+
+.mat-mini-fab{
+    border:none;
+    margin: 2px;
+    font-size: 10px;
+    line-height: 30px;
+    box-shadow: none;
+    color: gray;
+    background-color:transparent;
 }

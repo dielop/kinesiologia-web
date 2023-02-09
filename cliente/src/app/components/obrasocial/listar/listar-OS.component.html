@@ -23,6 +23,18 @@
       <td mat-cell *matCellDef= "let row"> {{row.planObraSocial}} </td>
     </ng-container>
 
+    <!-- Pagos Columna -->
+    <ng-container matColumnDef="Pagos" class = "columna">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Pagos </th>
+      <td mat-cell *matCellDef= "let row"> {{row.pagosObraSocial}} </td>
+    </ng-container>
+
+    <!-- Co-Seguros Columna -->
+    <ng-container matColumnDef="Co-Seguros" class = "columna">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Co-Seguros </th>
+      <td mat-cell *matCellDef= "let row"> {{row.coSegurosObraSocial}} </td>
+    </ng-container>
+
     <!-- Observaciones Columna -->
     <ng-container matColumnDef="Observaciones" class = "columna">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Observaciones </th>

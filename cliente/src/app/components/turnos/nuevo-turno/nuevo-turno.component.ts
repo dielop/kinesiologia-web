@@ -87,6 +87,7 @@ export class NuevoTurnoComponent implements OnInit {
     const anio = event.value.getFullYear();
     this.fechaFinal = anio + "-" + mes + "-" + dia
   }
+  
   changeEvent(event: { value: any; }){
     const dia = event.value.getDate();
     const mes = event.value.getMonth()+1;
@@ -114,16 +115,22 @@ export class NuevoTurnoComponent implements OnInit {
       });
   }
 
-  guardarTurno(paciente: any, profesional:any, hora:any):any {
+  guardarTurno(paciente: any, profesional:any, hora:any, observacion:any):any {
     //const fechaTmp = Date.parse(this.fechaFinal);
     //const fecha = new Date(fechaTmp);
+
+    // valido si el usuario ingreso el horario
+    if (hora == null){
+      return ( this.toast.error("No se puede dar de alta un turno sin horario seleccionado."));
+    }
 
     const turno:Turnos = {  idPacientes: paciente,
                             idProfesionales: profesional,
                             idUsers: 1,
                             fechaTurno: this.fechaFinal,
                             hora: hora,
-                            obsTurno: null
+                            obsTurno: observacion,
+                            turnoAsistido: 0
                           }
     
     this.turnosService.saveTurnos(turno).subscribe({
@@ -132,7 +139,6 @@ export class NuevoTurnoComponent implements OnInit {
           timeOut:3000,
         });
         setTimeout(() => location.reload(),  3000);
-        //this.route.navigate(['/navigation/nuevo-turno']);
       },
       error:err => {
         this.toast.error(err,"No se pudo dar de alta el turno. Vuelva a intentar",{

@@ -29,7 +29,7 @@ export class TurnosService {
   }
 
   public updateTurnos(id: string|number , turnos_: Turnos) : Observable<any>{
-    return this.http.put<any>(this.API_URI + `obrasocial/${id}`, turnos_);
+    return this.http.put<any>(this.API_URI + `turnos/${id}`, turnos_);
   }
 
   public getTurnosNuevo(dni: string | number): Observable<any>{

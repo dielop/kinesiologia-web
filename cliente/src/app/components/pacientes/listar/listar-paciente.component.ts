@@ -146,7 +146,7 @@ export class ListarPacienteComponent implements OnInit {
     this.pacienteService.getPaciente(dni).subscribe({
       next: res => {
           this.pacientes = res;
-          console.log(this.pacientes);
+        
           let dialogRef = this.dialog.open(ModificarPacienteComponent, { 
             data: { 
                     idPacientes: this.pacientes.idPacientes,

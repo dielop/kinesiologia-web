@@ -1,5 +1,4 @@
 /* Titulo */
-
 h2{
     margin-top: 2%;
     margin-left: 10px;
@@ -9,35 +8,32 @@ h2{
 /* Grid de esqueleto */
 .grid{
     display:grid;
-    grid-template-columns: 0.5fr 2fr;
-    grid-template-areas: "columna1 columna2";  
+    grid-template-areas: "columna1 columna1"
+                         "columna2 columna2";  
 }
 
 .columna1 {
     grid-area: columna1;
+    display:flex;
 }
 
 .columna2 {
     grid-area: columna2;
-    align-items: center;
 }
-/* Calendario */
 
+/* Calendario */
 .demo-inline-calendar-card {
     width: 300px;
     padding: 8px;
 }
 
 /* Tabla de turnos reservados */
-
 .tabla {
-    width: 100%;
-    margin-left:8px;
+    width: 100%;  
 }
 
 mat-paginator{
-    width: 100%;
-    margin-left:8px;
+    width: 100%;  
 }
   
 .mat-column-Hora {
@@ -46,6 +42,7 @@ mat-paginator{
   padding-right: 24px;
   text-align: center;
 }
+
 .mat-column-Paciente {
   padding-left: 16px;
 }
@@ -53,20 +50,22 @@ mat-paginator{
   width: 32px;
 }
 
-button.agregar{
-    border:none;
-    background: white;
-    color: rgb(86, 161, 242);
-    line-height: 40px;
-    box-shadow: none;
-    float:right;
-}
-
 mat-form-field{
-    width: 100%;
-    padding: 0;
+    width: 300px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 ::ng-deep .mat-datepicker{
     width: 10px !important;
+}
+
+.mat-mini-fab{
+    border:none;
+    margin: 2px;
+    font-size: 10px;
+    line-height: 30px;
+    box-shadow: none;
+    color: gray;
+    background-color:transparent;
 }

@@ -30,10 +30,11 @@ class PacientesController {
                 //return res.json(JSON.stringify(paciente));
                 if(Array.isArray(paciente[0])) return res.json(paciente[0][0]);
             }catch(error){
-                res.status(404).send({text: 'El paciente no existe'});
+                //res.status(404).send({text: 'El paciente no existe'});
+                res.status(404).json({text: 'El paciente no existe'});
              }
         }else{
-            res.status(404).send({text: 'El paciente no existe'});
+            res.status(404).json({text: 'El paciente no existe'});
          }
     }
 

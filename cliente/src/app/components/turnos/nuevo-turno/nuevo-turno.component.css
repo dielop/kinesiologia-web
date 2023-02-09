@@ -11,6 +11,9 @@ header{
 
 .contenido{
     display:flex;
+    width: 100%;
+    width: 90%;
+    align-content: space-between;
 }
 
 .campoInput {
@@ -19,13 +22,21 @@ header{
 
 .buscar{
     border:none;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background: grey;
+    background: #fafafa;
     color: rgb(86, 161, 242);
-    line-height: 40px;
+    line-height: 55px;
     box-shadow: none;
     margin-left: 5px;
+}
+
+.buscarColumnaDos{
+    border:none;
+    background: #fafafa;
+    color: rgb(86, 161, 242);
+    line-height: 55px;
+    box-shadow: none;
+    margin-left: 5px;
+    margin-top:7px;
 }
 
 mat-button-toggle-group {
@@ -33,6 +44,11 @@ mat-button-toggle-group {
     flex-direction: column;
     column-count: 3;
     display:inline-flex
+}
+
+.columna2{
+    margin-left:40px;
+    margin-top:75px;
 }
 
 .formObservaciones {
@@ -60,6 +76,11 @@ textarea.mat-input-element{
     margin: 10px;
 }
 
-button{
-    margin:5px;
+.horarioTurno{
+    display: block;
+}
+
+.formObservacionesTurnos{
+    display: block;
+    margin-top: 5px; 
 }

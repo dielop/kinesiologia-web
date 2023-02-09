@@ -29,8 +29,10 @@ class turnosControllers {
             const id = req.params.id;
             const selected = req.params.selected;
             try {
-                const [turnReserved] = yield database_1.Mysql.execute(`select  turnos.Hora, 
+                const [turnReserved] = yield database_1.Mysql.execute(`select  turnos.idTurnos,
+                                                                turnos.Hora, 
                                                                 turnos.FechaTurno,
+                                                                turnos.turnoAsistido,
                                                                 pacientes.nombrePacientes,
                                                                 pacientes.apellidoPacientes,
                                                                 profesionales.nombreProfesionales,
@@ -93,17 +95,19 @@ class turnosControllers {
         return __awaiter(this, void 0, void 0, function* () {
             const selected = req.params.selected;
             try {
-                const [turnReservedKinesiologo] = yield database_1.Mysql.execute(`select  turnos.Hora, 
-                                                                turnos.FechaTurno,
-                                                                pacientes.nombrePacientes,
-                                                                pacientes.apellidoPacientes,
-                                                                profesionales.nombreProfesionales,
-                                                                profesionales.apellidoProfesionales,
-                                                                ( select obraSocial.nombreObraSocial
-                                                                  from pacientes join obrasocial on
-                                                                                 ( pacientes.idObraSocial = obrasocial.idObraSocial )
-                                                                  where pacientes.idPacientes = turnos.idPacientes ) as nombre_obrasocial
-                                                        from turnos join pacientes on
+                const [turnReservedKinesiologo] = yield database_1.Mysql.execute(`select   turnos.idTurnos,
+                                                                            turnos.Hora, 
+                                                                            turnos.FechaTurno,
+                                                                            turnos.turnoAsistido,
+                                                                            pacientes.nombrePacientes,
+                                                                            pacientes.apellidoPacientes,
+                                                                            profesionales.nombreProfesionales,
+                                                                            profesionales.apellidoProfesionales,
+                                                                            ( select obraSocial.nombreObraSocial
+                                                                            from pacientes join obrasocial on
+                                                                                            ( pacientes.idObraSocial = obrasocial.idObraSocial )
+                                                                            where pacientes.idPacientes = turnos.idPacientes ) as nombre_obrasocial
+                                                                    from turnos join pacientes on
                                                                           (turnos.idPacientes = pacientes.idPacientes)
                                                                      join profesionales on
                                                                           (turnos.idProfesionales = profesionales.idProfesionales)
@@ -145,11 +149,11 @@ class turnosControllers {
     // Modificacion de turnos ...
     updateTurn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Recupero obra social si existe ...
-            const [existeOS] = yield database_1.Mysql.query('SELECT * FROM turnos WHERE nombreTurnos = ?', [req.body.nombreTurnos]);
+            // Actualizo turno si aun no asistio ...
+            const { id } = req.params;
+            //const [existeOS] = await Mysql.query('SELECT * FROM turnos WHERE nombreTurnos = ?', [req.body.nombreTurnos]);
             //if(Array.isArray(existeTurno) && existeTurno.length == 0 ){
             try {
-                const { id } = req.params;
                 yield database_1.Mysql.query('UPDATE turnos set ? WHERE idTurnos = ?', [req.body, id]);
                 res.json({ mesage: 'Turno actualizado' });
             }
@@ -164,6 +168,7 @@ class turnosControllers {
     // Dar de baja un turno...
     deleteTurn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.params);
             try {
                 const { id } = req.params;
                 yield database_1.Mysql.query('DELETE FROM turnos WHERE idTurnos = ?', [id]);

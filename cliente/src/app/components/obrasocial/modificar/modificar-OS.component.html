@@ -16,6 +16,21 @@
                         <input matInput type="text" class="form-control" id="planObraSocial" name="planObraSocial"
                         [(ngModel)]= "data.planObraSocial" required>
                     </mat-form-field>
+
+                    <div class="pagosCoSeguros">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pagos</mat-label>
+                            <input matInput type="text" class="form-control" id="pagosObraSocial" name="pagosObraSocial"
+                            [(ngModel)]= "data.pagosObraSocial">
+                        </mat-form-field>
+                    
+                        <mat-form-field appearance="outline">
+                            <mat-label>Co-Seguros</mat-label>
+                            <input matInput type="text" class="form-control" id="coSegurosObraSocial" name="coSegurosObraSocial"
+                            [(ngModel)]= "data.coSegurosObraSocial">
+                        </mat-form-field>
+                    </div>
+
                     <div class="observaciones">
                         <mat-form-field appearance="outline">
                             <mat-label>Observaciones</mat-label>

@@ -20,8 +20,10 @@ class turnosControllers {
         const id = req.params.id;
         const selected = req.params.selected;
         try {
-            const [turnReserved] = await Mysql.execute(`select  turnos.Hora, 
+            const [turnReserved] = await Mysql.execute(`select  turnos.idTurnos,
+                                                                turnos.Hora, 
                                                                 turnos.FechaTurno,
+                                                                turnos.turnoAsistido,
                                                                 pacientes.nombrePacientes,
                                                                 pacientes.apellidoPacientes,
                                                                 profesionales.nombreProfesionales,
@@ -89,17 +91,19 @@ class turnosControllers {
     public async listTurnosReservedKinesiologo(req: Request, res: Response): Promise<any>{
         const selected = req.params.selected;
         try {
-            const [turnReservedKinesiologo] = await Mysql.execute(`select  turnos.Hora, 
-                                                                turnos.FechaTurno,
-                                                                pacientes.nombrePacientes,
-                                                                pacientes.apellidoPacientes,
-                                                                profesionales.nombreProfesionales,
-                                                                profesionales.apellidoProfesionales,
-                                                                ( select obraSocial.nombreObraSocial
-                                                                  from pacientes join obrasocial on
-                                                                                 ( pacientes.idObraSocial = obrasocial.idObraSocial )
-                                                                  where pacientes.idPacientes = turnos.idPacientes ) as nombre_obrasocial
-                                                        from turnos join pacientes on
+            const [turnReservedKinesiologo] = await Mysql.execute(`select   turnos.idTurnos,
+                                                                            turnos.Hora, 
+                                                                            turnos.FechaTurno,
+                                                                            turnos.turnoAsistido,
+                                                                            pacientes.nombrePacientes,
+                                                                            pacientes.apellidoPacientes,
+                                                                            profesionales.nombreProfesionales,
+                                                                            profesionales.apellidoProfesionales,
+                                                                            ( select obraSocial.nombreObraSocial
+                                                                            from pacientes join obrasocial on
+                                                                                            ( pacientes.idObraSocial = obrasocial.idObraSocial )
+                                                                            where pacientes.idPacientes = turnos.idPacientes ) as nombre_obrasocial
+                                                                    from turnos join pacientes on
                                                                           (turnos.idPacientes = pacientes.idPacientes)
                                                                      join profesionales on
                                                                           (turnos.idProfesionales = profesionales.idProfesionales)
@@ -119,7 +123,7 @@ class turnosControllers {
         // Recupero los datos del turno buscado ...
         const { id } = req.params;
         const turno = await Mysql.execute('SELECT * FROM turnos WHERE idTurnos = ?', [id]);
-
+    
         // Retornar si hay datos ...
         if(turno.length > 0){
             if(Array.isArray(turno[0])) return res.json(turno[0][0]);
@@ -141,12 +145,12 @@ class turnosControllers {
     // Modificacion de turnos ...
 
     public async updateTurn (req: Request, res: Response) {
-        // Recupero obra social si existe ...
-        const [existeOS] = await Mysql.query('SELECT * FROM turnos WHERE nombreTurnos = ?', [req.body.nombreTurnos]);
+        // Actualizo turno si aun no asistio ...
+        const { id } = req.params;
+        //const [existeOS] = await Mysql.query('SELECT * FROM turnos WHERE nombreTurnos = ?', [req.body.nombreTurnos]);
         
         //if(Array.isArray(existeTurno) && existeTurno.length == 0 ){
             try{
-                const { id } = req.params;
                 await Mysql.query('UPDATE turnos set ? WHERE idTurnos = ?', [req.body, id]);
                 res.json({mesage: 'Turno actualizado' });
             }catch(error){
@@ -160,6 +164,7 @@ class turnosControllers {
     // Dar de baja un turno...
 
     public async deleteTurn (req: Request, res: Response): Promise<void> {
+        console.log(req.params);
         try{
             const { id } = req.params;
             await Mysql.query('DELETE FROM turnos WHERE idTurnos = ?', [id]);

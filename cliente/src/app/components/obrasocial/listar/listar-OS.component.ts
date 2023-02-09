@@ -18,7 +18,7 @@ import { EliminarComponent } from '../../dialogs/eliminar/eliminar.component'
 export class ListarOSComponent implements OnInit {
 
   obraSocial: any = [];
-  displayedColumns: String[] = ['Nombre', 'Plan', 'Observaciones', 'Acciones'];
+  displayedColumns: String[] = ['Nombre', 'Plan', 'Pagos', 'Co-Seguros', 'Observaciones', 'Acciones'];
   dataSource = new MatTableDataSource<ObraSocial>(this.obraSocial) 
 
   @ViewChild(MatTable) tabla!: MatTable<ObraSocial>;
@@ -97,6 +97,8 @@ export class ListarOSComponent implements OnInit {
       data: this.obraSocial = { idObraSocial: 0,
                                 nombreObraSocial: '',
                                 planObraSocial: '',
+                                pagosObraSocial: '',
+                                coSegurosObraSocial: '',
                                 obsObraSocial: '',
                                 created_at: new Date().toISOString
                               },
@@ -138,6 +140,8 @@ export class ListarOSComponent implements OnInit {
                     idObraSocial: this.obraSocial.idObraSocial,
                     nombreObraSocial:  this.obraSocial.nombreObraSocial,
                     planObraSocial: this.obraSocial.planObraSocial,
+                    pagosObraSocial: this.obraSocial.pagosObraSocial,
+                    coSegurosObraSocial: this.obraSocial.coSegurosObraSocial,
                     obsObraSocial: this.obraSocial.obsObraSocial
                   }
                   
